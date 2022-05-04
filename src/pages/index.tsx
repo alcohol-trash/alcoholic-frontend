@@ -1,6 +1,20 @@
-/* istanbul ignore file */
-import Main from 'components/Main'
+import React from 'react';
+import Test from '@/components/TestComponent';
+import styled from 'styled-components';
 
-export default function Home() {
-  return <Main />
+const HomeWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+`;
+
+const Home = () => {
+  return (
+    <HomeWrap>
+      <Test />
+    </HomeWrap>
+    )
 }
+
+export default Home;
