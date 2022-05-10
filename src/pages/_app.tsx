@@ -7,15 +7,17 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 const GlobalStyles = createGlobalStyle`
   :root {
-    --primary: #0065e1;
+    --primary: #f2a756;
 
-    --font-gray-1: #909090;
-    --font-gray-2: #373737;
+    --gray-1: #a0a0a0;
+    --gray-3: #f2f2f2;
   }
   ${reset}
+  * {
+    box-sizing: border-box;
+  }
   body {
     color: var(--font-gray-2);
-    background-color: #f7f8f8;
   }
 `;
 
