@@ -5,6 +5,7 @@ import Tabbar from '@/components/tabbar';
 import Gnb from '@/components/gnb';
 import NoticeTitle from '@/components/noticetitle';
 import Category from '@/components/category';
+import Feed from '@/components/feed';
 
 const HomeWrap = styled.div`
   /* display: flex; */
@@ -19,16 +20,21 @@ const HomeWrap = styled.div`
 const IntroductionContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding-left: 24px;
+  padding: 0 24px;
 `;
 
-const CategoryContainer = styled.div`
+const CategoryContainer = styled.section`
   display: flex;
   margin-top: 12px;
   div {
     margin-right: 8px;
   }
+`;
 
+const FeedContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  padding-top: 18px;
 `;
 
 const Home = () => {
@@ -41,6 +47,9 @@ const Home = () => {
           <Category content={data.content} key={data.id} />
         )}
       </CategoryContainer>
+      <FeedContainer>
+        <Feed />
+      </FeedContainer>
       <Tabbar />
     </IntroductionContainer>
   )
