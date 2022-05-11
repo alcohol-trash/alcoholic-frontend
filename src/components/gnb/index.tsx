@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CustomButton from '@/components/button/CustomButton';
 
 const GnbContainer = styled.section`
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
@@ -11,7 +11,8 @@ const GnbContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 34px 26px;
+  padding: 34px 26px 34px 0px;
+  /* padding: 34px 26px; */
   div {
     display: flex;
     align-items: center;
