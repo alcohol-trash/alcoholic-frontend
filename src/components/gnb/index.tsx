@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomButton from '@/components/button/CustomButton';
+import Image from 'next/image';
+
+import ProfileDefault from '@/public/assets/profile_default.png';
+
 
 const GnbContainer = styled.section`
   /* position: fixed; */
@@ -11,7 +15,7 @@ const GnbContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 34px 26px 34px 0px;
+  padding: 34px 0;
   /* padding: 34px 26px; */
   div {
     display: flex;
@@ -29,19 +33,20 @@ const GnbProfile = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: var(--primary);
   `;
 
 const Gnb = () => {
   return (
     <GnbContainer>
       <div>
-        <GnbLogo />
+        <GnbLogo /> 
         <CustomButton content="주류학개론" fontweight={700} />
         <CustomButton content="술 위키" fontweight={700} btncolor='var(--gray-1)' />
         <CustomButton content="질문&답변" fontweight={700} btncolor='var(--gray-1)' />
       </div>
-      <GnbProfile />
+      <GnbProfile>
+        <Image src={ProfileDefault} width={24} height={24} />
+      </GnbProfile>
     </GnbContainer>
   )
 }
