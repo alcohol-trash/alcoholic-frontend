@@ -10,6 +10,7 @@ const GlobalStyles = createGlobalStyle`
     --primary: #f2a756;
 
     --gray-1: #a0a0a0;
+    --gray-2: #f7f7f7;
     --gray-3: #f2f2f2;
   }
   ${reset}
