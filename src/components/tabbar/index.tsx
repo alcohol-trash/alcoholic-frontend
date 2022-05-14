@@ -14,6 +14,7 @@ const TabbarContainer = styled.section`
   height: 56px;
   padding: 8px 16px;
 
+  background-color: #fff;
   border-top: 1px solid var(--gray-3);
 `
 
