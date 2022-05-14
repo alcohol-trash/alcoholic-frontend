@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CustomButton from '@/components/button/CustomButton';
 import Image from 'next/image';
+import Link from "next/link";
 
 import ProfileDefault from '@/public/assets/profile_default.png';
 
@@ -33,6 +34,7 @@ const GnbProfile = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  cursor: pointer;
   `;
 
 const Gnb = () => {
@@ -44,9 +46,11 @@ const Gnb = () => {
         <CustomButton content="술 위키" fontweight={700} btncolor='var(--gray-1)' />
         <CustomButton content="질문&답변" fontweight={700} btncolor='var(--gray-1)' />
       </div>
-      <GnbProfile>
-        <Image src={ProfileDefault} width={24} height={24} />
-      </GnbProfile>
+      <Link href="/login">
+        <GnbProfile>
+          <Image src={ProfileDefault} width={24} height={24} />
+        </GnbProfile>
+      </Link>
     </GnbContainer>
   )
 }

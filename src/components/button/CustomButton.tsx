@@ -11,6 +11,7 @@ interface StyledProps
   bgcolor?: string;
   btncolor?: string;
   bordercolor?: string;
+  borderradius?: string;
   fontsize?: string;
   fontweight?: number;
   textalign?: 'start' | 'end';
@@ -33,6 +34,7 @@ const CustomButton = ({
   btncolor,
   textalign,
   bordercolor,
+  borderradius,
 }: StyledProps) => {
   return (
     <ButtonWrap
@@ -41,6 +43,7 @@ const CustomButton = ({
       bgcolor={bgcolor}
       btncolor={btncolor}
       bordercolor={bordercolor}
+      borderradius={borderradius}
       textalign={textalign}
       fontsize={fontsize}
       fontweight={fontweight}
@@ -70,7 +73,7 @@ const ButtonWrap = styled.div<StyledProps>`
       props.textalign ? `${props.textalign}` : 'center'};
     padding: 10px;
     cursor: pointer;
-    border-radius: var(--br-6);
+    border-radius: ${(props) => (props.borderradius ? `${props.borderradius}` : 'var(--br-6')};
   }
   button:hover {
     /* color: white; */
