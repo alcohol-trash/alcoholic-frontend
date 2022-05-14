@@ -35,6 +35,7 @@ const FeedContainer = styled.section`
   display: flex;
   flex-direction: column;
   padding-top: 18px;
+  padding-bottom: 76px;
 `;
 
 const Home = () => {
@@ -48,6 +49,8 @@ const Home = () => {
         )}
       </CategoryContainer>
       <FeedContainer>
+        <Feed />
+        <Feed />
         <Feed />
       </FeedContainer>
       <Tabbar />
