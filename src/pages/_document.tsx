@@ -39,6 +39,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head />
+          <link href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css' rel="stylesheet" />
         <body>
           <Main />
           <NextScript />

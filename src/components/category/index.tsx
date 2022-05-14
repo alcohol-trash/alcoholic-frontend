@@ -11,16 +11,34 @@ const CategoryContent = styled.div`
   border-radius: 10px;
   width: 58px;
   height: 31px;
+
+  p {
+    padding-left: 6px;
+    color: var(--gray-1);
+  }
 `;
 
 interface CategoryProps {
   content: string;
+  count?: number;
+  onClick?: () => void;
 }
 
-const Category = ({ content }: CategoryProps) => {
+const Category = ({ content, count, onClick }: CategoryProps) => {
+  const _onClick = () => {
+    if(!onClick) return;
+    onClick();
+  }
   return (
-    <CategoryContent>
-      {content}
+    <CategoryContent onClick={_onClick}>
+      <strong>
+        {content}
+      </strong>
+      {count &&
+        <p>
+          {count}
+        </p>
+      }
     </CategoryContent>
   )
 }
