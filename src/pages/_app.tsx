@@ -4,9 +4,14 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-
 const GlobalStyles = createGlobalStyle`
   :root {
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    
+    * { 
+      font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    }
+
     --primary: #f2a756;
 
     --gray-1: #a0a0a0;
