@@ -66,7 +66,7 @@ const CATEGORY_DUMMY = [
     content: '최신순'
   },
   {
-    id: 1,
+    id: 2,
     content: '추천순'
   },
 ]

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
 import CustomButton from '@/components/button/CustomButton';
 
 const NickformContainer = styled.section`
@@ -12,6 +12,7 @@ const NickformContainer = styled.section`
 
 const NicknameContentArea = styled.form`
     position: relative;
+    height: 100%;
      input {
         width: 300px;
         height: 50px;
@@ -28,29 +29,33 @@ const StartbtnBlock = styled.div`
     bottom: 10%;
 `;
 
-type FormData = {
+interface FormData {
     nickname: string;
 }
 
 const Nickform = () => {
-  const { register, setValue, handleSubmit, formState: {errors} } = useForm<FormData>();
-
-  const onValid = (data: any) => {
+  const { register, formState: {isValid}, handleSubmit, reset} = useForm<FormData>({mode: "onChange"});
+  const onSubmit: SubmitHandler<FormData> = data => {
     console.log(data);
-  }
+    reset();
+  };
+  const onError: SubmitErrorHandler<FormData> = error => console.log(error);
   return (
     <NickformContainer>
-        <NicknameContentArea onSubmit={handleSubmit(onValid)}>
+        <NicknameContentArea onSubmit={handleSubmit(onSubmit, onError)}>
             <input
-             type="text"
-             {...register('nickname')}
+             {...register('nickname', {
+               required: true,
+               maxLength: 12,
+               pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/
+             })}
             />
+            <StartbtnBlock>
+              <CustomButton type="submit" content="Alcoholic 시작하기" 
+              textalign='start'width={300} height={50} bgcolor={isValid ? "var(--primary)" : "var(--gray-4)"} btncolor="var(--white)"
+              borderradius='10px'/>
+            </StartbtnBlock>
         </NicknameContentArea>
-        <StartbtnBlock>
-            <CustomButton  type="submit" content="Alcoholic 시작하기" 
-            textalign='start'width={300} height={50} bgcolor="var(--gray-4)" btncolor="var(--white)"
-            borderradius='10px'/>
-        </StartbtnBlock>
     </NickformContainer>
   );
 }
