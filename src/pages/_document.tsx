@@ -38,7 +38,9 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <script defer src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        </Head>
           <link href='https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css' rel="stylesheet" />
         <body>
           <Main />

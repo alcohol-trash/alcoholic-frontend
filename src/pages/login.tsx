@@ -65,14 +65,20 @@ const Login = () => {
             <InContainer>
                 <SignUpTitle>SNS 계정으로 가입하기</SignUpTitle>
                 <SvgBlock>
-                    <KakaoSvg/>
-                    <GoogleSvg/>
+                    <Link href="/signup">
+                        <a>
+                            <KakaoSvg/>
+                        </a>
+                    </Link>
+                    <Link href="/signup">
+                        <a>
+                            <GoogleSvg/>
+                        </a>   
+                    </Link>
                 </SvgBlock>
                 <LoginBlock>
                     <LogInTitle>이미 회원이신가요?</LogInTitle>
-                    <Link href="/signup">
                         <LogIn>로그인</LogIn>
-                    </Link>
                 </LoginBlock>
             </InContainer>
         </LoginContainer>
