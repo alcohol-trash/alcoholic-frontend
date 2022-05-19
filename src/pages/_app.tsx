@@ -4,6 +4,12 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+
+declare global{
+  interface Window {
+    Kakao: any;
+  }
+}
 const GlobalStyles = createGlobalStyle`
   :root {
     * { 

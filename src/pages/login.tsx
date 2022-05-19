@@ -57,6 +57,10 @@ const SvgBlock = styled.div`
 `;
 
 const Login = () => {
+    const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+    const second = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+    console.log(login);
+    console.log(second);
     return (
         <LoginContainer>
             <DescriptionContainer>
@@ -78,7 +82,9 @@ const Login = () => {
                 </SvgBlock>
                 <LoginBlock>
                     <LogInTitle>이미 회원이신가요?</LogInTitle>
+                    <Link href="/sociallogin">
                         <LogIn>로그인</LogIn>
+                    </Link>
                 </LoginBlock>
             </InContainer>
         </LoginContainer>
