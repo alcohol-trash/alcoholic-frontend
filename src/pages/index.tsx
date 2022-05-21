@@ -7,16 +7,6 @@ import NoticeTitle from '@/components/noticetitle';
 import Category from '@/components/category';
 import Feed from '@/components/feed';
 
-const HomeWrap = styled.div`
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* height: 80vh; */
-  /* height: 100vh; */
-  /* width: 100%; */
-  /* padding: 0 24px; */
-`;
-
 const IntroductionContainer = styled.section`
   display: flex;
   flex-direction: column;

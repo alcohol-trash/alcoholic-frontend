@@ -8,7 +8,6 @@ import ProfileDefault from '@/public/assets/profile_default.png';
 
 
 const GnbContainer = styled.section`
-  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
@@ -17,7 +16,6 @@ const GnbContainer = styled.section`
   align-items: center;
   justify-content: space-between;
   padding: 34px 0;
-  /* padding: 34px 26px; */
   div {
     display: flex;
     align-items: center;
@@ -41,7 +39,7 @@ const Gnb = () => {
   return (
     <GnbContainer>
       <div>
-        <GnbLogo /> 
+        <GnbLogo />
         <CustomButton content="주류학개론" fontweight={700} />
         <CustomButton content="술 위키" fontweight={700} btncolor='var(--gray-1)' />
         <CustomButton content="질문&답변" fontweight={700} btncolor='var(--gray-1)' />
