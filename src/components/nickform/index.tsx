@@ -30,11 +30,11 @@ const StartbtnBlock = styled.div`
 `;
 
 interface FormData {
-    nickname: string;
+  nickname: string;
 }
 
 const Nickform = () => {
-  const { register, formState: {isValid}, handleSubmit, reset} = useForm<FormData>({mode: "onChange"});
+  const { register, formState: { isValid }, handleSubmit, reset } = useForm<FormData>({ mode: "onChange" });
   const onSubmit: SubmitHandler<FormData> = data => {
     console.log(data);
     reset();
@@ -42,20 +42,20 @@ const Nickform = () => {
   const onError: SubmitErrorHandler<FormData> = error => console.log(error);
   return (
     <NickformContainer>
-        <NicknameContentArea onSubmit={handleSubmit(onSubmit, onError)}>
-            <input
-             {...register('nickname', {
-               required: true,
-               maxLength: 12,
-               pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/
-             })}
-            />
-            <StartbtnBlock>
-              <CustomButton type="submit" content="Alcoholic 시작하기" 
-              textalign='start'width={300} height={50} bgcolor={isValid ? "var(--primary)" : "var(--gray-4)"} btncolor="var(--white)"
-              borderradius={10}/>
-            </StartbtnBlock>
-        </NicknameContentArea>
+      <NicknameContentArea onSubmit={handleSubmit(onSubmit, onError)}>
+        <input
+          {...register('nickname', {
+            required: true,
+            maxLength: 12,
+            pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/
+          })}
+        />
+        <StartbtnBlock>
+          <CustomButton type="submit" content="Alcoholic 시작하기"
+            textalign='start' width={300} height={50} bgcolor={isValid ? "var(--primary)" : "var(--gray-4)"} btncolor="var(--white)"
+          />
+        </StartbtnBlock>
+      </NicknameContentArea>
     </NickformContainer>
   );
 }

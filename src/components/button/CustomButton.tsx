@@ -10,7 +10,6 @@ interface StyledProps
   btncolor?: string;
   fontweight?: number;
   bordercolor?: string;
-  borderradius?: number;
   textalign?: 'start' | 'end';
   content?: string;
   style?: React.CSSProperties;
@@ -31,7 +30,6 @@ const CustomButton = ({
   fontweight,
   textalign,
   bordercolor,
-  borderradius,
   style,
 }: StyledProps) => {
   return (
@@ -43,7 +41,6 @@ const CustomButton = ({
       btncolor={btncolor}
       bordercolor={bordercolor}
       textalign={textalign}
-      borderradius={borderradius}
     >
       <button type={type} onClick={onClick} style={style}>
         {content}
@@ -55,7 +52,6 @@ const CustomButton = ({
 export default CustomButton;
 
 const ButtonWrap = styled.div<StyledProps>`
-  /* padding: 0 0 0 10px; */
   button {
     background-color: ${(props) => (props.bgcolor ? `${props.bgcolor}` : 'inherit')};
     color: ${(props) => (props.btncolor ? `${props.btncolor}` : 'inherit')};
@@ -64,7 +60,6 @@ const ButtonWrap = styled.div<StyledProps>`
     height: ${(props) => (props.height ? `${props.height}px` : '100%')};
     text-align: ${(props) => (props.textalign ? `${props.textalign}` : 'center')};
     font-weight: ${(props) => (props.fontweight ? `${props.fontweight}` : 500)};
-    border-radius: ${(props) => (props.borderradius ? `${props.borderradius}` : 'none')};
     padding: 10px;
     cursor: pointer;
     border-radius: var(--br-6);
