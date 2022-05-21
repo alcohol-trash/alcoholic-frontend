@@ -53,7 +53,7 @@ const Nickform = () => {
             <StartbtnBlock>
               <CustomButton type="submit" content="Alcoholic 시작하기" 
               textalign='start'width={300} height={50} bgcolor={isValid ? "var(--primary)" : "var(--gray-4)"} btncolor="var(--white)"
-              borderradius='10px'/>
+              borderradius={10}/>
             </StartbtnBlock>
         </NicknameContentArea>
     </NickformContainer>
