@@ -5,7 +5,7 @@ import reset from 'styled-reset';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-declare global{
+declare global {
   interface Window {
     Kakao: any;
   }
@@ -25,6 +25,9 @@ const GlobalStyles = createGlobalStyle`
 
     --black: #000000;
     --white: #ffffff;
+
+    --br-6: 6px;
+    --br-10: 10px;
   }
   ${reset}
   * {
