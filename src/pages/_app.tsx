@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-
+import { GoogleOAuthProvider } from "@react-oauth/google";
 declare global {
   interface Window {
     Kakao: any;
@@ -52,13 +52,13 @@ const queryClient = new QueryClient({
 });
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={true} />
         <GlobalStyles />
         <Component {...pageProps} />
       </QueryClientProvider>
-    </>
+    </GoogleOAuthProvider>
   )
 }
 
