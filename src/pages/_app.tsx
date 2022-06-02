@@ -26,15 +26,15 @@ const GlobalStyles = createGlobalStyle`
     --black: #000000;
     --white: #ffffff;
 
-    --bg-1: #10111D;
-    --bg-2: 1A1C2E;
-    --bg-3: #282D40;
-    --bg-4: #9098AD;
+    --gray-900: #10111D;
+    --gray-800: #1A1C2E;
+    --gray-700: #282D40;
+    --gray-300: #9098AD;
 
-    --sub-1: #FF0CC9;
-    --sub-2: #FFE8FA;
-    --sub-3: #00FFF0;
-    --sub-4: #E4FFFE;
+    --magenta: #FF0CC9;
+    --magenta-100: #FFE8FA;
+    --aqua: #00FFF0;
+    --aqua-100: #E4FFFE;
 
     --br-6: 6px;
     --br-10: 10px;
@@ -44,7 +44,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    color: var(--font-gray-2);
+    color: var(--white);
   }
 `;
 

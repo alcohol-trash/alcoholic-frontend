@@ -43,7 +43,7 @@ const LogInTitle = styled.span`
   margin: 10px 5px;
 `;
 const LogIn = styled.a`
-    color: var(--primary);
+    color: var(--sub-3);
     font-size: 14px;
     text-decoration: underline;
     margin: 10px 5px;

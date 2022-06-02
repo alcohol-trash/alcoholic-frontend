@@ -6,8 +6,10 @@ import Gnb from '@/components/gnb';
 import NoticeTitle from '@/components/noticetitle';
 import Category from '@/components/category';
 import Feed from '@/components/feed';
+import Header from '@/components/header';
 
 const IntroductionContainer = styled.section`
+  background-color: var(--gray-900);
   display: flex;
   flex-direction: column;
   padding: 0 24px;
@@ -31,6 +33,7 @@ const FeedContainer = styled.section`
 const Home = () => {
   return (
     <IntroductionContainer>
+      <Header/>
       <Gnb />
       <NoticeTitle title="주류학개론" description='술에 대한 정보, 리뷰를 올려주세요.' />
       <CategoryContainer>
