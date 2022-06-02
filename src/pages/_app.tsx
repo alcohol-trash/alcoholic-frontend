@@ -26,6 +26,16 @@ const GlobalStyles = createGlobalStyle`
     --black: #000000;
     --white: #ffffff;
 
+    --bg-1: #10111D;
+    --bg-2: 1A1C2E;
+    --bg-3: #282D40;
+    --bg-4: #9098AD;
+
+    --sub-1: #FF0CC9;
+    --sub-2: #FFE8FA;
+    --sub-3: #00FFF0;
+    --sub-4: #E4FFFE;
+
     --br-6: 6px;
     --br-10: 10px;
   }

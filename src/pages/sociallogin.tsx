@@ -10,7 +10,7 @@ const AUTHORIZE_URI = "https://accounts.google.com/o/oauth2/v2/auth";
 
 const SocialLogin = () => {
 
-  const onSuccessGoogle = (e) => {
+  const onSuccessGoogle = (e: any) => {
     console.log('GOOGLE LOGIN:', e);
   }
 

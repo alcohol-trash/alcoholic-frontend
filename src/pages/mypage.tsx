@@ -1,24 +1,13 @@
-import Router, {useRouter} from "next/router"
-
 const MyPage = () =>{
-    const logoutWithKakao = () => {
-        if(!window.Kakao.Auth.getAccessToken()){
-            console.log("Not logged in");
-            return;
-        }
-        window.Kakao.Auth.logout(()=> {
-            console.log("logout");
-            Router.push("/");
-        })
-    }
-    // const href = window.location.href;
-    // let params = new URL(document.location).searchParams;
-    const router = useRouter();
-    // let params = new URL()
-    // console.log("")
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const code = urlParams.get("code");
+    console.log(code);
+    //인증 코드 & 리다이렉트 URL 넘김과 동시에 백엔드로부터 토큰 받기
+
     return (
         <div>
-            <button onClick={logoutWithKakao}>
+            <button>
                 카카오 로그아웃
             </button>
             <button>
