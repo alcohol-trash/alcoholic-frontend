@@ -1,61 +1,49 @@
-import styled from 'styled-components';
 import Link from "next/link";
-import { KakaoSvg, GoogleSvg } from '@/components/svg';
-import Description from '@/components/description';
+import Image from "next/image";
+import styled from 'styled-components';
+
+import KakaoLogo from '@/public/assets/kakao.png';
+import GoogleLogo from '@/public/assets/google.png';
 
 const LoginContainer = styled.section`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: var(--gray-900);
+    color: var(--white);
 `;
-const DescriptionContainer = styled.section`
+const IntroductionContainer = styled.section`
     display: flex;
-    align-items: center;
     height: 60vh;
+    h1{    
+        padding-left: 30px;
+        padding-top: 80px;
+        font-size: 20px;
+    }
 `;
-
 const InContainer = styled.section`
   display: flex;
   flex-direction: column;
   height: 40vh;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-`;
-
-const LoginBlock = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const SignUpTitle = styled.p`
-  font-weight: 700;
   font-size: 14px;
-  color: var(--gray-1);
-  margin: 10px;
-`;
-
-const LogInTitle = styled.span`
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--black);
-  margin: 10px 5px;
-`;
-const LogIn = styled.a`
-    color: var(--sub-3);
-    font-size: 14px;
+  div{
+      margin: 10px auto;
+    }
+  p{
+    color: var(--gray-300);
+    margin: 10px auto;
+    }
+  a{
+    color: var(--aqua);
     text-decoration: underline;
-    margin: 10px 5px;
-`
-
-const SvgBlock = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px;
+    padding: 10px;
+    }
 `;
 
+const ImgWrapper = styled.div`
+    display: inline;
+    padding: 10px;
+`;
 const Login = () => {
     const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
     const second = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
@@ -63,29 +51,32 @@ const Login = () => {
     console.log(second);
     return (
         <LoginContainer>
-            <DescriptionContainer>
-                <Description titleFirst='Alcoholic을 이용하시려면' titleSecond='로그인해주세요.'/>
-            </DescriptionContainer>
+            <IntroductionContainer>
+                <h1>
+                    <span style={{color: "var(--aqua)"}}>알코홀-릭</span>은 가입 후에<br/>
+                    이용할 수 있어요!
+                </h1>
+            </IntroductionContainer>
             <InContainer>
-                <SignUpTitle>SNS 계정으로 가입하기</SignUpTitle>
-                <SvgBlock>
+                <p>SNS 계정으로 시작하기</p>
+                <div>
                     <Link href="/signup">
-                        <a>
-                            <KakaoSvg/>
-                        </a>
+                        <ImgWrapper>
+                            <Image src={KakaoLogo} width={56} height={56}/> 
+                        </ImgWrapper>
                     </Link>
                     <Link href="/signup">
-                        <a>
-                            <GoogleSvg/>
-                        </a>   
+                        <ImgWrapper>
+                            <Image src={GoogleLogo} width={56} height={56}/> 
+                        </ImgWrapper>
                     </Link>
-                </SvgBlock>
-                <LoginBlock>
-                    <LogInTitle>이미 회원이신가요?</LogInTitle>
+                </div>
+                <div>
+                    <span>이미 회원이신가요?</span>
                     <Link href="/sociallogin">
-                        <LogIn>로그인</LogIn>
+                        <a>로그인</a>
                     </Link>
-                </LoginBlock>
+                </div>
             </InContainer>
         </LoginContainer>
     );

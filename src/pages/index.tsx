@@ -1,5 +1,4 @@
 import React from 'react';
-import Test from '@/components/TestComponent';
 import styled from 'styled-components';
 import Tabbar from '@/components/tabbar';
 import Gnb from '@/components/gnb';
