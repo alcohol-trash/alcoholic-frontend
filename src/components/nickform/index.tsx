@@ -7,26 +7,26 @@ const NickformContainer = styled.section`
   display: flex;
   flex-direction: column;
   height: 60vh;
-  padding-left: 10%;
 `
 
 const NicknameContentArea = styled.form`
     position: relative;
     height: 100%;
      input {
-        width: 300px;
+        width: 100%;
         height: 50px;
         border-radius: 10px;
         font-size: 14px;
-        background-color: var(--gray-3);
+        background-color: var(--gray-300);
         border: none;
         overflow: hidden;
         resize: none;
+        margin: 7px 0;
      }
 `
 const StartbtnBlock = styled.div`
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
 `;
 
 interface FormData {
@@ -49,10 +49,12 @@ const Nickform = () => {
             maxLength: 12,
             pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/
           })}
+          style={{backgroundColor: "var(--gray-800)", color: "var(--white)"}}
         />
+        {isValid ? <p style={{color: "var(--aqua)", fontSize: "13px"}}>사용 가능한 닉네임입니다.</p> : <p style={{color: "var(--gray-300)", fontSize: "13px"}}>이미 사용중인 닉네임입니다.</p>}
         <StartbtnBlock>
-          <CustomButton type="submit" content="Alcoholic 시작하기"
-            textalign='start' width={300} height={50} bgcolor={isValid ? "var(--primary)" : "var(--gray-4)"} btncolor="var(--white)"
+          <CustomButton type="submit" content="알코홀-릭 시작하기"
+            textalign='start' height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
           />
         </StartbtnBlock>
       </NicknameContentArea>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import Terms from '@/components/terms';
+import Description from '@/components/description';
+import Nickform from '@/components/nickform';
 
 const SignupContainer = styled.section`
     display: flex;
@@ -12,24 +13,19 @@ const DescriptionContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 30vh;
-    h1{
-        margin: 10px 0;
-        line-height: 1.5em;
-        font-size: 20px;
-        color: var(--white);
-    }
+    height: 35vh;
 `;
-const Signup = () => {
+
+const CreateAccount = () => {
     return (
         <SignupContainer>
             <DescriptionContainer>
-                <h1>만나서 반가워요,</h1>
-                <h1>알코홀-릭<br/>서비스 이용약관</h1>
+                <Description titleFirst='알코홀-릭에서 사용 할' titleSecond='닉네임을 입력해주세요.' 
+                explainFirst='이름은 공백없이 12자리 이하,' explainSecond='기호는 _.만 사용가능합니다.'/>
             </DescriptionContainer>
-            <Terms/>
+            <Nickform/>
         </SignupContainer>
     );
 }
 
-export default Signup;
+export default CreateAccount;

@@ -4,28 +4,26 @@ import styled from 'styled-components'
 const TitleContainer = styled.section`
   display: flex;
   flex-direction: column;
-  padding-left: 10%;
 `
-const DescriptionTitle = styled.h2`
+const DescriptionTitle = styled.div`
   margin: 10px;
-  font-size: 20px;
-  font-weight: 900;
   line-height: 1.5em;
-  strong {
-    color: #000;
+  h1 {
+    font-size: 20px;
+    color: var(--white);
   }
 `
 const DescriptionExplain = styled.p`
   font-weight: 400;
   margin: 10px;
   font-size: 12px;
-  color: var(--gray-1);
+  color: var(--gray-300);
   line-height: 1.5em;
 `;
 
 interface DescriptionProps {
   titleFirst: string;
-  titleSecond: string;
+  titleSecond?: string;
   explainFirst?: string;
   explainSecond?: string;
 }
@@ -34,7 +32,7 @@ const Description = ({ titleFirst, titleSecond, explainFirst, explainSecond }: D
   return (
     <TitleContainer>
       <DescriptionTitle>
-        <strong> {titleFirst}<br/>{titleSecond}</strong>
+        <h1> {titleFirst}<br/>{titleSecond}</h1>
       </DescriptionTitle>
       <DescriptionExplain>
         {explainFirst}<br/>{explainSecond}
