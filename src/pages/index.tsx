@@ -15,7 +15,7 @@ const IntroductionContainer = styled.section`
 
 const CategoryContainer = styled.section`
   display: flex;
-  margin-top: 12px;
+  margin: 12px 0;
   div {
     margin-right: 8px;
   }
