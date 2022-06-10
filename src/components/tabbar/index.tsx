@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
+import Image from 'next/image';
+import ProfileImg from '@/public/assets/profile_img.png';
 
 const TabbarContainer = styled.section`
   position: fixed;
@@ -14,8 +16,7 @@ const TabbarContainer = styled.section`
   height: 56px;
   padding: 8px 16px;
 
-  background-color: #fff;
-  border-top: 1px solid var(--gray-3);
+  background-color: var(--gray-900);
 `
 
 const TabbarContentArea = styled.form`
@@ -28,7 +29,7 @@ const TabbarContentArea = styled.form`
   textarea {
     width: 100%;
     font-size: 14px;
-    background-color: #f2f2f2;
+    background-color: var(--gray-700);
     border-radius: 20px;
     padding: 10px 16px;
     border: none;
@@ -36,10 +37,18 @@ const TabbarContentArea = styled.form`
     resize: none;
 
     ::placeholder {
-      color: var(--gray-1);
+      color: var(--gray-300);
     }
   }
 `
+
+const HeaderProfile = styled.div`
+  margin: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  `;
 
 const Tabbar = () => {
   const { register, handleSubmit, reset } = useForm()
@@ -50,8 +59,11 @@ const Tabbar = () => {
   return (
     <TabbarContainer>
       <TabbarContentArea onSubmit={handleSubmit(onVaild)}>
+        <HeaderProfile>
+            <Image src={ProfileImg} width={32} height={32} />
+        </HeaderProfile>
         <textarea
-          placeholder="로그인 후에 글을 남길 수 있어요"
+          placeholder="로그인 후에 작성할 수 있습니다."
           rows={1}
           {...register('content')}
         />
