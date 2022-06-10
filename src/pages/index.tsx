@@ -5,7 +5,6 @@ import Gnb from '@/components/gnb';
 import NoticeTitle from '@/components/noticetitle';
 import Category from '@/components/category';
 import Feed from '@/components/feed';
-import Header from '@/components/header';
 
 const IntroductionContainer = styled.section`
   background-color: var(--gray-900);
@@ -31,22 +30,23 @@ const FeedContainer = styled.section`
 
 const Home = () => {
   return (
-    <IntroductionContainer>
-      <Header/>
+    <>
       <Gnb />
-      <NoticeTitle title="주류학개론" description='술에 대한 정보, 리뷰를 올려주세요.' />
-      <CategoryContainer>
-        {CATEGORY_DUMMY.map((data) =>
-          <Category content={data.content} key={data.id} />
-        )}
-      </CategoryContainer>
-      <FeedContainer>
-        <Feed />
-        <Feed />
-        <Feed />
-      </FeedContainer>
-      <Tabbar />
-    </IntroductionContainer>
+      <IntroductionContainer>
+        <NoticeTitle title="주류학개론" description='술에 대한 정보, 리뷰를 올려주세요.' />
+        <CategoryContainer>
+          {CATEGORY_DUMMY.map((data) =>
+            <Category content={data.content} key={data.id} />
+          )}
+        </CategoryContainer>
+        <FeedContainer>
+          <Feed />
+          <Feed />
+          <Feed />
+        </FeedContainer>
+        <Tabbar />
+      </IntroductionContainer>
+    </>
   )
 }
 
