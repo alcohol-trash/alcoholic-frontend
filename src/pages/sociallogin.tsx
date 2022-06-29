@@ -1,12 +1,6 @@
 import React from "react";
 import Link from "next/link"
-//import React, {useEffect} from "react";
-//import Router from "next/router";
 import { GoogleLogin } from "@react-oauth/google";
-// import GoogleLogin from "react-google-login";
-
-// const PEOPEL_URI = "https://people.googleapis.com/v1/contactGroups";
-// const AUTHORIZE_URI = "https://accounts.google.com/o/oauth2/v2/auth";
 
 const SocialLogin = () => {
 

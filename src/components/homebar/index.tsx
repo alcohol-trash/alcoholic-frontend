@@ -6,6 +6,7 @@ import Link from "next/link";
 import HomeImg from '@/public/assets/home.png';
 
 const HomebarContainer = styled.section`
+  height: 10vh;
   top: 0;
   left: 0;
   right: 0;

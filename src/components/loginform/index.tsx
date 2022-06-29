@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
+import { useForm, SubmitHandler} from 'react-hook-form'
 import CustomButton from '@/components/button/CustomButton';
+import { useMutation } from 'react-query';
+import { logInAPI } from '@/apis/user';
+import Router from "next/router";
+
 
 const InfoformContainer = styled.section`
   display: flex;
@@ -27,51 +31,62 @@ const InfoContentArea = styled.form`
      input::placeholder{
         color: var(--gray-300);
         font-size: 16px;
+     }
 `
 const StartbtnBlock = styled.div`
     position: absolute;
     bottom: 5%;
 `;
 
-interface FormData {
+interface LoginData {
   id: string;
   password: string;
 }
 
 const Loginform = () => {
-  const { register, formState: { isValid }, handleSubmit, reset } = useForm<FormData>({ mode: "onChange" });
-  const onSubmit: SubmitHandler<FormData> = data => {
-    console.log(data);
+  const { register, formState: { isValid, errors }, handleSubmit, reset } = useForm<LoginData>({ mode: "onChange" });
+  const mutation = useMutation(logInAPI, {
+    onSuccess: () => {
+      Router.push('/');
+    },
+    onError: (error: object) => {
+      alert(error);
+    }
+  });
+  const onSubmit: SubmitHandler<LoginData> = data => {
+    const id = data.id;
+    const password = data.password;
+    mutation.mutate({id, password});
     reset();
   };
-  const onError: SubmitErrorHandler<FormData> = error => console.log(error);
   return (
     <InfoformContainer>
-      <InfoContentArea onSubmit={handleSubmit(onSubmit, onError)}>
+      <InfoContentArea onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input
             placeholder='아이디를 입력해주세요.'
           {...register('id', {
-            required: true,
-            maxLength: 12,
-            pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/
+            required: {value: true, message: "아이디를 확인해주세요"},
+            maxLength: {value: 12, message: "아이디를 확인해주세요"},
+            pattern: {value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/, message: "아이디를 확인해주세요"},
           })}
         />
-        {isValid ? " " : <p style={{color: "var(--aqua-100)", fontSize: "13px", margin: "5px 0 15px 0"}}>아이디를 확인해주세요.</p>}
+        {errors.id && <p style={{color: "var(--aqua-100)", fontSize: "13px", margin: "5px 0 15px 0"}}>{errors.id.message}</p>}
         <label>비밀번호</label>
         <input
             placeholder='비밀번호를 입력해주세요.'
             type="password"
           {...register('password', {
-            required: true,
-            maxLength: 12,
-            pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/
+            required: {value: true, message: "비밀번호를 확인해주세요"},
+            maxLength: {value: 12, message: "비밀번호를 확인해주세요"},
+            pattern: {value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/, message: "비밀번호를 확인해주세요"},
           })}
         />
-        {isValid ? " " : <p style={{color: "var(--aqua-100)", fontSize: "13px", margin: "5px 0 15px 0"}}>비밀번호를 확인해주세요.</p>}
+        {errors.password && <p style={{color: "var(--aqua-100)", fontSize: "13px", margin: "5px 0 15px 0"}}>{errors.password.message}</p>}
         <StartbtnBlock>
           <CustomButton type="submit" content="로그인 하기"
             textalign='start' width={327} height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
+            disabled={isValid ? false : true}
           />
         </StartbtnBlock>
       </InfoContentArea>

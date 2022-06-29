@@ -17,13 +17,6 @@ const GlobalStyles = createGlobalStyle`
       font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     }
 
-    --primary: #f2a756;
-
-    --gray-1: #a0a0a0;
-    --gray-2: #f7f7f7;
-    --gray-3: #f2f2f2;
-    --gray-4: #c5c5c5;
-
     --black: #000000;
     --white: #ffffff;
 
@@ -46,6 +39,12 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
     color: var(--white);
+  }
+  input: focus {
+    outline: none;
+  }
+  a{
+    text-decoration: none;
   }
 `;
 

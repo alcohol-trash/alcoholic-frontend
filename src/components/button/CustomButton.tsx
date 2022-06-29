@@ -20,6 +20,7 @@ interface StyledProps
  * @optional Excluding require
  */
 const CustomButton = ({
+  disabled,
   type,
   width,
   height,
@@ -42,8 +43,8 @@ const CustomButton = ({
       bordercolor={bordercolor}
       textalign={textalign}
     >
-      <button type={type} onClick={onClick} style={style}>
-        {content}
+      <button type={type} onClick={onClick} style={style} disabled={disabled}>
+        {content} 
       </button>
     </ButtonWrap>
   );

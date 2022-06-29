@@ -54,7 +54,7 @@ const Nickform = () => {
         {isValid ? <p style={{color: "var(--aqua)", fontSize: "13px"}}>사용 가능한 닉네임입니다.</p> : <p style={{color: "var(--gray-300)", fontSize: "13px"}}>이미 사용중인 닉네임입니다.</p>}
         <StartbtnBlock>
           <CustomButton type="submit" content="알코홀-릭 시작하기"
-            textalign='start' height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
+            textalign='start' width={327} height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
           />
         </StartbtnBlock>
       </NicknameContentArea>

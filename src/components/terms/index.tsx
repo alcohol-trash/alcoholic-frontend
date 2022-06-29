@@ -93,7 +93,7 @@ const Terms = () => {
             <AgreebtnBlock>
                 <Link href="/createaccount">
                     <CustomButton type="submit" content="동의하고 계정 생성하기"
-                        textalign='start' height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
+                        textalign='start' width={327} height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
                     />
                 </Link>
             </AgreebtnBlock>
