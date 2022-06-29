@@ -1,3 +1,4 @@
+//로그인페이지 -> 소셜로그인 + 일반 로그인 + 회원가입(일반)
 import Link from "next/link";
 import Image from "next/image";
 import styled from 'styled-components';
@@ -31,17 +32,17 @@ const InContainer = styled.section`
     }
   p{
     color: var(--gray-300);
-    margin: 10px auto;
+    margin: 0 auto;
     }
   a{
-    color: var(--aqua);
-    text-decoration: underline;
-    padding: 10px;
+    text-decoration: none;
+    color: var(--gray-300);
     }
 `;
 
 const ImgWrapper = styled.div`
-    display: inline;
+    display: inline-block;
+    height: 76px;
     padding: 10px;
 `;
 const Login = () => {
@@ -72,9 +73,11 @@ const Login = () => {
                     </Link>
                 </div>
                 <div>
-                    <span>이미 회원이신가요?</span>
+                    <Link href="/locallogin">
+                        <a>일반 로그인 /</a>
+                    </Link>
                     <Link href="/sociallogin">
-                        <a>로그인</a>
+                        <a> 회원가입</a>
                     </Link>
                 </div>
             </InContainer>
