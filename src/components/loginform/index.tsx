@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useForm, SubmitHandler} from 'react-hook-form'
 import CustomButton from '@/components/button/CustomButton';
+import { useForm, SubmitHandler} from 'react-hook-form'
 import { useMutation } from 'react-query';
-import { logInAPI } from '@/apis/user';
 import Router from "next/router";
+import { AxiosError } from 'axios';
+import { logInAPI } from '@/apis/user';
 
 
 const InfoformContainer = styled.section`
@@ -47,9 +48,11 @@ const Loginform = () => {
   const { register, formState: { isValid, errors }, handleSubmit, reset } = useForm<LoginData>({ mode: "onChange" });
   const mutation = useMutation(logInAPI, {
     onSuccess: () => {
+      //요청이 성공한 경우
       Router.push('/');
     },
     onError: (error: object) => {
+      //요청에 에러가 발생된 경우
       alert(error);
     }
   });
