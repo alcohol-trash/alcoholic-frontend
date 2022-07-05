@@ -1,18 +1,17 @@
-import React from 'react';
 import Image from 'next/image';
 import Link from "next/link";
-import { HomebarContainer, HomeLogoBlock } from '@/style/LoginStyle';
+import { HomeBarCss } from "@/css/login";
 import HomeImg from '@/public/assets/home.png';
 
 const Homebar = () => {
   return (
-    <HomebarContainer>
+    <section css={HomeBarCss.Container}>
       <Link href="/">
-        <HomeLogoBlock>
+        <div css={HomeBarCss.Block}>
           <Image src={HomeImg} width={24} height={24} />
-        </HomeLogoBlock>
+        </div>
       </Link>
-    </HomebarContainer>
+    </section>
   )
 }
 

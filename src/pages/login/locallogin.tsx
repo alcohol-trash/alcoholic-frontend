@@ -1,28 +1,27 @@
-import React from "react";
 import Link from "next/link";
-import { LoginContainer, DescriptionContainer, InfoContainer, LoginTitle, LinkBlock } from "@/style/LoginStyle";
+import { LoginPage } from "@/css/login";
 import Loginform from "@/components/form/LoginForm";
 import Homebar from "@/components/homebar";
 
 const LocalLogin = () => {
   return (
-    <LoginContainer>
+    <section css={LoginPage.Container}>
         <Homebar/>
-        <DescriptionContainer>
-            <LoginTitle>로그인 정보를<br/>입력해주세요.</LoginTitle>
-            <LinkBlock>
+        <section css={LoginPage.TopContainer}>
+            <h1 css={LoginPage.Title}>로그인 정보를<br/>입력해주세요.</h1>
+            <div css={LoginPage.LinkBlock}>
                 <Link href="/findid">
                     <a>ID /</a>
                 </Link>
                 <Link href="/findid">
                     <a>비밀번호 찾기</a>
                 </Link>
-            </LinkBlock>
-        </DescriptionContainer>
-        <InfoContainer> 
+            </div>
+        </section>
+        <section css={LoginPage.BottomContainer}> 
             <Loginform/>
-        </InfoContainer>
-    </LoginContainer>
+        </section>
+    </section>
   );
 }
 

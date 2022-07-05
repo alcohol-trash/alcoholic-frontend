@@ -2,7 +2,7 @@ import {css} from "@emotion/react";
 import theme from "../theme";
 
 //Homebar
-export const Homebar = {
+export const HomeBarCss = {
     Container: css`
         top: 0;
         left: 0;

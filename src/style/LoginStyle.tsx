@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import {Homebar, LoginForm, LoginPage} from "../css/login";
+import {HomeBarCss, LoginForm, LoginPage} from "../css/login";
 
 //Homebar
 export const HomebarContainer = styled.section`
-    ${Homebar.Container}
+    ${HomeBarCss.Container}
 `
 export const HomeLogoBlock = styled.div`
-    ${Homebar.Block}
+    ${HomeBarCss.Block}
 `
 
 //LoginForm
