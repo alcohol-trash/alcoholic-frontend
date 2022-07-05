@@ -9,6 +9,7 @@
     "lint": "eslint src --max-warnings=0"
   },
   "dependencies": {
+    "@emotion/babel-preset-css-prop": "^11.2.0",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
