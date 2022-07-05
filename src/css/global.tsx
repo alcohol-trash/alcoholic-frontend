@@ -17,4 +17,7 @@ export const globalCss = (theme: Theme) => css`
     a{
         text-decoration: none;
     }
+    button{
+        cursor: pointer;
+    }
 `;

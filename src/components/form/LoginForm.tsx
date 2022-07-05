@@ -1,48 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
 import CustomButton from '@/components/button/CustomButton';
+import { InfoFormContainer, InfoContentArea, StartBtnBlock } from '@/style/LoginStyle';
 import { useForm, SubmitHandler} from 'react-hook-form'
 import { useMutation } from 'react-query';
 import Router from "next/router";
-import { AxiosError } from 'axios';
 import { logInAPI } from '@/apis/user';
-
-
-const InfoformContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: 70vh;
-`
-
-const InfoContentArea = styled.form`
-    position: relative;
-    height: 100%;
-     input {
-        width: 100%;
-        font-size: 14px;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid var(--gray-700);
-        overflow: hidden;
-        resize: none;
-        margin: 10px 0;
-        padding: 10px 0;
-        color: white;
-     }
-     input::placeholder{
-        color: var(--gray-300);
-        font-size: 16px;
-     }
-`
-const StartbtnBlock = styled.div`
-    position: absolute;
-    bottom: 5%;
-`;
-
-interface LoginData {
-  id: string;
-  password: string;
-}
+import {LoginData} from "@/types/user"
 
 const Loginform = () => {
   const { register, formState: { isValid, errors }, handleSubmit, reset } = useForm<LoginData>({ mode: "onChange" });
@@ -63,7 +26,7 @@ const Loginform = () => {
     reset();
   };
   return (
-    <InfoformContainer>
+    <InfoFormContainer>
       <InfoContentArea onSubmit={handleSubmit(onSubmit)}>
         <label>아이디</label>
         <input
@@ -86,14 +49,14 @@ const Loginform = () => {
           })}
         />
         {errors.password && <p style={{color: "var(--aqua-100)", fontSize: "13px", margin: "5px 0 15px 0"}}>{errors.password.message}</p>}
-        <StartbtnBlock>
+        <StartBtnBlock>
           <CustomButton type="submit" content="로그인 하기"
             textalign='start' width={327} height={50} bgcolor={isValid ? "var(--aqua)" : "var(--gray-700)"} btncolor={isValid ? "var(--black)" : "var(--gray-300)"}
             disabled={isValid ? false : true}
           />
-        </StartbtnBlock>
+        </StartBtnBlock>
       </InfoContentArea>
-    </InfoformContainer>
+    </InfoFormContainer>
   );
 }
 

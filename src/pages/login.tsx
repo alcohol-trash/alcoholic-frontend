@@ -61,22 +61,22 @@ const Login = () => {
             <InContainer>
                 <p>SNS 계정으로 시작하기</p>
                 <div>
-                    <Link href="/signup">
+                    <Link href="/login/sociallogin">
                         <ImgWrapper>
                             <Image src={KakaoLogo} width={56} height={56}/> 
                         </ImgWrapper>
                     </Link>
-                    <Link href="/signup">
+                    <Link href="/login/sociallogin">
                         <ImgWrapper>
                             <Image src={GoogleLogo} width={56} height={56}/> 
                         </ImgWrapper>
                     </Link>
                 </div>
                 <div>
-                    <Link href="/locallogin">
+                    <Link href="/login/locallogin">
                         <a>일반 로그인 /</a>
                     </Link>
-                    <Link href="/sociallogin">
+                    <Link href="/login/signup">
                         <a> 회원가입</a>
                     </Link>
                 </div>
