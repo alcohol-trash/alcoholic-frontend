@@ -1,34 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
 import Image from 'next/image';
 import Link from "next/link";
-
+import * as styles from "./styles";
 import HomeImg from '@/public/assets/home.png';
-
-const HomebarContainer = styled.section`
-  height: 10vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 15px 0 0 0;
-`;
-
-const HomeLogo = styled.div`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  float: right;
-`;
 
 const Homebar = () => {
   return (
-    <HomebarContainer>
+    <section css={styles.HomeBarCss.Container}>
       <Link href="/">
-        <HomeLogo>
+        <div css={styles.HomeBarCss.Block}>
           <Image src={HomeImg} width={24} height={24} />
-        </HomeLogo>
+        </div>
       </Link>
-    </HomebarContainer>
+    </section>
   )
 }
 

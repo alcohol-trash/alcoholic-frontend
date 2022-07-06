@@ -9,8 +9,14 @@
     "lint": "eslint src --max-warnings=0"
   },
   "dependencies": {
+    "@emotion/babel-plugin": "^11.9.2",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@react-oauth/google": "^0.2.2",
     "axios": "^0.27.2",
+    "emotion-reset": "^3.0.1",
     "next": "^12.1.6",
     "next-pwa": "^5.4.4",
     "react": "^17.0.2",
