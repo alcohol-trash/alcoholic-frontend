@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LoginPage } from "@/css/login";
-import Loginform from "@/components/form/LoginForm";
+import Loginform from "@/components/loginform";
 import Homebar from "@/components/homebar";
 
 const LocalLogin = () => {

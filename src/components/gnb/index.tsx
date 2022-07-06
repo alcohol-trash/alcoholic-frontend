@@ -1,29 +1,29 @@
 import Image from 'next/image';
 import Link from "next/link";
+import * as styles from "./styles";
 import ProfileImg from '@/public/assets/profile_img.png';
-import {GnbContainer, GnbBlock, GnbLogo, GnbProfile, GnbList, GnbListItem} from "@/style/HomeStyle";
 
 const Gnb = () => {
   return (
-    <GnbContainer>
-      <GnbBlock>
+    <section css={styles.Gnb.Container}>
+      <div css={[styles.Gnb.Block, styles.Gnb.BlockDetail]}>
         <Link href="/">
-          <GnbLogo>
+          <div css={[styles.Gnb.Block, styles.Gnb.Logo]}>
               <h1>알코홀-릭</h1>
-          </GnbLogo>
+          </div>
         </Link>
         <Link href="/login">
-          <GnbProfile>
+          <div css={[styles.Gnb.Block, styles.Gnb.Profile]}>
             <Image src={ProfileImg} width={32} height={32} />
-          </GnbProfile>
+          </div>
         </Link>
-      </GnbBlock>
-      <GnbList>
-        <GnbListItem>주류학개론</GnbListItem>
-        <GnbListItem>술 위키</GnbListItem>
-        <GnbListItem>질문과 답변</GnbListItem>
-      </GnbList>
-  </GnbContainer>
+      </div>
+      <ul css={styles.Gnb.List}>
+        <li css={styles.Gnb.ListItem}>주류학개론</li>
+        <li css={styles.Gnb.ListItem}>술 위키</li>
+        <li css={styles.Gnb.ListItem}>질문과 답변</li>
+      </ul>
+  </section>
   )
 }
 
