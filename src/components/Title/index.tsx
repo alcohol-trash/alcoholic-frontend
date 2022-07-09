@@ -1,3 +1,4 @@
+import React from 'react'
 import * as styles from './styles'
 
 type Props = {
@@ -11,4 +12,4 @@ const Title = ({ children }: Props) => {
   )
 }
 
-export default Title
+export default React.memo(Title)
