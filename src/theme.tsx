@@ -1,22 +1,26 @@
-import { Theme } from "@emotion/react";
+import { Theme } from '@emotion/react'
 
-const theme: Theme = {
-    colors: {
-        black: '#000000',
-        white: '#ffffff',
-
-        gray900: '#10111D',
-        gray800: '#1A1C2E',
-        gray700: '#282D40',
-        gray300: '#9098AD',
-
-        magenta: '#FF0CC9',
-        magenta100: '#FFE8FA',
-        aqua: '#00FFF0',
-        aqua100: '#E4FFFE',
-    },
-    br6: '6px',
-    br10: '10px'
+export const gray = {
+  300: '#9098AD',
+  700: '#282D40',
+  800: '#1A1C2E',
+  900: '#10111D',
 }
 
-export default theme;
+export const magenta = {
+  100: '#FFE8FA',
+  500: '#FF0CC9',
+}
+
+export const aqua = {
+  100: '#E4FFFE',
+  500: '#00FFF0',
+}
+
+const Themes: Theme = {
+  gray,
+  magenta,
+  aqua,
+}
+
+export default Themes
