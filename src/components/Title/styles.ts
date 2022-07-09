@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
 export const container = css`
-  position: realtive;
+  position: relative;
 `
 export const title = css`
   color: #ffffff;
