@@ -37,7 +37,7 @@ const LoginSignup = () => {
           <Link href="/loginsignup/locallogin">
             <a>일반 로그인 /</a>
           </Link>
-          <Link href="/loginsignup/localsignupinfo">
+          <Link href="/loginsignup/localsignupterms">
             <a> 회원가입</a>
           </Link>
         </div>
