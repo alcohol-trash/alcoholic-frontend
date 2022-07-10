@@ -1,10 +1,8 @@
-import {Global} from "@emotion/react";
-import {globalCss} from "../css/global";
+import { Global } from '@emotion/react'
+import { globalCss } from '../css/global'
 
 const GlobalStyle = () => {
-    return (
-        <Global styles={globalCss}/>
-    )
+  return <Global styles={globalCss} />
 }
 
-export default GlobalStyle;
+export default GlobalStyle

@@ -1,17 +1,17 @@
 /* istanbul ignore file */
-import type { AppProps } from 'next/app';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import type { AppProps } from 'next/app'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
-import { ThemeProvider } from "@emotion/react";
-import theme from "../theme";
-import GlobalStyle from '@/style/GlobalStyle';
+import { ThemeProvider } from '@emotion/react'
+import theme from '../theme'
+import GlobalStyle from '@/style/GlobalStyle'
 
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Kakao: any;
+    Kakao: any
   }
 }
 
@@ -24,17 +24,19 @@ const queryClient = new QueryClient({
       staleTime: Infinity,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-    }
-  }
-});
+    },
+  },
+})
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}>
+    <GoogleOAuthProvider
+      clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
+    >
       <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen={true} />
         <ThemeProvider theme={theme}>
-          <GlobalStyle/>
+          <GlobalStyle />
           <Component {...pageProps} />
         </ThemeProvider>
       </QueryClientProvider>
