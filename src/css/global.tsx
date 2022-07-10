@@ -2,7 +2,6 @@ import { css, Theme } from '@emotion/react'
 import reset from 'emotion-reset'
 
 export const globalCss = (theme: Theme) => css`
-  ${reset}
   * {
     box-sizing: border-box;
   }
@@ -12,6 +11,8 @@ export const globalCss = (theme: Theme) => css`
       Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
       'Noto Sans KR', 'Malgun Gothic', sans-serif;
     background-color: ${theme.gray[900]};
+    padding: 0;
+    margin: 0;
   }
   input: focus {
     outline: none;
@@ -22,4 +23,11 @@ export const globalCss = (theme: Theme) => css`
   button {
     cursor: pointer;
   }
+`
+
+export const componentContainer = css`
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  padding: 0 20px;
 `

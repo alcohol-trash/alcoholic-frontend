@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
 import { EmailData } from '@/types/user'
 import * as styles from './styles'
-import CustomButton from '@/components/button/CustomButton'
+import Button from '@/components/Button'
 
 const Emailform = () => {
   const {
@@ -32,14 +32,7 @@ const Emailform = () => {
               pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/,
             })}
           />
-          <CustomButton
-            type="submit"
-            content="인증 요청"
-            width={84}
-            height={44}
-            bgcolor={isValid ? 'var(--aqua)' : 'var(--gray-700)'}
-            btncolor={isValid ? 'var(--black)' : 'var(--gray-300)'}
-          />
+          <Button>인증 요청</Button>
         </div>
         {isValid ? (
           ' '
@@ -55,15 +48,7 @@ const Emailform = () => {
           </p>
         )}
         <div css={styles.EmailForm.BtnBlock}>
-          <CustomButton
-            type="submit"
-            content="인증 확인"
-            textalign="start"
-            width={327}
-            height={50}
-            bgcolor={isValid ? 'var(--aqua)' : 'var(--gray-700)'}
-            btncolor={isValid ? 'var(--black)' : 'var(--gray-300)'}
-          />
+          <Button>인증 확인</Button>
         </div>
       </form>
     </section>
