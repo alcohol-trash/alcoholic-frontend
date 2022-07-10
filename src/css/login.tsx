@@ -31,15 +31,15 @@ export const LoginForm = {
       font-size: 14px;
       background-color: transparent;
       border: none;
-      border-bottom: 1px solid ${theme.colors.gray700};
+      border-bottom: 1px solid ${theme.gray[700]};
       overflow: hidden;
       resize: none;
       margin: 10px 0;
       padding: 10px 0;
-      color: ${theme.colors.white};
+      color: white;
     }
     input::placeholder {
-      color: ${theme.colors.gray300};
+      color: ${theme.gray[300]};
       font-size: 16px;
     }
   `,
@@ -73,6 +73,7 @@ export const LoginPage = {
   `,
   LinkBlock: css`
     a {
+      color: ${theme.gray[300]};
       font-size: 13px;
     }
   `,
@@ -94,7 +95,7 @@ export const LoginSignupPage = {
     font-size: 28px;
     line-height: 1.2em;
     span {
-      color: ${theme.colors.aqua};
+      color: ${theme.aqua[500]};
     }
   `,
   BottomContainer: css`
@@ -105,7 +106,7 @@ export const LoginSignupPage = {
     margin: auto;
     p {
       margin: 5px auto;
-      color: ${theme.colors.gray300};
+      color: ${theme.gray[300]};
     }
   `,
   ImgBlock: css`
@@ -119,6 +120,9 @@ export const LoginSignupPage = {
   `,
   LinkBlock: css`
     margin: 20px auto;
+    a {
+      color: ${theme.gray[300]};
+    }
   `,
 }
 
@@ -144,7 +148,43 @@ export const LocalTermsPage = {
 }
 
 //Local SignupPage -> 이메일 인증 페이지
-export const LocalEmailPage = {}
+export const LocalEmailPage = {
+  Container: css`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 20px;
+  `,
+  Block: css`
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    height: 25vh;
+    h1 {
+      margin: 10px 0;
+      line-height: 1.2em;
+      font-size: 22px;
+    }
+  `,
+}
 
 //Local SignupPage -> 회원가입 정보 입력 페이지
-export const LocalInfoPage = {}
+export const LocalInfoPage = {
+  Container: css`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 20px;
+  `,
+  Block: css`
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    height: 25vh;
+    h1 {
+      margin: 10px 0;
+      line-height: 1.2em;
+      font-size: 22px;
+    }
+  `,
+}

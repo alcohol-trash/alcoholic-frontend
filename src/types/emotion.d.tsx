@@ -1,22 +1,20 @@
-import "@emotion/react"
+import '@emotion/react'
 
 declare module '@emotion/react' {
-    export interface Theme {
-        colors: {
-            black: string
-            white: string
-
-            gray900: string
-            gray800: string
-            gray700: string
-            gray300: string
-            
-            magenta: string
-            magenta100: string
-            aqua: string
-            aqua100: string
-        },
-        br6: string
-        br10: string
+  export interface Theme {
+    gray: {
+      300: string
+      700: string
+      800: string
+      900: string
     }
+    magenta: {
+      100: string
+      500: string
+    }
+    aqua: {
+      100: string
+      500: string
+    }
+  }
 }

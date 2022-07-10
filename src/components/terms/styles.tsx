@@ -28,10 +28,10 @@ export const Terms = {
     }
   `,
   InputBlockLine: css`
-    border-bottom: 1.5px solid ${theme.colors.gray800};
+    border-bottom: 1.5px solid ${theme.gray[800]};
   `,
   Word: css`
-    color: ${theme.colors.aqua};
+    color: ${theme.aqua[500]};
   `,
   BtnBlock: css`
     position: absolute;

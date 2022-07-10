@@ -1,50 +1,10 @@
 //로그인페이지 -> 소셜로그인 + 일반 로그인 + 일반 회원가입
 import Link from 'next/link'
 import Image from 'next/image'
-import styled from 'styled-components'
 import { LoginSignupPage } from '@/css/login'
 import KakaoLogo from '@/public/assets/kakao.png'
 import GoogleLogo from '@/public/assets/google.png'
 
-const LoginContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--gray-900);
-  color: var(--white);
-`
-const IntroductionContainer = styled.section`
-  display: flex;
-  height: 60vh;
-  h1 {
-    padding-left: 30px;
-    padding-top: 80px;
-    font-size: 20px;
-  }
-`
-const InContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  height: 40vh;
-  font-size: 14px;
-  div {
-    margin: 10px auto;
-  }
-  p {
-    color: var(--gray-300);
-    margin: 0 auto;
-  }
-  a {
-    text-decoration: none;
-    color: var(--gray-300);
-  }
-`
-
-const ImgWrapper = styled.div`
-  display: inline-block;
-  height: 76px;
-  padding: 10px;
-`
 const LoginSignup = () => {
   const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
   const second = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI
@@ -77,7 +37,7 @@ const LoginSignup = () => {
           <Link href="/loginsignup/locallogin">
             <a>일반 로그인 /</a>
           </Link>
-          <Link href="/loginsignup/localsignupterms">
+          <Link href="/loginsignup/localsignupinfo">
             <a> 회원가입</a>
           </Link>
         </div>
