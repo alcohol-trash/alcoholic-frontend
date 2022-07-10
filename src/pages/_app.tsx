@@ -7,7 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import { ThemeProvider } from '@emotion/react'
 import theme from '../theme'
 import GlobalStyle from '@/style/GlobalStyle'
-
+import { componentContainer } from '@/css/global'
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,7 +37,9 @@ function App({ Component, pageProps }: AppProps) {
         <ReactQueryDevtools initialIsOpen={true} />
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Component {...pageProps} />
+          <div css={componentContainer}>
+            <Component {...pageProps} />
+          </div>
         </ThemeProvider>
       </QueryClientProvider>
     </GoogleOAuthProvider>
