@@ -49,7 +49,7 @@ export const LoginForm = {
   `,
 }
 
-//LoginPage
+//Local LoginPage
 export const LoginPage = {
   Container: css`
     display: flex;
@@ -75,6 +75,116 @@ export const LoginPage = {
     a {
       color: ${theme.gray[300]};
       font-size: 13px;
+    }
+  `,
+}
+
+//login & signup
+export const LoginSignupPage = {
+  Container: css`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 32px;
+  `,
+  TopContainer: css`
+    height: 65vh;
+    padding-top: 100px;
+  `,
+  Title: css`
+    font-size: 28px;
+    line-height: 1.2em;
+    span {
+      color: ${theme.aqua[500]};
+    }
+  `,
+  BottomContainer: css`
+    display: flex;
+    flex-direction: column;
+    height: 35vh;
+    font-size: 13px;
+    margin: auto;
+    p {
+      margin: 5px auto;
+      color: ${theme.gray[300]};
+    }
+  `,
+  ImgBlock: css`
+    display: flex;
+    flex-direction: row;
+    div{
+        inline-block;
+        height: 76px;
+        padding: 10px;
+    }
+  `,
+  LinkBlock: css`
+    margin: 20px auto;
+    a {
+      color: ${theme.gray[300]};
+    }
+  `,
+}
+
+//Local SignupPage -> 이용약관 페이지
+export const LocalTermsPage = {
+  Container: css`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 20px;
+  `,
+  Block: css`
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    height: 25vh;
+    h1 {
+      margin: 10px 0;
+      line-height: 1.2em;
+      font-size: 22px;
+    }
+  `,
+}
+
+//Local SignupPage -> 이메일 인증 페이지
+export const LocalEmailPage = {
+  Container: css`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 20px;
+  `,
+  Block: css`
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    height: 25vh;
+    h1 {
+      margin: 10px 0;
+      line-height: 1.2em;
+      font-size: 22px;
+    }
+  `,
+}
+
+//Local SignupPage -> 회원가입 정보 입력 페이지
+export const LocalInfoPage = {
+  Container: css`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0 20px;
+  `,
+  Block: css`
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    height: 25vh;
+    h1 {
+      margin: 10px 0;
+      line-height: 1.2em;
+      font-size: 22px;
     }
   `,
 }
