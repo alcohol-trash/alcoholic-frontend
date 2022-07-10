@@ -1,7 +1,5 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
@@ -17,7 +15,6 @@ type FormTypes = {
 const FindId = () => {
   const {
     register,
-    setValue,
     getValues,
     handleSubmit,
     formState: { errors },
@@ -27,6 +24,7 @@ const FindId = () => {
 
   const handleClick = (data: FormTypes) => {
     // TODO: 인증 확인
+    console.log(data)
     console.log(getValues('email'))
   }
 
