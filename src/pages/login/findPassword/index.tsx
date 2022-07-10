@@ -32,7 +32,9 @@ const FindPassword = () => {
     }
   }
 
-  const handleClick = () => {}
+  const handleClick = () => {
+    // TODO: 인증 확인
+  }
 
   return (
     <div css={styles.container}>
