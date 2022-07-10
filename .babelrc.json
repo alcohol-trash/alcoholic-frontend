@@ -1,25 +1,20 @@
 {
-  "presets": ["next/babel", "@babel/preset-typescript"],
-  "plugins": [
+  "presets": [
     [
-      "babel-plugin-styled-components",
+      "next/babel",
       {
-        "ssr": true,
-        "displayName": true
-      }
+        "preset-react": {
+          "runtime": "automatic",
+          "importSource": "@emotion/react"
+        }
+      },
+      "emotion/babel-preset-css-prop"
     ]
   ],
+  "plugins": ["@emotion/babel-plugin"],
   "env": {
     "test": {
-      "plugins": [
-        [
-          "babel-plugin-styled-components",
-          {
-            "ssr": false,
-            "displayName": false
-          }
-        ]
-      ]
+      "plugins": ["@emotion/babel-plugin"]
     }
   }
 }
