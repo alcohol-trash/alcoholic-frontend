@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Link from "next/link";
-import * as styles from "./styles";
-import ProfileImg from '@/public/assets/profile_img.png';
+import Image from 'next/image'
+import Link from 'next/link'
+import * as styles from './styles'
+import ProfileImg from '@/public/assets/profile_img.png'
 
 const Gnb = () => {
   return (
@@ -9,10 +9,10 @@ const Gnb = () => {
       <div css={[styles.Gnb.Block, styles.Gnb.BlockDetail]}>
         <Link href="/">
           <div css={[styles.Gnb.Block, styles.Gnb.Logo]}>
-              <h1>알코홀-릭</h1>
+            <h1>알코홀-릭</h1>
           </div>
         </Link>
-        <Link href="/login">
+        <Link href="/loginsignup">
           <div css={[styles.Gnb.Block, styles.Gnb.Profile]}>
             <Image src={ProfileImg} width={32} height={32} />
           </div>
@@ -23,8 +23,8 @@ const Gnb = () => {
         <li css={styles.Gnb.ListItem}>술 위키</li>
         <li css={styles.Gnb.ListItem}>질문과 답변</li>
       </ul>
-  </section>
+    </section>
   )
 }
 
-export default Gnb;
+export default Gnb
