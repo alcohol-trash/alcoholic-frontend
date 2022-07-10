@@ -1,5 +1,6 @@
 import React from 'react'
-import CustomButton from '@/components/Button/CustomButton'
+import Button from '@/components/Button'
+import Link from 'next/link'
 import * as styles from './styles'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useMutation } from 'react-query'
@@ -81,16 +82,9 @@ const Loginform = () => {
           </p>
         )}
         <div css={styles.LoginForm.BtnBlock}>
-          <CustomButton
-            type="submit"
-            content="로그인 하기"
-            textalign="start"
-            width={327}
-            height={50}
-            bgcolor={isValid ? 'var(--aqua)' : 'var(--gray-700)'}
-            btncolor={isValid ? 'var(--black)' : 'var(--gray-300)'}
-            disabled={isValid ? false : true}
-          />
+          <Link href="/">
+            <Button>로그인 하기</Button>
+          </Link>
         </div>
       </form>
     </section>

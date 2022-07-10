@@ -1,5 +1,6 @@
 import React from 'react'
-import CustomButton from '@/components/button/CustomButton'
+import Button from '@/components/Button'
+import Link from 'next/link'
 import * as styles from './styles'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useMutation } from 'react-query'
@@ -107,16 +108,9 @@ const SignupForm = () => {
           </p>
         )}
         <div css={styles.SignupForm.BtnBlock}>
-          <CustomButton
-            type="submit"
-            content="입력 완료"
-            textalign="start"
-            width={327}
-            height={50}
-            bgcolor={isValid ? 'var(--aqua)' : 'var(--gray-700)'}
-            btncolor={isValid ? 'var(--black)' : 'var(--gray-300)'}
-            disabled={isValid ? false : true}
-          />
+          <Link href="/">
+            <Button>입력 완료</Button>
+          </Link>
         </div>
       </form>
     </section>

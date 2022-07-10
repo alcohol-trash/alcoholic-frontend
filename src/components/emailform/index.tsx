@@ -3,6 +3,7 @@ import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
 import { EmailData } from '@/types/user'
 import * as styles from './styles'
 import Button from '@/components/Button'
+import Link from 'next/link'
 
 const Emailform = () => {
   const {
@@ -48,7 +49,9 @@ const Emailform = () => {
           </p>
         )}
         <div css={styles.EmailForm.BtnBlock}>
-          <Button>인증 확인</Button>
+          <Link href="/loginsignup/localsignupinfo">
+            <Button>인증 확인</Button>
+          </Link>
         </div>
       </form>
     </section>

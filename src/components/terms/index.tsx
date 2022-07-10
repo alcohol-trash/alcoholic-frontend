@@ -1,5 +1,5 @@
 import * as styles from './styles'
-import CustomButton from '@/components/button/CustomButton'
+import Button from '@/components/Button'
 import Link from 'next/link'
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
 import { TermsData } from '@/types/user'
@@ -56,16 +56,8 @@ const Terms = () => {
           <label>개인정보 수집 및 이용에 동의 (필수)</label>
         </div>
         <div css={styles.Terms.BtnBlock}>
-          <Link href="/createaccount">
-            <CustomButton
-              type="submit"
-              content="동의하고 계정 생성하기"
-              textalign="start"
-              width={327}
-              height={50}
-              bgcolor={isValid ? 'var(--aqua)' : 'var(--gray-700)'}
-              btncolor={isValid ? 'var(--black)' : 'var(--gray-300)'}
-            />
+          <Link href="/loginsignup/localsignupemail">
+            <Button>동의하고 계정 생성하기</Button>
           </Link>
         </div>
       </form>
