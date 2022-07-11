@@ -11,7 +11,7 @@ import { LoginData } from '@/types/user'
 const SignupForm = () => {
   const {
     register,
-    formState: { isValid, errors },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm<LoginData>({ mode: 'onChange' })

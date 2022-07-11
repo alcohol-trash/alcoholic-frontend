@@ -1,16 +1,15 @@
 import * as styles from './styles'
 import Button from '@/components/Button'
+import UnCheckImg from '@/public/assets/unchecked.png'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useForm, SubmitHandler, SubmitErrorHandler } from 'react-hook-form'
 import { TermsData } from '@/types/user'
 
 const Terms = () => {
-  const {
-    register,
-    formState: { isValid },
-    handleSubmit,
-    reset,
-  } = useForm<TermsData>({ mode: 'onChange' })
+  const { register, handleSubmit, reset } = useForm<TermsData>({
+    mode: 'onChange',
+  })
   const onSubmit: SubmitHandler<TermsData> = (data) => {
     console.log(data)
     reset()
@@ -22,10 +21,14 @@ const Terms = () => {
         <div css={[styles.Terms.InputBlock, styles.Terms.InputBlockLine]}>
           <input
             type="checkbox"
+            id="allAgree"
             {...register('checkAll', {
               required: true,
             })}
           />
+          <label htmlFor="allAgree">
+            <Image src={UnCheckImg} />
+          </label>
           <label css={styles.Terms.Word}>전체 동의하기</label>
         </div>
         <div css={styles.Terms.InputBlock}>

@@ -1,64 +1,45 @@
-import React from 'react';
-import styled from 'styled-components';
-import Tabbar from '@/components/tabbar';
-import Gnb from '@/components/gnb';
-import NoticeTitle from '@/components/noticetitle';
-import Category from '@/components/category';
-import Feed from '@/components/feed';
-
-const IntroductionContainer = styled.section`
-  background-color: var(--gray-900);
-  display: flex;
-  flex-direction: column;
-  padding: 0 24px;
-`;
-
-const CategoryContainer = styled.section`
-  display: flex;
-  margin: 12px 0;
-  div {
-    margin-right: 8px;
-  }
-`;
-
-const FeedContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  padding-top: 18px;
-  padding-bottom: 76px;
-`;
+import React from 'react'
+import Tabbar from '@/components/tabbar'
+import Gnb from '@/components/gnb'
+import NoticeTitle from '@/components/noticetitle'
+import Category from '@/components/category'
+import Feed from '@/components/feed'
+import { HomePage } from '@/css/home'
 
 const Home = () => {
   return (
     <>
       <Gnb />
-      <IntroductionContainer>
-        <NoticeTitle title="주류학개론" description='술에 대한 정보, 리뷰를 올려주세요.' />
-        <CategoryContainer>
-          {CATEGORY_DUMMY.map((data) =>
+      <section css={HomePage.Container}>
+        <NoticeTitle
+          title="주류학개론"
+          description="술에 대한 정보, 리뷰를 올려주세요."
+        />
+        <section css={HomePage.TopContainer}>
+          {CATEGORY_DUMMY.map((data) => (
             <Category content={data.content} key={data.id} />
-          )}
-        </CategoryContainer>
-        <FeedContainer>
+          ))}
+        </section>
+        <section css={HomePage.BottomContainer}>
           <Feed />
           <Feed />
           <Feed />
-        </FeedContainer>
+        </section>
         <Tabbar />
-      </IntroductionContainer>
+      </section>
     </>
   )
 }
 
-export default Home;
+export default Home
 
 const CATEGORY_DUMMY = [
   {
     id: 1,
-    content: '최신순'
+    content: '최신순',
   },
   {
     id: 2,
-    content: '추천순'
+    content: '추천순',
   },
 ]

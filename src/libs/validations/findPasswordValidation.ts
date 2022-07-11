@@ -1,8 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Resolver } from 'react-hook-form'
 import * as yup from 'yup'
 
-export const getFindPasswordFormSchema = (): Resolver<any, object> =>
+export const getFindPasswordFormSchema = () =>
   yupResolver(
     yup.object().shape({
       id: yup
