@@ -6,8 +6,8 @@ import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
-import * as styles from './styles'
-import { getFindPasswordFormSchema } from './functions'
+import * as styles from '@/css/login/findPasswordStyles'
+import { getFindPasswordFormSchema } from '@/lib/validations/findPasswordValidation'
 
 type FormTypes = {
   id: string
