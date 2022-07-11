@@ -26,8 +26,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/lib/api/core.tsx",
-    "src/lib/api/testAPI.js",
+    "src/libs/api/core.tsx",
+    "src/libs/api/testAPI.js",
     "src/components/TestComponent.tsx"
   ],
   "exclude": ["node_modules"]
