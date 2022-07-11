@@ -7,7 +7,7 @@ import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from '@/css/login/findIdStyles'
-import { getFindIdFormSchema } from '@/lib/validations/findIdValidation'
+import { getFindIdFormSchema } from '@/libs/validations/findIdValidation'
 
 type FormTypes = {
   email: string
