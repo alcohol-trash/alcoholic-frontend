@@ -19,16 +19,8 @@
       "@/*": ["./src/*"],
       "@/public/*": ["./public/*"],
       "@/assets/*": ["./assets/*"]
-    },
-    "types": ["@emotion/react/types/css-prop"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/lib/api/core.tsx",
-    "src/lib/api/testAPI.js",
-    "src/components/TestComponent.tsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/api/core.tsx", "src/lib/api/testAPI.js", "src/components/TestComponent.tsx"],
   "exclude": ["node_modules"]
 }
