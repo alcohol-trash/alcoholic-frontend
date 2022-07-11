@@ -17,10 +17,7 @@ export const Terms = {
     display: flex;
     align-items: center;
     input {
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      margin: 10px 3px;
+      display: none;
       cursor: pointer;
     }
     label {

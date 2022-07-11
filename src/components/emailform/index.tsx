@@ -50,7 +50,9 @@ const Emailform = () => {
         )}
         <div css={styles.EmailForm.BtnBlock}>
           <Link href="/loginsignup/localsignupinfo">
-            <Button>인증 확인</Button>
+            <Button size="sm" align="center">
+              인증 확인
+            </Button>
           </Link>
         </div>
       </form>

@@ -1,44 +1,36 @@
 import React from 'react'
-import styled from 'styled-components'
-
-const TitleContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-`
-const DescriptionTitle = styled.div`
-  margin: 10px;
-  line-height: 1.5em;
-  h1 {
-    font-size: 20px;
-    color: var(--white);
-  }
-`
-const DescriptionExplain = styled.p`
-  font-weight: 400;
-  margin: 10px;
-  font-size: 12px;
-  color: var(--gray-300);
-  line-height: 1.5em;
-`;
+import * as styles from './styles'
 
 interface DescriptionProps {
-  titleFirst: string;
-  titleSecond?: string;
-  explainFirst?: string;
-  explainSecond?: string;
+  titleFirst: string
+  titleSecond?: string
+  explainFirst?: string
+  explainSecond?: string
 }
 
-const Description = ({ titleFirst, titleSecond, explainFirst, explainSecond }: DescriptionProps) => {
+const Description = ({
+  titleFirst,
+  titleSecond,
+  explainFirst,
+  explainSecond,
+}: DescriptionProps) => {
   return (
-    <TitleContainer>
-      <DescriptionTitle>
-        <h1> {titleFirst}<br/>{titleSecond}</h1>
-      </DescriptionTitle>
-      <DescriptionExplain>
-        {explainFirst}<br/>{explainSecond}
-      </DescriptionExplain>
-    </TitleContainer>
+    <section css={styles.Description.Container}>
+      <div css={styles.Description.Block}>
+        <h1>
+          {' '}
+          {titleFirst}
+          <br />
+          {titleSecond}
+        </h1>
+      </div>
+      <p css={styles.Description.Word}>
+        {explainFirst}
+        <br />
+        {explainSecond}
+      </p>
+    </section>
   )
 }
 
-export default Description;
+export default Description
