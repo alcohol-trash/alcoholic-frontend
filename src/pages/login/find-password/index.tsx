@@ -17,11 +17,17 @@ const FindPassword = () => {
   const {
     register,
     getValues,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<FormTypes>({
     resolver: getFindPasswordFormSchema(),
   })
+
+  const handleChange = ({ name, value }: any) => {
+    setValue(name, value, { shouldValidate: true })
+  }
+
   const handleEmailClick = () => {
     if (!getValues('email')) {
       console.log(errors)
@@ -47,6 +53,7 @@ const FindPassword = () => {
               <TextField
                 placeholder="아이디를 입력해주세요."
                 {...register('id')}
+                onChange={handleChange}
               />
             </div>
             {errors?.id && <ValidateMessage result={errors?.id} />}
@@ -58,6 +65,7 @@ const FindPassword = () => {
                 <TextField
                   placeholder="이메일을 입력해주세요."
                   {...register('email')}
+                  onChange={handleChange}
                 />
               </div>
               <div css={styles.colRight}>
