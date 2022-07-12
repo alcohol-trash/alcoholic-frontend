@@ -8,6 +8,7 @@ type Props = {
   size?: TextSize
   style?: ButtonStyle
   align?: TextAlign
+  disabled?: boolean
   onClick?: () => void
 }
 const Button = ({
@@ -15,11 +16,13 @@ const Button = ({
   size = 'base',
   style = 'default',
   align = 'left',
+  disabled = false,
   onClick,
 }: Props) => {
   return (
     <button
       type="button"
+      disabled={disabled}
       onClick={onClick}
       css={[
         styles.button,
