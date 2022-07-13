@@ -1,7 +1,7 @@
 //로그인페이지 -> 소셜로그인 + 일반 로그인 + 일반 회원가입
 import Link from 'next/link'
 import Image from 'next/image'
-import { LoginSignupPage } from '@/css/login'
+import * as styles from '@/css/loginsignup'
 import KakaoLogo from '@/public/assets/kakao.png'
 import GoogleLogo from '@/public/assets/google.png'
 
@@ -11,17 +11,17 @@ const LoginSignup = () => {
   console.log(login)
   console.log(second)
   return (
-    <section css={LoginSignupPage.Container}>
-      <section css={LoginSignupPage.TopContainer}>
-        <h1 css={LoginSignupPage.Title}>
+    <section css={styles.container}>
+      <section css={styles.topContainer}>
+        <h1 css={styles.title}>
           <span>알코홀-릭</span>은 가입 후에
           <br />
           이용할 수 있어요!
         </h1>
       </section>
-      <section css={LoginSignupPage.BottomContainer}>
+      <section css={styles.bottomContainer}>
         <p>SNS 계정으로 시작하기</p>
-        <div css={LoginSignupPage.ImgBlock}>
+        <div css={styles.imgBlock}>
           <Link href="/loginsignup/sociallogin">
             <div>
               <Image src={KakaoLogo} width={56} height={56} />
@@ -33,11 +33,11 @@ const LoginSignup = () => {
             </div>
           </Link>
         </div>
-        <div css={LoginSignupPage.LinkBlock}>
-          <Link href="/loginsignup/locallogin">
+        <div css={styles.linkBlock}>
+          <Link href="/login/localLogin">
             <a>일반 로그인 /</a>
           </Link>
-          <Link href="/loginsignup/localsignupterms">
+          <Link href="/signup/signupTerms">
             <a> 회원가입</a>
           </Link>
         </div>

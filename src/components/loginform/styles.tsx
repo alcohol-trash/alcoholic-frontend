@@ -1,33 +1,22 @@
 import { css } from '@emotion/react'
-import theme from '@/theme'
 
-//LoginForm
-export const LoginForm = {
-  Container: css`
-    display: flex;
-    flex-direction: column;
-  `,
-  Form: css`
-    input {
-      position: relative;
-      width: 100%;
-      font-size: 14px;
-      background-color: transparent;
-      border: none;
-      border-bottom: 1px solid ${theme.gray[700]};
-      overflow: hidden;
-      resize: none;
-      margin: 10px 0;
-      padding: 10px 0;
-      color: white;
-    }
-    input::placeholder {
-      color: ${theme.gray[300]};
-      font-size: 16px;
-    }
-  `,
-  BtnBlock: css`
-    position: absolute;
-    bottom: 5%;
-  `,
-}
+export const container = css`
+  position: relative;
+  height: 100%;
+`
+export const form = css`
+  height: 100%;
+  label {
+    padding: 10px 0;
+  }
+`
+export const inputBlock = css`
+  padding: 10px 0 40px 0;
+`
+
+export const btnBlock = css`
+  position: absolute;
+  width: 100%;
+  height: 52px;
+  bottom: 5%;
+`

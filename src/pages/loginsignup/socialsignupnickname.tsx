@@ -1,4 +1,4 @@
-import { SocialNickname } from '@/css/login'
+import { SocialNickname } from '@/css/loginsignup'
 import NickNameForm from '@/components/nicknameform'
 
 const SignupNickname = () => {

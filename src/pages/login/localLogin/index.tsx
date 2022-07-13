@@ -1,19 +1,20 @@
 import Link from 'next/link'
-import { LoginPage } from '@/css/login'
+import * as styles from '@/css/login/localLoginStyles'
 import Loginform from '@/components/loginform'
 import Homebar from '@/components/homebar'
+import Title from '@/components/Title'
 
 const LocalLogin = () => {
   return (
-    <section css={LoginPage.Container}>
+    <section css={styles.container}>
       <Homebar />
-      <section css={LoginPage.TopContainer}>
-        <h1 css={LoginPage.Title}>
+      <section css={styles.topContainer}>
+        <Title>
           로그인 정보를
           <br />
           입력해주세요.
-        </h1>
-        <div css={LoginPage.LinkBlock}>
+        </Title>
+        <div css={styles.linkBlock}>
           <Link href="/login/findid">
             <a>ID /</a>
           </Link>
@@ -22,7 +23,7 @@ const LocalLogin = () => {
           </Link>
         </div>
       </section>
-      <section css={LoginPage.BottomContainer}>
+      <section css={styles.bottomContainer}>
         <Loginform />
       </section>
     </section>
