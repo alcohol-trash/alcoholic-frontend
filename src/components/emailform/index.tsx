@@ -1,25 +1,23 @@
-import * as styles from './styles'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 import Timer from '@/components/timer'
-import CustomModal from '@/components/Modal'
+import ModalAlert from '@/components/Modal'
 
-import React from 'react'
-//import Link from 'next/link'
-//import Router from 'next/router'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import * as styles from './styles'
 import { getSignupEmailFormSchema } from '@/libs/validations/signupEmailValidation'
-import { yupResolver } from '@hookform/resolvers/yup'
 
 type FormTypes = {
   email: string
 }
 
 const Emailform = () => {
-  const [submit, setSubmit] = useState(false) //인증 요청 버튼을 누른 후 인증 완료 버튼 활성화
-  const [modal, setModal] = useState(false) //인증 완료 버튼 활성화 후 버튼을 눌렀을 때 모달 셋팅 여부 -> 인증이 되었는지에 대한 응답에 따라 바뀜
+  const [submit, setSubmit] = useState<boolean>(false) //인증 요청 버튼을 누른 후 인증 완료 버튼 활성화
+  const [modal, setModal] = useState<boolean>(false) //인증 완료 버튼 활성화 후 버튼을 눌렀을 때 모달 셋팅 여부 -> 인증이 되었는지에 대한 응답에 따라 바뀜
   const {
     register,
     formState: { isValid, errors },
@@ -61,15 +59,14 @@ const Emailform = () => {
           {submit && <Timer />}
         </section>
         <section>
-          <CustomModal isOpen={modal ? true : false}>
-            <div>
-              이메일 인증이 완료되지 않았습니다. <br />
-              다시 인증 시도 해주세요.
-            </div>
-            <div>
-              <button onClick={() => setModal(!modal)}>확인</button>
-            </div>
-          </CustomModal>
+          <ModalAlert
+            type={'confirm'}
+            isOpen={modal}
+            onClick={() => setModal(!modal)}
+          >
+            이메일 인증이 완료되지 않았습니다. <br />
+            다시 인증 시도 해주세요.
+          </ModalAlert>
         </section>
         <section css={styles.btnBlock}>
           <Button

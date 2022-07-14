@@ -1,15 +1,13 @@
-import * as styles from './styles'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
-import React from 'react'
-//import Link from 'next/link'
-//import Router from 'next/router'
-import { useForm } from 'react-hook-form'
+import * as styles from './styles'
 import { getLocalLoginFormSchema } from '@/libs/validations/localLoginValidation'
-import { yupResolver } from '@hookform/resolvers/yup'
-//import { logInAPI } from '@/apis/user'
 
 type FormTypes = {
   id: string

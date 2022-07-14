@@ -16,18 +16,22 @@ export const modalContainer = css`
   background-color: ${theme.gray[800]};
 
   border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-conent: space-evenly;
 `
-export const block = css`
-  div {
-    text-align: center;
-    height: 50%;
-    text-algin: center;
-    padding: 35px 0 0 0;
-  }
-  button {
-    color: #ffffff;
-    font-size: 15px;
-    border: none;
-    background-color: transparent;
-  }
+export const titleBlock = css`
+  text-align: center;
+  padding: 35px 0 0 0;
+  font-size: 15px;
+`
+export const btnBlock = css`
+  margin: auto;
+`
+export const btn = css`
+  color: #ffffff;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
 `

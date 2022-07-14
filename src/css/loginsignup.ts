@@ -46,12 +46,3 @@ export const linkBlock = css`
     color: ${theme.gray[300]};
   }
 `
-//Social Signup Page -> 닉네임 생성 페이지
-export const SocialNickname = {
-  Container: css`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 35vh;
-  `,
-}

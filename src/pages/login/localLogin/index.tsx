@@ -1,8 +1,10 @@
 import Link from 'next/link'
-import * as styles from '@/css/login/localLoginStyles'
-import Loginform from '@/components/loginform'
+
 import Homebar from '@/components/homebar'
+import Loginform from '@/components/loginform'
 import Title from '@/components/Title'
+
+import * as styles from '@/css/login/localLoginStyles'
 
 const LocalLogin = () => {
   return (

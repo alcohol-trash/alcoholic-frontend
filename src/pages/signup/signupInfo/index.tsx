@@ -1,7 +1,8 @@
 //일반 회원가입 -> 정보 입력
-import * as styles from '@/css/signup/signupInfoStyles'
 import SignupForm from '@/components/signupform'
 import Title from '@/components/Title'
+
+import * as styles from '@/css/signup/signupInfoStyles'
 
 const SignupInfo = () => {
   return (

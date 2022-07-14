@@ -1,11 +1,13 @@
-import * as styles from './styles'
-import Button from '@/components/Button'
-
-import Link from 'next/link'
+import React from 'react'
 import { useForm } from 'react-hook-form'
-import { getSignupTermsFormSchema } from '@/libs/validations/signupTermsValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Link from 'next/link'
+
+import Button from '@/components/Button'
 import Checkbox from '@/components/Checkbox'
+
+import * as styles from './styles'
+import { getSignupTermsFormSchema } from '@/libs/validations/signupTermsValidation'
 
 type FormTypes = {
   checkAll: boolean

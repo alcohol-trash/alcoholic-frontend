@@ -1,10 +1,8 @@
+import React, { useState } from 'react'
+import Image from 'next/image'
 import * as styles from './styles'
 import UnCheckImg from '@/public/assets/unchecked.png'
 import CheckImg from '@/public/assets/checked.png'
-
-import React from 'react'
-import { useState } from 'react'
-import Image from 'next/image'
 
 type Props = {
   label?: string
@@ -13,7 +11,7 @@ type Props = {
   [key: string]: any
 }
 
-const CustomCheckbox = (
+const Checkbox = (
   { label, name, value, defaultChecked = false, ...rest }: Props,
   inputRef: any,
 ) => {
@@ -39,4 +37,4 @@ const CustomCheckbox = (
   )
 }
 
-export default React.forwardRef(CustomCheckbox)
+export default React.forwardRef(Checkbox)

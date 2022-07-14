@@ -1,7 +1,8 @@
 //일반 회원가입 -> 이용약관
-import * as styles from '@/css/signup/signupTermsStyles'
 import Terms from '@/components/terms'
 import Title from '@/components/Title'
+
+import * as styles from '@/css/signup/signupTermsStyles'
 
 const SignupTerms = () => {
   return (
