@@ -24,6 +24,9 @@ export const colLeft = css`
 export const colRight = css`
   width: 26%;
 `
+export const timer = css`
+  padding: 12px 0;
+`
 export const buttonContainer = css`
   position: absolute;
   width: 100%;
