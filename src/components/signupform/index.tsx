@@ -1,116 +1,74 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import TextField from '@/components/TextField'
 import Button from '@/components/Button'
-import Link from 'next/link'
+import ValidateMessage from '@/components/ValidateMessage'
+
 import * as styles from './styles'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { useMutation } from 'react-query'
-import Router from 'next/router'
-import { logInAPI } from '@/apis/user'
-import { LoginData } from '@/types/user'
+import { getSignupInfoFormSchema } from '@/libs/validations/signupInfoValidation'
+
+type FormTypes = {
+  id: string
+  password: string
+  passwordConfirm: string
+}
 
 const SignupForm = () => {
   const {
     register,
-    formState: { errors },
+    formState: { isValid, errors },
     handleSubmit,
-    reset,
-  } = useForm<LoginData>({ mode: 'onChange' })
-  const mutation = useMutation(logInAPI, {
-    onSuccess: () => {
-      //요청이 성공한 경우
-      Router.push('/')
-    },
-    onError: (error: object) => {
-      //요청에 에러가 발생된 경우
-      alert(error)
-    },
+  } = useForm<FormTypes>({
+    resolver: yupResolver(getSignupInfoFormSchema),
   })
-  const onSubmit: SubmitHandler<LoginData> = (data) => {
-    const id = data.id
-    const password = data.password
-    mutation.mutate({ id, password })
-    reset()
+  const handleBtnClick = (data: FormTypes) => {
+    console.log(data)
   }
   return (
-    <section css={styles.SignupForm.Container}>
-      <form css={styles.SignupForm.Form} onSubmit={handleSubmit(onSubmit)}>
-        <label>아이디</label>
-        <p>8~15자리 영문, 숫자 조합</p>
-        <input
-          placeholder="아이디를 입력해주세요."
-          {...register('id', {
-            required: { value: true, message: '아이디를 확인해주세요' },
-            maxLength: { value: 12, message: '아이디를 확인해주세요' },
-            pattern: {
-              value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/,
-              message: '아이디를 확인해주세요',
-            },
-          })}
-        />
-        {errors.id && (
-          <p
-            style={{
-              color: 'var(--aqua-100)',
-              fontSize: '13px',
-              margin: '5px 0 15px 0',
-            }}
+    <section css={styles.container}>
+      <form>
+        <div>
+          <div css={styles.inputBlock}>
+            <label>아이디</label>
+            <p>8~16자리 영문, 숫자 조합</p>
+            <TextField
+              placeholder="아이디를 입력해주세요."
+              {...register('id')}
+            />
+            {errors?.id && <ValidateMessage result={errors?.id} />}
+          </div>
+          <div css={styles.inputBlock}>
+            <label>비밀번호</label>
+            <p>8~16자리 영문, 숫자, 특수문자 포함</p>
+            <TextField
+              placeholder="비밀번호를 입력해주세요."
+              type="password"
+              {...register('password')}
+            />
+            {errors?.password && <ValidateMessage result={errors?.password} />}
+          </div>
+          <div css={styles.inputBlock}>
+            <label>비밀번호 확인</label>
+            <TextField
+              placeholder="비밀번호를 입력해주세요."
+              type="password"
+              {...register('passwordConfirm')}
+            />
+            {errors?.passwordConfirm && (
+              <ValidateMessage result={errors?.passwordConfirm} />
+            )}
+          </div>
+        </div>
+        <div css={styles.btnBlock}>
+          <Button
+            onClick={handleSubmit(handleBtnClick)}
+            size="sm"
+            style={isValid ? 'primary' : 'default'}
           >
-            {errors.id.message}
-          </p>
-        )}
-        <label>비밀번호</label>
-        <p>8~15자리 영문, 숫자, 특수문자 포함</p>
-        <input
-          placeholder="비밀번호를 입력해주세요."
-          type="password"
-          {...register('password', {
-            required: { value: true, message: '비밀번호를 확인해주세요' },
-            maxLength: { value: 12, message: '비밀번호를 확인해주세요' },
-            pattern: {
-              value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/,
-              message: '비밀번호를 확인해주세요',
-            },
-          })}
-        />
-        {errors.password && (
-          <p
-            style={{
-              color: 'var(--aqua-100)',
-              fontSize: '13px',
-              margin: '5px 0 15px 0',
-            }}
-          >
-            {errors.password.message}
-          </p>
-        )}
-        <label>비밀번호 확인</label>
-        <input
-          placeholder="비밀번호를 입력해주세요."
-          type="password"
-          {...register('password', {
-            required: { value: true, message: '비밀번호를 확인해주세요' },
-            maxLength: { value: 12, message: '비밀번호를 확인해주세요' },
-            pattern: {
-              value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|._|]+$/,
-              message: '비밀번호를 확인해주세요',
-            },
-          })}
-        />
-        {errors.password && (
-          <p
-            style={{
-              color: 'var(--aqua-100)',
-              fontSize: '13px',
-              margin: '5px 0 15px 0',
-            }}
-          >
-            {errors.password.message}
-          </p>
-        )}
-        <div css={styles.SignupForm.BtnBlock}>
-          <Link href="/">
-            <Button>입력 완료</Button>
-          </Link>
+            입력 완료
+          </Button>
         </div>
       </form>
     </section>

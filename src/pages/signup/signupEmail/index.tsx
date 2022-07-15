@@ -1,18 +1,22 @@
 //일반 회원가입 -> 이메일 인증
 import Emailform from '@/components/emailform'
-import { LocalEmailPage } from '@/css/login'
+import Title from '@/components/Title'
+
+import * as styles from '@/css/signup/signupInfoStyles'
 
 const SignupEmail = () => {
   return (
-    <section css={LocalEmailPage.Container}>
-      <section css={LocalEmailPage.Block}>
-        <h1>
+    <section>
+      <section css={styles.topContainer}>
+        <Title>
           회원가입을 위해
           <br />
           이메일 인증이 필요해요.
-        </h1>
+        </Title>
       </section>
-      <Emailform />
+      <section css={styles.bottomContainer}>
+        <Emailform />
+      </section>
     </section>
   )
 }
