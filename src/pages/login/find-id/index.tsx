@@ -27,7 +27,7 @@ const FindId = () => {
   })
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
-  const [time, setTime] = useState<number>(1)
+  const [time, setTime] = useState<number>(5)
 
   const handleChange = ({ name, value }: any) => {
     // TODO: any 타입 변경
@@ -41,7 +41,7 @@ const FindId = () => {
     setCheckDisabled(false)
 
     if (!checkDisabled) {
-      // 재요청
+      // TODO: 재요청
       setTime(5)
     }
   }
