@@ -15,7 +15,7 @@ type FormTypes = {
   password: string
   passwordConfirm: string
 }
-const findPasswordReset = () => {
+const FindPasswordReset = () => {
   const {
     register,
     getValues,
@@ -97,4 +97,4 @@ const findPasswordReset = () => {
   )
 }
 
-export default React.memo(findPasswordReset)
+export default React.memo(FindPasswordReset)
