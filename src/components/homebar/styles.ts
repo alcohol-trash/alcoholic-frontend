@@ -11,6 +11,6 @@ export const block = css`
   width: 24px;
   height: 24px;
   float: right;
-  margin: 15px 0 0 0;
+  margin: 14px 0 0 0;
   cursor: pointer;
 `

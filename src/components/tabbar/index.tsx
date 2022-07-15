@@ -13,9 +13,9 @@ const Tabbar = () => {
     reset()
   }
   return (
-    <section css={styles.Tabbar.Container}>
-      <form css={styles.Tabbar.Form} onSubmit={handleSubmit(onVaild)}>
-        <div css={styles.Tabbar.Block}>
+    <section css={styles.container}>
+      <form css={styles.form} onSubmit={handleSubmit(onVaild)}>
+        <div css={styles.block}>
           <Image src={ProfileImg} width={32} height={32} />
         </div>
         <textarea

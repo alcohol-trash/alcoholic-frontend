@@ -2,11 +2,6 @@ import { css } from '@emotion/react'
 
 //Home Page
 export const HomePage = {
-  Container: css`
-    display: flex;
-    flex-direction: column;
-    padding: 0 24px;
-  `,
   TopContainer: css`
     display: flex;
     margin: 12px 0;

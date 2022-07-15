@@ -7,7 +7,7 @@ import * as styles from '@/css/signup/signupNicknameStyles'
 
 const SignupNickname = () => {
   return (
-    <section css={styles.container}>
+    <section>
       <section css={styles.topContainer}>
         <Title>
           알코홀-릭에서 사용할

@@ -18,5 +18,5 @@ export const btnBlock = css`
   position: absolute;
   width: 100%;
   height: 52px;
-  bottom: 5%;
+  bottom: 4%;
 `

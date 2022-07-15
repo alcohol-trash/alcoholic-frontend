@@ -23,8 +23,8 @@ export const modalContainer = css`
 `
 export const titleBlock = css`
   text-align: center;
-  padding: 35px 0 0 0;
-  font-size: 15px;
+  padding: 34px 0 0 0;
+  font-size: 14px;
 `
 export const btnBlock = css`
   margin: auto;
@@ -33,5 +33,5 @@ export const btn = css`
   color: #ffffff;
   border: none;
   background-color: transparent;
-  font-size: 15px;
+  font-size: 14px;
 `

@@ -3,7 +3,6 @@ import theme from '../theme'
 
 //login & signup
 export const container = css`
-  height: 100vh;
   padding: 0 12px;
 `
 export const topContainer = css`

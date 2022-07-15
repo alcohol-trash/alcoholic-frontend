@@ -8,7 +8,7 @@ export const container = css`
 `
 
 export const form = css`
-  font-size: 15px;
+  font-size: 14px;
 `
 
 export const word = css`
@@ -26,12 +26,12 @@ export const inputBlock = css`
     cursor: pointer;
   }
   label {
-    margin: 10px 3px;
+    margin: 10px 4px;
   }
 `
 export const btnBlock = css`
   position: absolute;
   width: 100%;
   height: 52px;
-  bottom: 5%;
+  bottom: 4%;
 `
