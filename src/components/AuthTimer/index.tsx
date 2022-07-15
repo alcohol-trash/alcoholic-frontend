@@ -30,7 +30,8 @@ const AuthTimer = ({ time, message: msg }: Props) => {
   }
   useEffect(() => setMessage(msg), [msg])
   useEffect(() => {
-    if (isCompleted) setMessage('the end')
+    if (isCompleted)
+      setMessage('인증 시간이 만료되었습니다.\n재요청 버튼을 눌러주세요.')
   }, [isCompleted])
 
   return (
@@ -46,7 +47,7 @@ const AuthTimer = ({ time, message: msg }: Props) => {
             }}
           />
         ) : (
-          '만료'
+          '0:00'
         )}
       </div>
       <div css={styles.msg}>{message}</div>
