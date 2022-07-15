@@ -27,6 +27,7 @@ const FindId = () => {
   })
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
+  const [time, setTime] = useState<number>(1)
 
   const handleChange = ({ name, value }: any) => {
     // TODO: any 타입 변경
@@ -38,6 +39,11 @@ const FindId = () => {
 
     // 인증 확인 disabled -> default
     setCheckDisabled(false)
+
+    if (!checkDisabled) {
+      // 재요청
+      setTime(5)
+    }
   }
 
   const handleCheckClick = () => {
@@ -83,7 +89,7 @@ const FindId = () => {
           <div css={styles.timer}>
             {!checkDisabled && (
               <AuthTimer
-                time={5}
+                time={time}
                 message={
                   '인증 메일이 발송되었습니다.\n해당 메일에서 인증 링크를 눌러주세요.'
                 }
