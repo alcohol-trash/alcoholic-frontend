@@ -1,9 +1,9 @@
 import { css, Theme } from '@emotion/react'
-import reset from 'emotion-reset'
 
 export const globalCss = (theme: Theme) => css`
   * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     color: white;

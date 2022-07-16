@@ -26,24 +26,27 @@ export const button = css`
   padding: 0 1rem;
 `
 export const size = (size: TextSize) => {
-  return Size[size]
-    ? css`
-        font-size: ${Size[size]}px;
-      `
-    : null
+  return (
+    Size[size] &&
+    css`
+      font-size: ${Size[size]}px;
+    `
+  )
 }
 export const style = (style: ButtonStyle) => {
-  return Style[style]
-    ? css`
-        color: ${Style[style]['color']};
-        background-color: ${Style[style]['bgColor']};
-      `
-    : null
+  return (
+    Style[style] &&
+    css`
+      color: ${Style[style]['color']};
+      background-color: ${Style[style]['bgColor']};
+    `
+  )
 }
 export const align = (align: TextAlign) => {
-  return align
-    ? css`
-        text-align: ${align};
-      `
-    : null
+  return (
+    align &&
+    css`
+      text-align: ${align};
+    `
+  )
 }
