@@ -49,51 +49,55 @@ const FindPasswordReset = () => {
   }, [getValues, errors.password, errors.passwordConfirm])
 
   return (
-    <div css={styles.container}>
-      <Title>비밀번호 재설정</Title>
-      <div>
-        <form css={styles.form}>
-          <div css={styles.box}>
-            <label>
-              비밀번호 <span>8~16자리 영문, 숫자, 특수문자 포함</span>
-            </label>
-            <div>
-              <TextField
-                type="password"
-                placeholder="비밀번호를 입력해주세요."
-                {...register('password')}
-                onChange={handleChange}
-              />
+    <>
+      <div css={styles.container}>
+        <Title>비밀번호 재설정</Title>
+        <div>
+          <form css={styles.form}>
+            <div css={styles.box}>
+              <label>
+                비밀번호 <span>8~16자리 영문, 숫자, 특수문자 포함</span>
+              </label>
+              <div>
+                <TextField
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  {...register('password')}
+                  onChange={handleChange}
+                />
+              </div>
+              {errors?.password && (
+                <ValidateMessage result={errors?.password} />
+              )}
             </div>
-            {errors?.password && <ValidateMessage result={errors?.password} />}
-          </div>
-          <div css={styles.box}>
-            <label>비밀번호 확인</label>
-            <div>
-              <TextField
-                type="password"
-                placeholder="비밀번호를 다시 입력해주세요."
-                {...register('passwordConfirm')}
-                onChange={handleChange}
-              />
+            <div css={styles.box}>
+              <label>비밀번호 확인</label>
+              <div>
+                <TextField
+                  type="password"
+                  placeholder="비밀번호를 다시 입력해주세요."
+                  {...register('passwordConfirm')}
+                  onChange={handleChange}
+                />
+              </div>
+              {errors?.passwordConfirm && (
+                <ValidateMessage result={errors?.passwordConfirm} />
+              )}
             </div>
-            {errors?.passwordConfirm && (
-              <ValidateMessage result={errors?.passwordConfirm} />
-            )}
-          </div>
-          <div css={styles.buttonContainer}>
-            <Button
-              size="sm"
-              style={submitDisabled ? 'default' : 'primary'}
-              onClick={handleSubmit(handleClick)}
-              disabled={submitDisabled}
-            >
-              설정 완료
-            </Button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+      <div css={styles.buttonContainer}>
+        <Button
+          size="sm"
+          style={submitDisabled ? 'default' : 'primary'}
+          onClick={handleSubmit(handleClick)}
+          disabled={submitDisabled}
+        >
+          설정 완료
+        </Button>
+      </div>
+    </>
   )
 }
 
