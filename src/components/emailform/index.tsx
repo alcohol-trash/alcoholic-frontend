@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
-import Timer from '@/components/timer'
+import AuthTimer from '@/components/AuthTimer'
 import ModalAlert from '@/components/Modal'
 
 import * as styles from './styles'
@@ -17,20 +17,37 @@ type FormTypes = {
 
 const Emailform = () => {
   const [submit, setSubmit] = useState<boolean>(false) //인증 요청 버튼을 누른 후 인증 완료 버튼 활성화
-  const [modal, setModal] = useState<boolean>(false) //인증 완료 버튼 활성화 후 버튼을 눌렀을 때 모달 셋팅 여부 -> 인증이 되었는지에 대한 응답에 따라 바뀜
+  const [modal, setModal] = useState<boolean>(false)
+  const [time, setTime] = useState<number>(5)
+  const [end, setEnd] = useState<boolean>(true) //요청 성공 여부
   const {
     register,
-    formState: { isValid, errors },
+    setValue,
     handleSubmit,
+    formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: yupResolver(getSignupEmailFormSchema),
   })
+  const handleChange = ({ name, value }: any) => {
+    setValue(name, value, { shouldValidate: true })
+  }
   const handleSubmitClick = (data: FormTypes) => {
+    //인증 요청
     console.log(data)
-    setSubmit(!submit)
+    //재요청 버튼 활성화+인증요청 완료
+    setSubmit(true)
+    //인증 실패 시
+    //재요청
+    if (!end) {
+      setTime(5)
+    }
   }
   const handleDoneClick = () => {
-    setModal(!modal)
+    if (!submit) {
+      //인증이 완료되지 않은 경우
+      //모달
+      setModal(!modal)
+    }
   }
   return (
     <section css={styles.container}>
@@ -42,6 +59,7 @@ const Emailform = () => {
               <TextField
                 placeholder="이메일 입력해주세요."
                 {...register('email')}
+                onChange={handleChange}
               />
             </div>
             <div css={styles.rightBlock}>
@@ -51,12 +69,19 @@ const Emailform = () => {
                 style={isValid || submit ? 'primary' : 'default'}
                 onClick={handleSubmit(handleSubmitClick)}
               >
-                {submit ? '재 요청' : '인증 요청'}
+                {submit ? '재요청' : '인증 요청'}
               </Button>
             </div>
           </div>
           {errors?.email && <ValidateMessage result={errors?.email} />}
-          {submit && <Timer />}
+          {submit && (
+            <AuthTimer
+              time={time}
+              message={
+                '인증 메일이 발송되었습니다.\n해당 메일에서 인증 링크를 눌러주세요.'
+              }
+            />
+          )}
         </section>
         <section>
           <ModalAlert
@@ -73,6 +98,7 @@ const Emailform = () => {
             size="sm"
             style={submit ? 'primary' : 'default'}
             onClick={handleSubmit(handleDoneClick)}
+            disabled={!submit}
           >
             인증 확인
           </Button>

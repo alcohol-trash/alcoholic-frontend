@@ -18,11 +18,15 @@ type FormTypes = {
 const SignupForm = () => {
   const {
     register,
+    setValue,
     formState: { isValid, errors },
     handleSubmit,
   } = useForm<FormTypes>({
     resolver: yupResolver(getSignupInfoFormSchema),
   })
+  const handleChange = ({ name, value }: any) => {
+    setValue(name, value, { shouldValidate: true })
+  }
   const handleBtnClick = (data: FormTypes) => {
     console.log(data)
   }
@@ -36,6 +40,7 @@ const SignupForm = () => {
             <TextField
               placeholder="아이디를 입력해주세요."
               {...register('id')}
+              onChange={handleChange}
             />
             {errors?.id && <ValidateMessage result={errors?.id} />}
           </div>
@@ -46,6 +51,7 @@ const SignupForm = () => {
               placeholder="비밀번호를 입력해주세요."
               type="password"
               {...register('password')}
+              onChange={handleChange}
             />
             {errors?.password && <ValidateMessage result={errors?.password} />}
           </div>
@@ -55,6 +61,7 @@ const SignupForm = () => {
               placeholder="비밀번호를 입력해주세요."
               type="password"
               {...register('passwordConfirm')}
+              onChange={handleChange}
             />
             {errors?.passwordConfirm && (
               <ValidateMessage result={errors?.passwordConfirm} />

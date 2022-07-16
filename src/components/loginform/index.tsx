@@ -18,12 +18,16 @@ const Loginform = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: yupResolver(getLocalLoginFormSchema),
   })
   const handleBtnClick = (data: FormTypes) => {
     console.log(data)
+  }
+  const handleChange = ({ name, value }: any) => {
+    setValue(name, value, { shouldValidate: true })
   }
   return (
     <section css={styles.container}>
@@ -34,6 +38,7 @@ const Loginform = () => {
             <TextField
               placeholder="아이디를 입력해주세요."
               {...register('id')}
+              onChange={handleChange}
             />
             {errors?.id && <ValidateMessage result={errors?.id} />}
           </div>
@@ -43,6 +48,7 @@ const Loginform = () => {
               placeholder="비밀번호를 입력해주세요."
               type="password"
               {...register('password')}
+              onChange={handleChange}
             />
             {errors?.password && <ValidateMessage result={errors?.password} />}
           </div>
