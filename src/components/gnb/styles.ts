@@ -12,7 +12,7 @@ export const block = css`
   align-items: center;
 `
 export const blockDetail = css`
-  padding: 20px 0;
+  padding: 20px 20px;
   justify-content: space-between;
 `
 export const profile = css`

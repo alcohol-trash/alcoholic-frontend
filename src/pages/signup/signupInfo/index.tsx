@@ -6,7 +6,7 @@ import * as styles from '@/css/signup/signupInfoStyles'
 
 const SignupInfo = () => {
   return (
-    <section>
+    <section css={styles.container}>
       <section css={styles.topContainer}>
         <Title>
           회원가입 정보를

@@ -1,6 +1,10 @@
 import { css } from '@emotion/react'
 import theme from '@/theme'
 
+export const container = css`
+  padding: 0 20px;
+`
+
 export const topContainer = css`
   height: 20vh;
 `
