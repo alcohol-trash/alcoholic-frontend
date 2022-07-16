@@ -21,11 +21,10 @@ const FindId = () => {
     getValues,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors }, // isValid: Set to true if the form doesn't have any errors.
   } = useForm<FormTypes>({
     resolver: getFindIdFormSchema(),
   })
-  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [time, setTime] = useState<number>(5)
 
@@ -51,11 +50,6 @@ const FindId = () => {
     Router.push('/login/find-id/success')
   }
 
-  useEffect(() => {
-    if (getValues('email') && !errors.email) setSubmitDisabled(false)
-    else setSubmitDisabled(true)
-  }, [getValues, errors.email])
-
   return (
     <div css={styles.container}>
       <Title>아이디 찾기</Title>
@@ -76,9 +70,9 @@ const FindId = () => {
                 <Button
                   size="sm"
                   align="center"
-                  style={submitDisabled ? 'default' : 'primary'}
+                  style={!isValid ? 'default' : 'primary'}
                   onClick={handleSubmit(handleClick)}
-                  disabled={submitDisabled}
+                  disabled={!isValid}
                 >
                   {checkDisabled ? '인증 요청' : '재요청'}
                 </Button>

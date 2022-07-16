@@ -22,11 +22,10 @@ const FindPassword = () => {
     getValues,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: getFindPasswordFormSchema(),
   })
-  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [time, setTime] = useState<number>(5)
 
@@ -52,12 +51,6 @@ const FindPassword = () => {
     // TODO: 인증 확인 API -> 비밀번호 재설정 이동
     Router.push('/login/find-password/reset')
   }
-
-  useEffect(() => {
-    if (getValues('id') && !errors.id && getValues('email') && !errors.email)
-      setSubmitDisabled(false)
-    else setSubmitDisabled(true)
-  }, [getValues, errors.email, errors.id])
 
   return (
     <div css={styles.container}>
@@ -89,9 +82,9 @@ const FindPassword = () => {
                 <Button
                   size="sm"
                   align="center"
-                  style={submitDisabled ? 'default' : 'primary'}
+                  style={!isValid ? 'default' : 'primary'}
                   onClick={handleSubmit(handleClick)}
-                  disabled={submitDisabled}
+                  disabled={!isValid}
                 >
                   {checkDisabled ? '인증 요청' : '재요청'}
                 </Button>
