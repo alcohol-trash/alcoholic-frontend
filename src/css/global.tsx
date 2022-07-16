@@ -36,5 +36,4 @@ export const componentContainer = css`
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  padding: 0 20px;
 `
