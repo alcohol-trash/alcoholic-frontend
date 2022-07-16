@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import theme from '@/theme'
 export const container = css`
   position: relative;
-  padding: 48px 0 0;
+  padding: 48px 20px 0;
   flex-grow: 1;
 `
 export const form = css`
@@ -42,4 +42,5 @@ export const buttonContainer = css`
   width: 100%;
   height: 52px;
   bottom: 24px;
+  padding: 0 20px;
 `

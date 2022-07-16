@@ -22,11 +22,10 @@ const FindPassword = () => {
     getValues,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: getFindPasswordFormSchema(),
   })
-  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [time, setTime] = useState<number>(5)
 
@@ -53,75 +52,71 @@ const FindPassword = () => {
     Router.push('/login/find-password/reset')
   }
 
-  useEffect(() => {
-    if (getValues('id') && !errors.id && getValues('email') && !errors.email)
-      setSubmitDisabled(false)
-    else setSubmitDisabled(true)
-  }, [getValues, errors.email, errors.id])
-
   return (
-    <div css={styles.container}>
-      <Title>비밀번호 찾기</Title>
-      <div>
-        <form css={styles.form}>
-          <div css={styles.box}>
-            <label>아이디</label>
-            <div>
-              <TextField
-                placeholder="아이디를 입력해주세요."
-                {...register('id')}
-                onChange={handleChange}
-              />
-            </div>
-            {errors?.id && <ValidateMessage result={errors?.id} />}
-          </div>
-          <div css={styles.box}>
-            <label>이메일</label>
-            <div css={styles.row}>
-              <div css={styles.colLeft}>
+    <>
+      <div css={styles.container}>
+        <Title>비밀번호 찾기</Title>
+        <div>
+          <form css={styles.form}>
+            <div css={styles.box}>
+              <label>아이디</label>
+              <div>
                 <TextField
-                  placeholder="이메일을 입력해주세요."
-                  {...register('email')}
+                  placeholder="아이디를 입력해주세요."
+                  {...register('id')}
                   onChange={handleChange}
                 />
               </div>
-              <div css={styles.colRight}>
-                <Button
-                  size="sm"
-                  align="center"
-                  style={submitDisabled ? 'default' : 'primary'}
-                  onClick={handleSubmit(handleClick)}
-                  disabled={submitDisabled}
-                >
-                  {checkDisabled ? '인증 요청' : '재요청'}
-                </Button>
-              </div>
+              {errors?.id && <ValidateMessage result={errors?.id} />}
             </div>
-            {errors?.email && <ValidateMessage result={errors?.email} />}
-          </div>
-          <div css={styles.timer}>
-            {!checkDisabled && (
-              <AuthTimer
-                time={time}
-                message={
-                  '인증 메일이 발송되었습니다.\n해당 메일에서 인증 링크를 눌러주세요.'
-                }
-              />
-            )}
-          </div>
-          <div css={styles.buttonContainer}>
-            <Button
-              size="sm"
-              style={checkDisabled ? 'default' : 'primary'}
-              onClick={handleCheckClick}
-              disabled={checkDisabled}
-            >
-              인증 확인
-            </Button>
-          </div>
-        </form>
+            <div css={styles.box}>
+              <label>이메일</label>
+              <div css={styles.row}>
+                <div css={styles.colLeft}>
+                  <TextField
+                    placeholder="이메일을 입력해주세요."
+                    {...register('email')}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div css={styles.colRight}>
+                  <Button
+                    size="sm"
+                    align="center"
+                    style={!isValid ? 'default' : 'primary'}
+                    onClick={handleSubmit(handleClick)}
+                    disabled={!isValid}
+                  >
+                    {checkDisabled ? '인증 요청' : '재요청'}
+                  </Button>
+                </div>
+              </div>
+              {errors?.email && <ValidateMessage result={errors?.email} />}
+            </div>
+            <div css={styles.timer}>
+              {!checkDisabled && (
+                <AuthTimer
+                  time={time}
+                  message={
+                    '인증 메일이 발송되었습니다.\n해당 메일에서 인증 링크를 눌러주세요.'
+                  }
+                />
+              )}
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      <div css={styles.buttonContainer}>
+        <Button
+          size="sm"
+          style={checkDisabled ? 'default' : 'primary'}
+          onClick={handleCheckClick}
+          disabled={checkDisabled}
+        >
+          인증 확인
+        </Button>
+      </div>
+    </>
   )
 }
 

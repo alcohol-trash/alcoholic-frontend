@@ -21,11 +21,10 @@ const FindId = () => {
     getValues,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors }, // isValid: Set to true if the form doesn't have any errors.
   } = useForm<FormTypes>({
     resolver: getFindIdFormSchema(),
   })
-  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [time, setTime] = useState<number>(5)
 
@@ -51,64 +50,61 @@ const FindId = () => {
     Router.push('/login/find-id/success')
   }
 
-  useEffect(() => {
-    if (getValues('email') && !errors.email) setSubmitDisabled(false)
-    else setSubmitDisabled(true)
-  }, [getValues, errors.email])
-
   return (
-    <div css={styles.container}>
-      <Title>아이디 찾기</Title>
-      <div>
-        <form css={styles.form}>
-          <div css={styles.box}>
-            <label>이메일</label>
-            <div css={styles.row}>
-              <div css={styles.colLeft}>
-                <TextField
-                  placeholder="이메일을 입력해주세요."
-                  {...register('email')}
-                  // 'onChange' is specified more than once, so this usage will be overwritten. -> register spread 이후에
-                  onChange={handleChange}
-                />
+    <>
+      <div css={styles.container}>
+        <Title>아이디 찾기</Title>
+        <div>
+          <form css={styles.form}>
+            <div css={styles.box}>
+              <label>이메일</label>
+              <div css={styles.row}>
+                <div css={styles.colLeft}>
+                  <TextField
+                    placeholder="이메일을 입력해주세요."
+                    {...register('email')}
+                    // 'onChange' is specified more than once, so this usage will be overwritten. -> register spread 이후에
+                    onChange={handleChange}
+                  />
+                </div>
+                <div css={styles.colRight}>
+                  <Button
+                    size="sm"
+                    align="center"
+                    style={!isValid ? 'default' : 'primary'}
+                    onClick={handleSubmit(handleClick)}
+                    disabled={!isValid}
+                  >
+                    {checkDisabled ? '인증 요청' : '재요청'}
+                  </Button>
+                </div>
               </div>
-              <div css={styles.colRight}>
-                <Button
-                  size="sm"
-                  align="center"
-                  style={submitDisabled ? 'default' : 'primary'}
-                  onClick={handleSubmit(handleClick)}
-                  disabled={submitDisabled}
-                >
-                  {checkDisabled ? '인증 요청' : '재요청'}
-                </Button>
-              </div>
+              {errors?.email && <ValidateMessage result={errors?.email} />}
             </div>
-            {errors?.email && <ValidateMessage result={errors?.email} />}
-          </div>
-          <div css={styles.timer}>
-            {!checkDisabled && (
-              <AuthTimer
-                time={time}
-                message={
-                  '인증 메일이 발송되었습니다.\n해당 메일에서 인증 링크를 눌러주세요.'
-                }
-              />
-            )}
-          </div>
-        </form>
-        <div css={styles.buttonContainer}>
-          <Button
-            size="sm"
-            style={checkDisabled ? 'default' : 'primary'}
-            onClick={handleCheckClick}
-            disabled={checkDisabled}
-          >
-            인증 확인
-          </Button>
+            <div css={styles.timer}>
+              {!checkDisabled && (
+                <AuthTimer
+                  time={time}
+                  message={
+                    '인증 메일이 발송되었습니다.\n해당 메일에서 인증 링크를 눌러주세요.'
+                  }
+                />
+              )}
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+      <div css={styles.buttonContainer}>
+        <Button
+          size="sm"
+          style={checkDisabled ? 'default' : 'primary'}
+          onClick={handleCheckClick}
+          disabled={checkDisabled}
+        >
+          인증 확인
+        </Button>
+      </div>
+    </>
   )
 }
 
