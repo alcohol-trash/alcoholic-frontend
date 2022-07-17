@@ -4,23 +4,23 @@ import Gnb from '@/components/gnb'
 import NoticeTitle from '@/components/noticetitle'
 import Category from '@/components/category'
 import Feed from '@/components/feed'
-import { HomePage } from '@/css/home'
+import * as styles from '@/css/home'
 
 const Home = () => {
   return (
     <>
       <Gnb />
-      <section css={HomePage.Container}>
+      <section css={styles.container}>
         <NoticeTitle
           title="주류학개론"
           description="술에 대한 정보, 리뷰를 올려주세요."
         />
-        <section css={HomePage.TopContainer}>
+        <section css={styles.topContainer}>
           {CATEGORY_DUMMY.map((data) => (
             <Category content={data.content} key={data.id} />
           ))}
         </section>
-        <section css={HomePage.BottomContainer}>
+        <section css={styles.bottomContainer}>
           <Feed />
           <Feed />
           <Feed />

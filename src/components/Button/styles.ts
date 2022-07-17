@@ -7,6 +7,20 @@ export const Size = {
   sm: 14,
   base: 16,
 }
+export const Padding = {
+  xs: {
+    x: 12,
+    y: 8,
+  },
+  sm: {
+    x: 16,
+    y: 12,
+  },
+  base: {
+    x: 16,
+    y: 12,
+  },
+}
 export const Style = {
   default: {
     color: theme.gray[300],
@@ -23,27 +37,31 @@ export const button = css`
   border: none;
   border-radius: 8px;
   box-shadow: none;
-  padding: 0 1rem;
+  padding: 12px 16px;
 `
 export const size = (size: TextSize) => {
-  return Size[size]
-    ? css`
-        font-size: ${Size[size]}px;
-      `
-    : null
+  return (
+    Size[size] &&
+    css`
+      font-size: ${Size[size]}px;
+      padding: ${Padding[size]['y']}px ${Padding[size]['x']}px;
+    `
+  )
 }
 export const style = (style: ButtonStyle) => {
-  return Style[style]
-    ? css`
-        color: ${Style[style]['color']};
-        background-color: ${Style[style]['bgColor']};
-      `
-    : null
+  return (
+    Style[style] &&
+    css`
+      color: ${Style[style]['color']};
+      background-color: ${Style[style]['bgColor']};
+    `
+  )
 }
 export const align = (align: TextAlign) => {
-  return align
-    ? css`
-        text-align: ${align};
-      `
-    : null
+  return (
+    align &&
+    css`
+      text-align: ${align};
+    `
+  )
 }
