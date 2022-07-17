@@ -8,7 +8,7 @@ import * as styles from '@/css/login/localLoginStyles'
 
 const LocalLogin = () => {
   return (
-    <section>
+    <section css={styles.container}>
       <Homebar />
       <section css={styles.topContainer}>
         <Title>
