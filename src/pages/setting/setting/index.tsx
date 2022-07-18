@@ -1,7 +1,7 @@
 import Homebar from '@/components/homebar'
 import * as styles from './styles'
 
-const settingMain = () => {
+const Setting = () => {
   return (
     <section css={styles.container}>
       <Homebar />
@@ -15,4 +15,4 @@ const settingMain = () => {
   )
 }
 
-export default settingMain
+export default Setting
