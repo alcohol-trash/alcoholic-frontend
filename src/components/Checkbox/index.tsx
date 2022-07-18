@@ -30,7 +30,7 @@ const Checkbox = (
         {...rest}
       />
       <label>
-        <Image src={checked ? CheckImg : UnCheckImg} />
+        <Image src={checked ? CheckImg : UnCheckImg} width={20} height={20} />
       </label>
       <label>{label}</label>
     </div>
