@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Homebar from '@/components/homebar'
+import Header from '@/components/Header'
 import Loginform from '@/components/loginform'
 import Title from '@/components/Title'
 
@@ -9,7 +9,7 @@ import * as styles from '@/css/login/localLoginStyles'
 const LocalLogin = () => {
   return (
     <section css={styles.container}>
-      <Homebar />
+      <Header style="right" />
       <section css={styles.topContainer}>
         <Title>
           로그인 정보를
