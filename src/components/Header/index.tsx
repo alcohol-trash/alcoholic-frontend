@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Router from 'next/router'
 import Image from 'next/image'
 
 import * as styles from './styles'
@@ -16,21 +16,17 @@ const Header = ({ title, style = 'default' }: Props) => {
     <section css={styles.container}>
       {style === 'left' && (
         <section css={styles.leftBlock}>
-          <Link href="/">
-            <div css={styles.imgBlock}>
-              <Image src={BackImg} width={24} height={24} />
-            </div>
-          </Link>
+          <div css={styles.imgBlock} onClick={() => Router.back()}>
+            <Image src={BackImg} width={24} height={24} />
+          </div>
         </section>
       )}
       <section css={styles.titleBlock}>{title}</section>
       {style === 'right' && (
         <section css={styles.rightBlock}>
-          <Link href="/">
-            <div css={styles.imgBlock}>
-              <Image src={HomeImg} width={24} height={24} />
-            </div>
-          </Link>
+          <div css={styles.imgBlock} onClick={() => Router.push('/')}>
+            <Image src={HomeImg} width={24} height={24} />
+          </div>
         </section>
       )}
     </section>

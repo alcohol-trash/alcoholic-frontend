@@ -1,7 +1,7 @@
 import React from 'react'
 import * as styles from './styles'
 export type TextSize = 'xs' | 'sm' | 'base'
-export type ButtonStyle = 'default' | 'primary'
+export type ButtonStyle = 'default' | 'primary' | 'secondary'
 export type TextAlign = 'left' | 'right' | 'center'
 type Props = {
   children?: React.ReactNode
