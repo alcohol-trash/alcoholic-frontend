@@ -3,8 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import * as styles from '@/css/loginsignup'
-import KakaoLogo from '@/images/kakao.png'
-import GoogleLogo from '@/images//google.png'
 
 const LoginSignup = () => {
   const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
@@ -25,12 +23,12 @@ const LoginSignup = () => {
         <div css={styles.imgBlock}>
           <Link href="/signup/signup-nickname">
             <div>
-              <Image src={KakaoLogo} width={56} height={56} />
+              <Image src="/assets/kakao.png" width={56} height={56} />
             </div>
           </Link>
           <Link href="/signup/signup-nickname">
             <div>
-              <Image src={GoogleLogo} width={56} height={56} />
+              <Image src="/assets/google.png" width={56} height={56} />
             </div>
           </Link>
         </div>

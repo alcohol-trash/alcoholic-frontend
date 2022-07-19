@@ -3,7 +3,6 @@ import Image from 'next/image'
 
 import * as styles from './styles'
 import Title from '@/components/Title'
-import ProfileImg from '@/images/profile_img.png'
 
 const Gnb = () => {
   return (
@@ -14,7 +13,7 @@ const Gnb = () => {
         </Link>
         <Link href="/loginsignup">
           <div css={[styles.block, styles.profile]}>
-            <Image src={ProfileImg} width={32} height={32} />
+            <Image src="/assets/profile_img.png" width={32} height={32} />
           </div>
         </Link>
       </div>

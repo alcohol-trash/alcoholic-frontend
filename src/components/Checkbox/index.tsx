@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import * as styles from './styles'
-import UnCheckImg from '@/images/unchecked.png'
-import CheckImg from '@/images/checked.png'
+import UnCheckImg from 'public/assets/unchecked.png'
+import CheckImg from 'public/assets/checked.png'
 
 type Props = {
   label?: string
