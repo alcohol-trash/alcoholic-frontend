@@ -2,8 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import * as styles from './styles'
-import KakaoLogo from '@/public/assets/kakao.png'
-import GoogleLogo from '@/public/assets/google.png'
+import KakaoLogo from '@/images/kakao.png'
+import GoogleLogo from '@/images/google.png'
 
 const Login = () => {
   const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY

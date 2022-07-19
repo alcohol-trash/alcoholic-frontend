@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 import * as styles from './styles'
 import Category from '@/components/category'
-import ProfileDefault from '@/public/assets/profile_default.png'
-import Babamba from '@/public/assets/babamba.png'
+import ProfileDefault from '@/images/profile_default.png'
+import Babamba from '@/images/babamba.png'
 
 const Feed = () => {
   const [cheers, set_cheers] = useState(1)

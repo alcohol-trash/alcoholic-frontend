@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 
 import * as styles from './styles'
-import ProfileImg from '@/public/assets/profile_img.png'
+import ProfileImg from '@/images/profile_img.png'
 
 const Tabbar = () => {
   const { register, handleSubmit, reset } = useForm()

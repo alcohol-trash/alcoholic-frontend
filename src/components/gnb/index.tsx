@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import * as styles from './styles'
 import Title from '@/components/Title'
-import ProfileImg from '@/public/assets/profile_img.png'
+import ProfileImg from '@/images/profile_img.png'
 
 const Gnb = () => {
   return (
