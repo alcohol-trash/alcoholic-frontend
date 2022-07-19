@@ -2,7 +2,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import Header from '@/components/Header'
-import * as styles from './styles'
+import * as styles from '@/css/setting/settingMainStyles'
 
 const Setting = () => {
   const handleLogout = () => {

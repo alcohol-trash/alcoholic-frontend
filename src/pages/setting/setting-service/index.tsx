@@ -1,5 +1,5 @@
 import Header from '@/components/Header'
-import * as styles from './styles'
+import * as styles from '@/css/setting/settingServiceStyles'
 
 const Service = () => {
   return (

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 
-import * as styles from './styles'
+import * as styles from '@/css/setting/settingInfoStyles'
 import Button from '@/components/Button'
 
 const Info = () => {
