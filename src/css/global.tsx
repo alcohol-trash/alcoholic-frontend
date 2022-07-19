@@ -17,6 +17,7 @@ export const globalCss = (theme: Theme) => css`
   ul {
     margin: 0;
     padding: 0;
+    list-style: none;
   }
   input {
     caret-color: ${theme.aqua[500]};
