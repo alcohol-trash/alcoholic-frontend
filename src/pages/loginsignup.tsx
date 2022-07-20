@@ -3,8 +3,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import * as styles from '@/css/loginsignup'
-import KakaoLogo from '@/public/assets/kakao.png'
-import GoogleLogo from '@/public/assets/google.png'
 
 const LoginSignup = () => {
   const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
@@ -23,22 +21,22 @@ const LoginSignup = () => {
       <section css={styles.bottomContainer}>
         <p>SNS 계정으로 시작하기</p>
         <div css={styles.imgBlock}>
-          <Link href="/signup/signupNickname">
+          <Link href="/signup/signup-nickname">
             <div>
-              <Image src={KakaoLogo} width={56} height={56} />
+              <Image src="/assets/kakao.png" width={56} height={56} />
             </div>
           </Link>
-          <Link href="/signup/signupNickname">
+          <Link href="/signup/signup-nickname">
             <div>
-              <Image src={GoogleLogo} width={56} height={56} />
+              <Image src="/assets/google.png" width={56} height={56} />
             </div>
           </Link>
         </div>
         <div css={styles.linkBlock}>
-          <Link href="/login/localLogin">
+          <Link href="/login/locallogin">
             <a>일반 로그인 /</a>
           </Link>
-          <Link href="/signup/signupTerms">
+          <Link href="/signup/signup-terms">
             <a> 회원가입</a>
           </Link>
         </div>

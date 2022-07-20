@@ -3,8 +3,6 @@ import Image from 'next/image'
 
 import * as styles from './styles'
 import Category from '@/components/category'
-import ProfileDefault from '@/public/assets/profile_default.png'
-import Babamba from '@/public/assets/babamba.png'
 
 const Feed = () => {
   const [cheers, set_cheers] = useState(1)
@@ -15,7 +13,7 @@ const Feed = () => {
       <div css={styles.Feed.FeedHeader}>
         <div css={styles.Feed.FeedHeaderProfile}>
           <Image
-            src={ProfileDefault}
+            src="/assets/profile_default.png"
             alt="회색 배경에 흰 사람 동그란 프로필 이미지"
             width={40}
             height={40}
@@ -33,7 +31,13 @@ const Feed = () => {
           신상 바밤바 막걸리! 아이스크림 맛이에요 ㅎ.ㅎ
         </p>
         <div css={styles.Feed.FeedContentImage}>
-          <Image src={Babamba} alt="바밤바 캔 막걸리" layout="responsive" />
+          <Image
+            src="/assets/babamba.png"
+            alt="바밤바 캔 막걸리"
+            width={335}
+            height={189}
+            layout="responsive"
+          />
         </div>
       </div>
 

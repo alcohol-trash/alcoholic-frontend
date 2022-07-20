@@ -9,11 +9,12 @@ export const Size = {
 }
 
 export const size = (size: TextSize) => {
-  return Size[size]
-    ? css`
-        font-size: ${Size[size]}px;
-      `
-    : null
+  return (
+    Size[size] &&
+    css`
+      font-size: ${Size[size]}px;
+    `
+  )
 }
 
 export const container = css`

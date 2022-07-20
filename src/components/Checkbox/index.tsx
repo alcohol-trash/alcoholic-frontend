@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import * as styles from './styles'
-import UnCheckImg from '@/public/assets/unchecked.png'
-import CheckImg from '@/public/assets/checked.png'
+import UnCheckImg from 'public/assets/unchecked.png'
+import CheckImg from 'public/assets/checked.png'
 
 type Props = {
   label?: string
@@ -30,7 +30,7 @@ const Checkbox = (
         {...rest}
       />
       <label>
-        <Image src={checked ? CheckImg : UnCheckImg} />
+        <Image src={checked ? CheckImg : UnCheckImg} width={20} height={20} />
       </label>
       <label>{label}</label>
     </div>

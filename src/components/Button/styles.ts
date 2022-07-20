@@ -30,6 +30,10 @@ export const Style = {
     color: theme.gray[900],
     bgColor: theme.aqua[500],
   },
+  secondary: {
+    color: theme.gray[300],
+    bgColor: 'transparent',
+  },
 }
 export const button = css`
   width: 100%;
