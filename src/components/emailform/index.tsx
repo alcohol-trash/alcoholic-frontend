@@ -85,7 +85,7 @@ const Emailform = () => {
         </section>
         <section>
           <ModalAlert
-            type={'confirm'}
+            type={'alert'}
             isOpen={modal}
             onClick={() => setModal(!modal)}
           >

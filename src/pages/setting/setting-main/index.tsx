@@ -12,7 +12,7 @@ const Setting = () => {
     <section css={styles.container}>
       <Header title="설정" />
       <ul css={styles.list}>
-        <Link href="/setting/setting-info">
+        <Link href="/setting/setting-socialinfo">
           <li>계정 정보</li>
         </Link>
         <Link href="/setting/setting-profile">
