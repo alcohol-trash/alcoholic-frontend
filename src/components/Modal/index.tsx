@@ -52,7 +52,7 @@ const ModalAlert = ({
       </div>
       <div css={styles.childrenBlock}>{children}</div>
       <div css={styles.btnBlock}>
-        {type == 'alert' && (
+        {type == 'alert' ? (
           <Button
             align="center"
             size="base"
@@ -61,9 +61,8 @@ const ModalAlert = ({
           >
             확인
           </Button>
-        )}
-        {type == 'confirm' && (
-          <div css={styles.btnBlock}>
+        ) : (
+          <>
             <Button
               align="center"
               size="base"
@@ -79,7 +78,7 @@ const ModalAlert = ({
             >
               취소
             </Button>
-          </div>
+          </>
         )}
       </div>
     </Modal>

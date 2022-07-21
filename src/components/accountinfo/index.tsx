@@ -31,10 +31,6 @@ const AccountInfo = () => {
   }
   return (
     <section css={styles.container}>
-      <label>이메일</label>
-      <div css={styles.infoBlock}>
-        <Sentence size="base">alcoholic@kakao.com</Sentence>
-      </div>
       <label>아이디</label>
       <div css={styles.infoBlock}>
         <Sentence size="base">alcoholic</Sentence>
