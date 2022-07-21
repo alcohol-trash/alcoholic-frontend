@@ -92,7 +92,7 @@ const Emailform = () => {
             type={'alert'}
             isOpen={modal}
             onClick={() => setModal(!modal)}
-          ></ModalAlert>
+          />
         </section>
         <section css={styles.btnBlock}>
           <Button
