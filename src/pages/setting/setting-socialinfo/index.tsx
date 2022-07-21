@@ -1,15 +1,30 @@
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
 import ModalAlert from '@/components/Modal'
+import ModalBlock from '@/components/ModalBlock'
+import Checkbox from '@/components/Checkbox'
 
 import * as styles from '@/css/setting/settingSocialInfoStyles'
+import { getSettingTermsFormSchema } from '@/libs/validations/settingTermsValidation'
 
+type FormTypes = {
+  check: boolean
+}
 const SocialInfo = () => {
   const [modal, setModal] = useState(false)
+  const {
+    register,
+    formState: { isValid },
+  } = useForm<FormTypes>({
+    mode: 'onChange',
+    resolver: yupResolver(getSettingTermsFormSchema),
+  })
   return (
     <section css={styles.container}>
       <Header title="계정정보" style="left" />
@@ -22,11 +37,23 @@ const SocialInfo = () => {
         회원탈퇴
       </Button>
       <ModalAlert
-        title={`이메일 인증이 완료되지 않았습니다.\n다시 인증 시도 해주세요.`}
-        type={'alert'}
+        title={`회원탈퇴`}
+        btnName={'확인'}
+        btnProp={isValid}
+        width={375}
+        height={462}
+        type={'confirm'}
+        location={'bottom'}
         isOpen={modal}
         onClick={() => setModal(!modal)}
-      ></ModalAlert>
+      >
+        <ModalBlock />
+        <Checkbox
+          value={true}
+          {...register('check')}
+          label="모든 내용을 확인했으며 정보 삭제에 동의합니다."
+        />
+      </ModalAlert>
     </section>
   )
 }

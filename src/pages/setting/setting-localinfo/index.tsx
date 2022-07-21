@@ -3,36 +3,28 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import Header from '@/components/Header'
-import Sentence from '@/components/Sentence'
-import TextField from '@/components/TextField'
 import Button from '@/components/Button'
+import AccountInfo from '@/components/accountinfo'
 import ModalAlert from '@/components/Modal'
-import ValidateMessage from '@/components/ValidateMessage'
+import ModalBlock from '@/components/ModalBlock'
+import Checkbox from '@/components/Checkbox'
 
 import * as styles from '@/css/setting/settingLocalInfoStyles'
-import { getSettingEditFormSchema } from '@/libs/validations/settingEditValidation'
+import { getSettingTermsFormSchema } from '@/libs/validations/settingTermsValidation'
 
 type FormTypes = {
-  password: string
-  passwordConfirm: string
+  check: boolean
 }
 
 const LocalInfo = () => {
   const [modal, setModal] = useState(false)
   const {
     register,
-    setValue,
-    formState: { isValid, errors },
-    handleSubmit,
+    formState: { isValid },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSettingEditFormSchema),
+    mode: 'onChange',
+    resolver: yupResolver(getSettingTermsFormSchema),
   })
-  const handleChange = ({ name, value }: any) => {
-    setValue(name, value, { shouldValidate: true })
-  }
-  const handleBtnClick = (data: FormTypes) => {
-    console.log(data)
-  }
   return (
     <section css={styles.container}>
       <Header title="계정 정보" style="both">
@@ -40,51 +32,29 @@ const LocalInfo = () => {
           수정
         </Button>
       </Header>
-      <label>이메일</label>
-      <div css={styles.infoBlock}>
-        <Sentence size="base">alcoholic@kakao.com</Sentence>
-      </div>
-      <label>아이디</label>
-      <div css={styles.infoBlock}>
-        <Sentence size="base">alcoholic</Sentence>
-      </div>
-      <form>
-        <div>
-          <div css={styles.inputBlock}>
-            <label>비밀번호</label>
-            <TextField
-              placeholder="비밀번호를 입력해주세요."
-              type="password"
-              {...register('password')}
-              onChange={handleChange}
-            />
-            {errors?.password && <ValidateMessage result={errors?.password} />}
-          </div>
-          <div css={styles.inputBlock}>
-            <label>비밀번호 확인</label>
-            <TextField
-              placeholder="비밀번호를 다시 입력해주세요."
-              type="password"
-              {...register('passwordConfirm')}
-              onChange={handleChange}
-            />
-            {errors?.passwordConfirm && (
-              <ValidateMessage result={errors?.passwordConfirm} />
-            )}
-          </div>
-        </div>
-      </form>
+      <AccountInfo />
       <div css={styles.btnBlock}>
         <Button style="secondary" size="base" onClick={() => setModal(!modal)}>
           회원탈퇴
         </Button>
       </div>
       <ModalAlert
-        title={`이메일 인증이 완료되지 않았습니다.\n다시 인증 시도 해주세요.`}
-        type={'alert'}
+        title={`회원탈퇴`}
+        btnName={'확인'}
+        width={375}
+        height={462}
+        type={'confirm'}
+        location={'bottom'}
         isOpen={modal}
         onClick={() => setModal(!modal)}
-      ></ModalAlert>
+      >
+        <ModalBlock />
+        <Checkbox
+          value={true}
+          {...register('check')}
+          label="모든 내용을 확인했으며 정보 삭제에 동의합니다."
+        />
+      </ModalAlert>
     </section>
   )
 }

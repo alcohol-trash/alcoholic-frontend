@@ -85,13 +85,14 @@ const Emailform = () => {
         </section>
         <section>
           <ModalAlert
+            title={`이메일 인증이 완료되지 않았습니다.
+        다시 인증 시도 해주세요.`}
+            width={328}
+            height={152}
             type={'alert'}
             isOpen={modal}
             onClick={() => setModal(!modal)}
-          >
-            이메일 인증이 완료되지 않았습니다. <br />
-            다시 인증 시도 해주세요.
-          </ModalAlert>
+          ></ModalAlert>
         </section>
         <section css={styles.btnBlock}>
           <Button

@@ -1,8 +1,11 @@
 import React from 'react'
 import Modal from 'react-modal'
 
+import Button from '@/components/Button'
+
 import * as styles from './styles'
 export type ModalType = 'alert' | 'confirm'
+export type LocationType = 'middle' | 'bottom'
 
 type Props = {
   isOpen: boolean
@@ -10,6 +13,10 @@ type Props = {
   title: string
   type: ModalType
   btnName?: string
+  btnProp?: boolean
+  location?: string
+  width: number
+  height: number
   onClick: () => void
 }
 
@@ -19,25 +26,59 @@ const ModalAlert = ({
   title,
   type = 'alert',
   btnName,
+  btnProp,
+  location = 'middle',
+  width,
+  height,
   onClick,
 }: Props) => {
   return (
-    <Modal css={styles.modalContainer} isOpen={isOpen} ariaHideApp={false}>
-      <div css={styles.titleBlock}>{title}</div>
-      <div>{children}</div>
+    <Modal
+      css={[
+        styles.modalContainer,
+        styles.size(width, height),
+        location === 'middle' ? styles.middle : styles.bottom,
+      ]}
+      isOpen={isOpen}
+      ariaHideApp={false}
+    >
+      <div css={styles.titleBlock}>
+        {title.split('\n').map((txt) => (
+          <>
+            {txt}
+            <br />
+          </>
+        ))}
+      </div>
+      <div css={styles.childrenBlock}>{children}</div>
       <div css={styles.btnBlock}>
-        {type == 'alert' ? (
+        {type == 'alert' && (
+          <Button
+            align="center"
+            size="base"
+            style="secondary"
+            onClick={onClick}
+          >
+            확인
+          </Button>
+        )}
+        {type == 'confirm' && (
           <div css={styles.btnBlock}>
-            <button css={styles.btn} onClick={onClick}>
-              확인
-            </button>
-          </div>
-        ) : (
-          <div css={styles.btnBlock}>
-            <button>{btnName}</button>
-            <button css={styles.btn} onClick={onClick}>
+            <Button
+              align="center"
+              size="base"
+              style={btnProp ? 'primary' : 'default'}
+            >
+              {btnName}
+            </Button>
+            <Button
+              align="center"
+              size="base"
+              style="secondary"
+              onClick={onClick}
+            >
               취소
-            </button>
+            </Button>
           </div>
         )}
       </div>
