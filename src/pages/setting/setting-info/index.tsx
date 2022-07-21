@@ -7,6 +7,7 @@ import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
 import ModalAlert from '@/components/Modal'
+import ModalWithdrawal from '@/components/ModalWithdrawal'
 import ModalBlock from '@/components/ModalWithdrawalBlock'
 import Checkbox from '@/components/Checkbox'
 import AccountInfo from '@/components/accountinfo'
@@ -39,14 +40,8 @@ const Info = () => {
       <Button style="secondary" size="base" onClick={() => setModal(!modal)}>
         회원탈퇴
       </Button>
-      <ModalAlert
-        title={`회원탈퇴`}
-        btnName={'확인'}
+      <ModalWithdrawal
         btnProp={isValid}
-        width={375}
-        height={462}
-        type={'confirm'}
-        location={'bottom'}
         isOpen={modal}
         onClick={() => setModal(!modal)}
       >
@@ -56,7 +51,7 @@ const Info = () => {
           {...register('check')}
           label="모든 내용을 확인했으며 정보 삭제에 동의합니다."
         />
-      </ModalAlert>
+      </ModalWithdrawal>
     </section>
   )
 }

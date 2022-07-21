@@ -5,7 +5,6 @@ import Button from '@/components/Button'
 
 import * as styles from './styles'
 export type ModalType = 'alert' | 'confirm'
-export type LocationType = 'middle' | 'bottom'
 
 type Props = {
   isOpen: boolean
@@ -27,18 +26,13 @@ const ModalAlert = ({
   type = 'alert',
   btnName,
   btnProp,
-  location = 'middle',
   width,
   height,
   onClick,
 }: Props) => {
   return (
     <Modal
-      css={[
-        styles.modalContainer,
-        styles.size(width, height),
-        location === 'middle' ? styles.middle : styles.bottom,
-      ]}
+      css={[styles.modalContainer, styles.size(width, height)]}
       isOpen={isOpen}
       ariaHideApp={false}
     >

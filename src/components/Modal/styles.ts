@@ -3,11 +3,22 @@ import theme from '@/theme'
 
 export const modalContainer = css`
   background-color: ${theme.gray[800]};
+
   display: flex;
   flex-direction: column;
-  position: fixed;
   justify-content: space-evenly;
+
   padding: 0 20px;
+  border-radius: 16px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
 `
 
 export const size = (width: number, height: number) => {
