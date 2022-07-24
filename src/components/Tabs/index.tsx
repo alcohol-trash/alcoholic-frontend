@@ -47,7 +47,8 @@ const Tabs = ({ children, defaultSelected = 0, router }: Props) => {
             css={styles.tabsInner(selected === index)}
             onClick={handleTabClick.bind(null, index)}
           >
-            {child.props.name} <span>{child.props.count}</span>
+            {child.props.name}{' '}
+            {child.props.count > 0 && <span>{child.props.count}</span>}
           </div>
         ))}
       </div>
