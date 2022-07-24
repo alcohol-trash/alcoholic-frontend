@@ -4,7 +4,7 @@ import Link from 'next/link'
 import * as R from 'ramda'
 import { FaUserCircle as UserFace } from 'react-icons/fa'
 
-import { mockWriteData, mockCommentData, myMenus } from '@/libs/mocks/mockData'
+import { mockWriteData, mockCommentData, menus } from '@/libs/mocks/mockData'
 
 import Button from '@/components/Button'
 import Tabs from '@/components/Tabs'
@@ -57,7 +57,7 @@ const MyPage = () => {
       </div>
       {/* list */}
       <Tabs defaultSelected={0} router={router}>
-        {myMenus.map((menu, index) => (
+        {menus.map((menu, index) => (
           <Tabs.Panel key={index} name={menu.name} count={menu.count}>
             {index === 0 ? (
               !R.isEmpty(mockWriteData) ? (

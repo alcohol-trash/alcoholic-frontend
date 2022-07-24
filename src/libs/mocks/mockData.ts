@@ -55,7 +55,7 @@ export const mockCommentData =
     },
   ] || null
 
-export const myMenus = [
+export const menus = [
   { name: '내가 쓴 글', count: mockWriteData?.length },
   { name: '내가 쓴 댓글', count: mockCommentData?.length },
 ]
