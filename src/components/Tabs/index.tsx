@@ -6,7 +6,7 @@ type PanelProps = {
   className?: string
   [key: string]: any
 }
-const Panel = ({ children, className, ...args }: PanelProps) => {
+const Panel = ({ children, className }: PanelProps) => {
   return <div className={className}>{children}</div>
 }
 

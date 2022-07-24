@@ -13,10 +13,9 @@ type UserContentProps = {
 }
 type Props = {
   data?: UserContentProps
-  tab?: string
   [key: string]: any
 }
-const UserContentCard = ({ data, tab, ...args }: Props) => {
+const UserContentCard = ({ data }: Props) => {
   const { title, date, content, images, toWriter } = data || {}
 
   return (
