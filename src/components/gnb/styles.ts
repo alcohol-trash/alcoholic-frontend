@@ -22,7 +22,6 @@ export const profile = css`
   cursor: pointer;
 `
 export const list = css`
-  list-style: none;
   color: ${theme.gray[300]};
 `
 export const listItem = css`

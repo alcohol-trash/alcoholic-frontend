@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import * as styles from './styles'
-import HomeImg from '@/public/assets/home.png'
+import HomeImg from 'public/assets/home.png'
 
 const Homebar = () => {
   return (
