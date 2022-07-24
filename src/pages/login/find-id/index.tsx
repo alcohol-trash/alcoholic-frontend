@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router'
 
@@ -18,7 +18,6 @@ type FormTypes = {
 const FindId = () => {
   const {
     register,
-    getValues,
     setValue,
     handleSubmit,
     formState: { isValid, errors }, // isValid: Set to true if the form doesn't have any errors.
