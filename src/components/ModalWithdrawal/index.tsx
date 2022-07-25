@@ -1,27 +1,73 @@
 import React from 'react'
 import Modal from 'react-modal'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import WithdrawalBlock from './withdrawalBlock'
+import Checkbox from '@/components/Checkbox'
 import Button from '@/components/Button'
+import theme from '@/theme'
 
 import * as styles from './styles'
+import { getSettingTermsFormSchema } from '@/libs/validations/settingTermsValidation'
 
 type Props = {
   isOpen: boolean
-  children?: React.ReactNode
-  btnProp?: boolean
   onClick: () => void
 }
 
-const ModalWithdrawal = ({ isOpen, children, btnProp, onClick }: Props) => {
+type FormTypes = {
+  check: boolean
+}
+
+const customStyles: Modal.Styles = {
+  overlay: {
+    zIndex: 99,
+    background: 'rgba(0, 0, 0, 0.5)',
+    touchAction: 'none',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: theme.gray[800],
+    left: '50%',
+    right: 'auto',
+    top: `calc(100vh - 462px)`,
+    bottom: '0',
+    width: 375,
+    height: 462,
+    transform: 'translate(-50%)',
+    padding: '0 20px',
+    border: 0,
+    boxShadow: '0 3px 15px rgba(0,0,0,0.2)',
+    position: 'fixed',
+    borderRadius: '16px 16px 0 0',
+  },
+}
+
+const ModalWithdrawal = ({ isOpen, onClick }: Props) => {
+  const {
+    register,
+    formState: { isValid },
+  } = useForm<FormTypes>({
+    mode: 'onChange',
+    resolver: yupResolver(getSettingTermsFormSchema),
+  })
   return (
-    <Modal isOpen={isOpen} ariaHideApp={false} css={styles.container}>
+    <Modal isOpen={isOpen} ariaHideApp={false} style={customStyles}>
       <div css={styles.titleBlock}>회원탈퇴</div>
-      <div>{children}</div>
+      <WithdrawalBlock />
+      <Checkbox
+        value={true}
+        {...register('check')}
+        label="모든 내용을 확인했으며 정보 삭제에 동의합니다."
+      />
       <div css={styles.btnBlock}>
         <Button
           align="center"
           size="base"
-          style={btnProp ? 'primary' : 'default'}
+          style={isValid ? 'primary' : 'default'}
         >
           확인
         </Button>

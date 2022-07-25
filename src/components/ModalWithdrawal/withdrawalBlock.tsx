@@ -1,6 +1,6 @@
 import * as styles from './styles'
 
-const ModalBlock = () => {
+const WithdrawalBlock = () => {
   return (
     <div css={styles.modalBlock}>
       회원탈퇴 전 확인해주세요.
@@ -15,4 +15,4 @@ const ModalBlock = () => {
   )
 }
 
-export default ModalBlock
+export default WithdrawalBlock

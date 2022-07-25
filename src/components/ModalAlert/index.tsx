@@ -2,49 +2,57 @@ import React from 'react'
 import Modal from 'react-modal'
 
 import Button from '@/components/Button'
+import theme from '@/theme'
 
 import * as styles from './styles'
 export type ModalType = 'alert' | 'confirm'
 
 type Props = {
+  title?: string
   isOpen: boolean
-  children?: React.ReactNode
-  title: string
   type: ModalType
   btnName?: string
   btnProp?: boolean
-  location?: string
-  width: number
-  height: number
   onClick: () => void
 }
 
+const customStyles: Modal.Styles = {
+  overlay: {
+    zIndex: 99,
+    background: 'rgba(0, 0, 0, 0.5)',
+    touchAction: 'none',
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: theme.gray[800],
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    width: 328,
+    height: 152,
+    transform: 'translate(-50%, -50%)',
+    padding: 0,
+    border: 0,
+    boxShadow: '0 3px 15px rgba(0,0,0,0.2)',
+    position: 'fixed',
+    borderRadius: '16px',
+  },
+}
+
 const ModalAlert = ({
-  isOpen,
-  children,
   title,
+  isOpen,
   type = 'alert',
   btnName,
   btnProp,
-  width,
-  height,
   onClick,
 }: Props) => {
   return (
-    <Modal
-      css={[styles.modalContainer, styles.size(width, height)]}
-      isOpen={isOpen}
-      ariaHideApp={false}
-    >
-      <div css={styles.titleBlock}>
-        {title.split('\n').map((txt) => (
-          <>
-            {txt}
-            <br />
-          </>
-        ))}
-      </div>
-      <div css={styles.childrenBlock}>{children}</div>
+    <Modal style={customStyles} isOpen={isOpen} ariaHideApp={false}>
+      <div css={styles.titleBlock}>{title}</div>
       <div css={styles.btnBlock}>
         {type == 'alert' ? (
           <Button

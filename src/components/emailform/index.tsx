@@ -6,7 +6,7 @@ import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 import AuthTimer from '@/components/AuthTimer'
-import ModalAlert from '@/components/Modal'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
 import { getSignupEmailFormSchema } from '@/libs/validations/signupEmailValidation'
@@ -43,7 +43,7 @@ const Emailform = () => {
     }
   }
   const handleDoneClick = () => {
-    if (!submit) {
+    if (submit) {
       //인증이 완료되지 않은 경우
       //모달
       setModal(!modal)
@@ -85,10 +85,9 @@ const Emailform = () => {
         </section>
         <section>
           <ModalAlert
-            title={`이메일 인증이 완료되지 않았습니다.
-        다시 인증 시도 해주세요.`}
-            width={328}
-            height={152}
+            title={
+              '이메일 인증이 완료되지 않았습니다.\n다시 인증 시도 해주세요.'
+            }
             type={'alert'}
             isOpen={modal}
             onClick={() => setModal(!modal)}
