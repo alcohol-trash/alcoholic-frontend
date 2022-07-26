@@ -17,11 +17,6 @@ type Props = {
 }
 
 const customStyles: Modal.Styles = {
-  overlay: {
-    zIndex: 99,
-    background: 'rgba(0, 0, 0, 0.5)',
-    touchAction: 'none',
-  },
   content: {
     display: 'flex',
     flexDirection: 'column',
@@ -36,7 +31,6 @@ const customStyles: Modal.Styles = {
     transform: 'translate(-50%, -50%)',
     padding: 0,
     border: 0,
-    boxShadow: '0 3px 15px rgba(0,0,0,0.2)',
     position: 'fixed',
     borderRadius: '16px',
   },
