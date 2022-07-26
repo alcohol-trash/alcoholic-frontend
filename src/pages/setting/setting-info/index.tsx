@@ -10,20 +10,24 @@ import ModalWithdrawal from '@/components/ModalWithdrawal'
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
-  const [local, setLocal] = useState(false)
+  const [local, setLocal] = useState(true)
   const [modal, setModal] = useState(false)
   return (
     <section css={styles.container}>
-      <Header title="계정정보" style="left" />
+      <Header title="계정정보" style={local ? 'button' : 'default'}>
+        {local && <Button style="secondary">수정</Button>}
+      </Header>
       <label>이메일</label>
       <div css={styles.emailBlock}>
         <Sentence size="base">alcoholic@kakao.com</Sentence>
         {!local && <Image src="/assets/kakao.png" width={32} height={32} />}
       </div>
       {local && <AccountInfo />}
-      <Button style="secondary" size="base" onClick={() => setModal(!modal)}>
-        회원탈퇴
-      </Button>
+      <div css={styles.btnBlock}>
+        <Button style="secondary" size="base" onClick={() => setModal(!modal)}>
+          회원탈퇴
+        </Button>
+      </div>
       <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
     </section>
   )

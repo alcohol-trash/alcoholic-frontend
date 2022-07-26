@@ -9,7 +9,7 @@ import * as styles from '@/css/login/localLoginStyles'
 const LocalLogin = () => {
   return (
     <section css={styles.container}>
-      <Header style="right" />
+      <Header style="home" />
       <section css={styles.topContainer}>
         <Title>
           로그인 정보를
