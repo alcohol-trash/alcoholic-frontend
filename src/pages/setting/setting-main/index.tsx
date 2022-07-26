@@ -10,7 +10,7 @@ const Setting = () => {
   }
   return (
     <section css={styles.container}>
-      <Header title="설정" style="default" />
+      <Header title="설정" />
       <ul css={styles.list}>
         <Link href="/setting/setting-info">
           <li>계정 정보</li>

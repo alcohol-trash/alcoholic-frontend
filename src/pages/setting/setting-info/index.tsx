@@ -14,7 +14,7 @@ const Info = () => {
   const [modal, setModal] = useState(false)
   return (
     <section css={styles.container}>
-      <Header title="계정정보" style={local ? 'button' : 'default'}>
+      <Header title="계정정보" style={!local ? 'default' : 'all'}>
         {local && <Button style="secondary">수정</Button>}
       </Header>
       <label>이메일</label>
