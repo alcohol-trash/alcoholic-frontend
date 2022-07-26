@@ -6,6 +6,7 @@ import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
 import AccountInfo from '@/components/accountinfo'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
+import Backbutton from '@/components/backbutton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 
@@ -14,9 +15,11 @@ const Info = () => {
   const [modal, setModal] = useState(false)
   return (
     <section css={styles.container}>
-      <Header title="계정정보" style={!local ? 'default' : 'all'}>
-        {local && <Button style="secondary">수정</Button>}
-      </Header>
+      <Header
+        title="계정정보"
+        left={<Backbutton />}
+        right={local && <Button style="secondary">수정</Button>}
+      />
       <label>이메일</label>
       <div css={styles.emailBlock}>
         <Sentence size="base">alcoholic@kakao.com</Sentence>

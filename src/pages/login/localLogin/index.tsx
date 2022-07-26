@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Router from 'next/router'
+import Image from 'next/image'
 
 import Header from '@/components/Header'
 import Loginform from '@/components/loginform'
@@ -9,7 +11,13 @@ import * as styles from '@/css/login/localLoginStyles'
 const LocalLogin = () => {
   return (
     <section css={styles.container}>
-      <Header style="home" />
+      <Header
+        right={
+          <div css={styles.imgBlock} onClick={() => Router.push('/')}>
+            <Image src="/assets/home.png" width={24} height={24} />
+          </div>
+        }
+      />
       <section css={styles.topContainer}>
         <Title>
           로그인 정보를
