@@ -14,6 +14,7 @@ type Props = {
   btnName?: string
   btnProp?: boolean
   onClick: () => void
+  onHandleNext?: () => void
 }
 
 const customStyles: Modal.Styles = {
@@ -43,6 +44,7 @@ const ModalAlert = ({
   btnName,
   btnProp,
   onClick,
+  onHandleNext,
 }: Props) => {
   return (
     <Modal style={customStyles} isOpen={isOpen} ariaHideApp={false}>
@@ -63,6 +65,7 @@ const ModalAlert = ({
               align="center"
               size="base"
               style={btnProp ? 'primary' : 'default'}
+              onClick={onHandleNext}
             >
               {btnName}
             </Button>
