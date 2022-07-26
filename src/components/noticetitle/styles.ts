@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 export const container = css`
   display: flex;
   flex-direction: column;
-  padding: 20px 0 16px 0;
+  padding: 20px 0 16px;
 `
 
 export const title = css`

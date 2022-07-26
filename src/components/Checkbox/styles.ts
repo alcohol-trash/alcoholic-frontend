@@ -8,6 +8,7 @@ export const container = css`
     display: none;
   }
   label {
+    font-size: 16px;
     vertical-align: middle;
     margin: 8px 4px;
   }
