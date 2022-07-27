@@ -2,6 +2,8 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import Header from '@/components/Header'
+import Backbutton from '@/components/backbutton'
+
 import * as styles from '@/css/setting/settingMainStyles'
 
 const Setting = () => {
@@ -10,7 +12,7 @@ const Setting = () => {
   }
   return (
     <section css={styles.container}>
-      <Header title="설정" />
+      <Header title="설정" left={<Backbutton />} />
       <ul css={styles.list}>
         <Link href="/setting/setting-info">
           <li>계정 정보</li>
