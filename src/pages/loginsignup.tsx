@@ -21,22 +21,22 @@ const LoginSignup = () => {
       <section css={styles.bottomContainer}>
         <p>SNS 계정으로 시작하기</p>
         <div css={styles.imgBlock}>
-          <Link href="/signup/signup-nickname">
+          <Link href="/signup/nickname">
             <div>
               <Image src="/assets/kakao.png" width={56} height={56} />
             </div>
           </Link>
-          <Link href="/signup/signup-nickname">
+          <Link href="/signup/nickname">
             <div>
               <Image src="/assets/google.png" width={56} height={56} />
             </div>
           </Link>
         </div>
         <div css={styles.linkBlock}>
-          <Link href="/login/locallogin">
+          <Link href="/login">
             <a>일반 로그인 /</a>
           </Link>
-          <Link href="/signup/signup-terms">
+          <Link href="/signup/terms">
             <a> 회원가입</a>
           </Link>
         </div>

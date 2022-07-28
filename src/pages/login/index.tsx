@@ -8,7 +8,7 @@ import Title from '@/components/Title'
 
 import * as styles from '@/css/login/localLoginStyles'
 
-const LocalLogin = () => {
+const Login = () => {
   return (
     <section css={styles.container}>
       <Header
@@ -19,16 +19,12 @@ const LocalLogin = () => {
         }
       />
       <section css={styles.topContainer}>
-        <Title>
-          로그인 정보를
-          <br />
-          입력해주세요.
-        </Title>
+        <Title>{`로그인 정보를\n입력해주세요.`}</Title>
         <div css={styles.linkBlock}>
-          <Link href="/login/findid">
-            <a>ID /</a>
+          <Link href="/login/find-id">
+            <a>ID/</a>
           </Link>
-          <Link href="/login/findPassword">
+          <Link href="/login/find-password">
             <a>비밀번호 찾기</a>
           </Link>
         </div>
@@ -40,4 +36,4 @@ const LocalLogin = () => {
   )
 }
 
-export default LocalLogin
+export default Login

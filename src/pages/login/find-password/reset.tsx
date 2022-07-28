@@ -34,7 +34,7 @@ const FindPasswordReset = () => {
 
   const handleClick = () => {
     // TODO: 비밀번호 재설정 API -> 로그인 이동
-    Router.push('/login/localLogin')
+    Router.push('/login')
   }
 
   useEffect(() => {
