@@ -14,16 +14,16 @@ const Setting = () => {
     <section css={styles.container}>
       <Header title="설정" left={<Backbutton />} />
       <ul css={styles.list}>
-        <Link href="/setting/setting-info">
+        <Link href="/setting/info">
           <li>계정 정보</li>
         </Link>
-        <Link href="/setting/setting-profile">
+        <Link href="/setting/profile">
           <li css={styles.border}>프로필 편집</li>
         </Link>
-        <Link href="/setting/setting-service">
+        <Link href="/setting/service">
           <li>고객센터</li>
         </Link>
-        <Link href="/setting/setting-terms">
+        <Link href="/setting/terms">
           <li css={styles.border}>이용약관</li>
         </Link>
         <li onClick={handleLogout}>로그아웃</li>

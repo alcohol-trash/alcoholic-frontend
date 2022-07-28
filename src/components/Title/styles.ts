@@ -8,4 +8,5 @@ export const title = css`
   font-size: 22px;
   line-height: 28px;
   font-weight: 600;
+  white-space: pre-wrap;
 `

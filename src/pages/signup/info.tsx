@@ -8,11 +8,7 @@ const SignupInfo = () => {
   return (
     <section css={styles.container}>
       <section css={styles.topContainer}>
-        <Title>
-          회원가입 정보를
-          <br />
-          입력해주세요.
-        </Title>
+        <Title>{`회원가입 정보를\n입력해주세요.`}</Title>
       </section>
       <section css={styles.bottomContainer}>
         <SignupForm />

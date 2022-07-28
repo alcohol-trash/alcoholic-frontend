@@ -10,7 +10,7 @@ import * as styles from '@/css/login/findIdStyles'
 const FindIdSuccess = () => {
   const handleClick = () => {
     // 로그인하기 router.push
-    Router.push('/login/localLogin')
+    Router.push('/login')
   }
   return (
     <>
