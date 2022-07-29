@@ -4,16 +4,9 @@ import { css } from '@emotion/react'
 export const container = css`
   padding: 0 20px;
 `
-export const topContainer = css`
-  display: flex;
-  margin: 12px 0;
+
+export const titleBlock = css`
   div {
-    margin-right: 8px;
+    margin: 20px 0 20px;
   }
-`
-export const bottomContainer = css`
-  display: flex;
-  flex-direction: column;
-  padding-top: 18px;
-  padding-bottom: 76px;
 `

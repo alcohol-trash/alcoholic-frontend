@@ -17,13 +17,6 @@ const Gnb = () => {
           </div>
         </Link>
       </div>
-      <ul css={styles.list}>
-        <Link href="/main">
-          <li css={styles.listItem}>주류학개론</li>
-        </Link>
-        <li css={styles.listItem}>술 위키</li>
-        <li css={styles.listItem}>질문과 답변</li>
-      </ul>
     </section>
   )
 }
