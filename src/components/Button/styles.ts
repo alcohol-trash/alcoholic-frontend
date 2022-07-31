@@ -34,6 +34,10 @@ export const Style = {
     color: theme.gray[300],
     bgColor: 'transparent',
   },
+  modal: {
+    color: 'white',
+    bgColor: 'transparent',
+  },
 }
 export const button = css`
   width: 100%;
