@@ -11,7 +11,7 @@ export const form = css`
   }
 `
 export const inputBlock = css`
-  padding: 10px 0 40px 0;
+  padding: 10px 0 40px;
 `
 
 export const btnBlock = css`

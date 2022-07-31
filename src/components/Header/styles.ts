@@ -23,8 +23,3 @@ export const rightBlock = css`
   position: absolute;
   right: 0;
 `
-export const imgBlock = css`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-`

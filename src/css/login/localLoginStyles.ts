@@ -18,3 +18,8 @@ export const linkBlock = css`
     font-size: 12px;
   }
 `
+export const imgBlock = css`
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+`

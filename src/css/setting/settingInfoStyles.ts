@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 export const container = css`
   padding: 0 20px;
   button {
-    padding-left: 0;
+    padding: 0;
   }
 `
 export const emailBlock = css`
@@ -12,4 +12,9 @@ export const emailBlock = css`
   align-items: center;
 
   margin: 16px 0;
+`
+export const btnBlock = css`
+  button {
+    padding-left: 0;
+  }
 `
