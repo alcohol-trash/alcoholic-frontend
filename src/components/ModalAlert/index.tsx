@@ -12,8 +12,8 @@ type Props = {
   isOpen: boolean
   type?: ModalType
   btnName?: string
-  btnProp?: boolean
-  onClick: () => void
+  onClick?: () => void
+  onCancel?: () => void
 }
 
 const customStyles: Modal.Styles = {
@@ -30,9 +30,8 @@ const customStyles: Modal.Styles = {
     right: 'auto',
     bottom: 'auto',
     width: 328,
-    height: 152,
     transform: 'translate(-50%, -50%)',
-    padding: 0,
+    padding: '15px',
     border: 0,
     position: 'fixed',
     borderRadius: '16px',
@@ -44,8 +43,8 @@ const ModalAlert = ({
   isOpen,
   type = 'alert',
   btnName,
-  btnProp,
   onClick,
+  onCancel,
 }: Props) => {
   return (
     <Modal
@@ -62,20 +61,16 @@ const ModalAlert = ({
           </Button>
         ) : (
           <>
-            <Button
-              align="center"
-              size="base"
-              style={btnProp ? 'primary' : 'default'}
-            >
-              {btnName}
+            <Button align="center" size="base" style="modal" onClick={onCancel}>
+              취소
             </Button>
             <Button
               align="center"
               size="base"
-              style="secondary"
+              style="modalLogin"
               onClick={onClick}
             >
-              취소
+              {btnName}
             </Button>
           </>
         )}

@@ -4,7 +4,11 @@ import Image from 'next/image'
 
 import * as styles from './styles'
 
-const Tabbar = () => {
+type Props = {
+  onClick: () => void
+}
+
+const BottomBar = ({ onClick }: Props) => {
   const { register, handleSubmit, reset } = useForm()
 
   const onVaild = (data: any) => {
@@ -12,7 +16,7 @@ const Tabbar = () => {
     reset()
   }
   return (
-    <section css={styles.container}>
+    <section css={styles.container} onClick={onClick}>
       <form css={styles.form} onSubmit={handleSubmit(onVaild)}>
         <div css={styles.block}>
           <Image src="/assets/profile_img.png" width={32} height={32} />
@@ -27,4 +31,4 @@ const Tabbar = () => {
   )
 }
 
-export default Tabbar
+export default BottomBar

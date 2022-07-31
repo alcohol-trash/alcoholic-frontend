@@ -32,7 +32,9 @@ export const form = css`
     border: none;
     overflow: hidden;
     resize: none;
-
+    :focus {
+      outline: none;
+    }
     ::placeholder {
       color: ${theme.gray[300]};
     }
