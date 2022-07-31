@@ -8,7 +8,7 @@ import Sentence from '@/components/Sentence'
 import Gnb from '@/components/gnb'
 import Tabs from '@/components/Tabs'
 import Feed from '@/components/feed'
-import Tabbar from '@/components/tabbar'
+import Bottombar from '@/components/Bottombar'
 import ModalAlert from '@/components/ModalAlert'
 
 import { categories, mainData } from '@/libs/mocks/homeData'
@@ -48,12 +48,11 @@ const Home = () => {
           title={'로그인 후에 이용할 수 있어요'}
           type={'confirm'}
           btnName="로그인"
-          btnProp={true}
           isOpen={modal}
-          onHandleNext={() => Router.push('/loginsignup')}
-          onClick={() => setModal(!modal)}
+          onClick={() => Router.push('/loginsignup')}
+          onCancel={() => setModal(!modal)}
         />
-        <Tabbar
+        <Bottombar
           onClick={() => {
             if (isLoggedIn) {
               Router.push('/')

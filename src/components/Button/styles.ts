@@ -38,6 +38,10 @@ export const Style = {
     color: 'white',
     bgColor: 'transparent',
   },
+  modalLogin: {
+    color: theme.aqua[500],
+    bgColor: 'transparent',
+  },
 }
 export const button = css`
   width: 100%;

@@ -1,16 +1,17 @@
 import { css } from '@emotion/react'
 
 export const titleBlock = css`
-  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin-top: 16px;
+  font-size: 16px;
   white-space: pre-wrap;
+  margin: 20px 0 10px;
 `
 export const btnBlock = css`
   display: flex;
-  flex-direction: column;
-  button {
-    width: 100%;
-    margin: 4px 0;
-  }
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 `

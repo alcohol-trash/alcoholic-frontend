@@ -8,7 +8,7 @@ type Props = {
   onClick: () => void
 }
 
-const Tabbar = ({ onClick }: Props) => {
+const BottomBar = ({ onClick }: Props) => {
   const { register, handleSubmit, reset } = useForm()
 
   const onVaild = (data: any) => {
@@ -31,4 +31,4 @@ const Tabbar = ({ onClick }: Props) => {
   )
 }
 
-export default Tabbar
+export default BottomBar
