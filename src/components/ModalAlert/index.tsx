@@ -10,13 +10,16 @@ export type ModalType = 'alert' | 'confirm'
 type Props = {
   title?: string
   isOpen: boolean
-  type: ModalType
+  type?: ModalType
   btnName?: string
   btnProp?: boolean
   onClick: () => void
 }
 
 const customStyles: Modal.Styles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
   content: {
     display: 'flex',
     flexDirection: 'column',
@@ -45,16 +48,16 @@ const ModalAlert = ({
   onClick,
 }: Props) => {
   return (
-    <Modal style={customStyles} isOpen={isOpen} ariaHideApp={false}>
+    <Modal
+      style={customStyles}
+      isOpen={isOpen}
+      ariaHideApp={false}
+      onRequestClose={onClick} // close modal when overlay clicked
+    >
       <div css={styles.titleBlock}>{title}</div>
       <div css={styles.btnBlock}>
         {type == 'alert' ? (
-          <Button
-            align="center"
-            size="base"
-            style="secondary"
-            onClick={onClick}
-          >
+          <Button align="center" size="base" style="modal" onClick={onClick}>
             확인
           </Button>
         ) : (
