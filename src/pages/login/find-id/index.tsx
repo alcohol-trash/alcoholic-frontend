@@ -39,9 +39,8 @@ const FindId = () => {
   const handleClick = async (formData: FormTypes) => {
     const { email } = formData
 
-    // const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
-    // const data = await response.json()
-    const data = { success: true, message: '123' }
+    const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
+    const data = await response.json()
     if (data) {
       setModalVisible(true)
       setModalTitle(data.message)
