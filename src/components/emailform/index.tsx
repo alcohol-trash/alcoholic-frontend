@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -11,18 +12,20 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from './styles'
 import { getSignupEmailFormSchema } from '@/libs/validations/signupEmailValidation'
 
+const MAIL_TYPE = 'id'
 type FormTypes = {
   email: string
 }
 
 const Emailform = () => {
-  const [submit, setSubmit] = useState<boolean>(false) //인증 요청 버튼을 누른 후 인증 완료 버튼 활성화
+  const [check, setCheck] = useState<boolean>(false)
   const [modal, setModal] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
   const [time, setTime] = useState<number>(5)
-  const [end, setEnd] = useState<boolean>(true) //요청 성공 여부
   const {
     register,
     setValue,
+    getValues,
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
@@ -31,22 +34,31 @@ const Emailform = () => {
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
-  const handleSubmitClick = (data: FormTypes) => {
-    //인증 요청
-    console.log(data)
-    //재요청 버튼 활성화+인증요청 완료
-    setSubmit(true)
-    //인증 실패 시
-    //재요청
-    if (!end) {
-      setTime(5)
+  const handleSendClick = async (formData: FormTypes) => {
+    const { email } = formData
+    const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
+    const data = await response.json()
+    if (data) {
+      setModal(true)
+      setModalTitle(data.message)
+      if (data.success) {
+        setCheck(true)
+        if (!check) {
+          setTime(5)
+        }
+      }
     }
   }
-  const handleDoneClick = () => {
-    if (submit) {
-      //인증이 완료되지 않은 경우
-      //모달
-      setModal(!modal)
+  const handleDoneClick = async () => {
+    const email = getValues('email')
+    const response = await fetch(`/api/email/check/${MAIL_TYPE}?email=${email}`)
+    const data = await response.json()
+    if (data) {
+      setModal(true)
+      setModalTitle(data.message)
+      if (data.success) {
+        Router.push('/signup/info')
+      }
     }
   }
   return (
@@ -66,15 +78,15 @@ const Emailform = () => {
               <Button
                 size="sm"
                 align="center"
-                style={isValid || submit ? 'primary' : 'default'}
-                onClick={handleSubmit(handleSubmitClick)}
+                style={isValid ? 'primary' : 'default'}
+                onClick={handleSubmit(handleSendClick)}
               >
-                {submit ? '재요청' : '인증 요청'}
+                {check ? '재요청' : '인증 요청'}
               </Button>
             </div>
           </div>
           {errors?.email && <ValidateMessage result={errors?.email} />}
-          {submit && (
+          {check && (
             <AuthTimer
               time={time}
               message={
@@ -85,10 +97,7 @@ const Emailform = () => {
         </section>
         <section>
           <ModalAlert
-            title={
-              '이메일 인증이 완료되지 않았습니다.\n다시 인증 시도 해주세요.'
-            }
-            type={'alert'}
+            title={modalTitle}
             isOpen={modal}
             onClick={() => setModal(!modal)}
           />
@@ -96,9 +105,9 @@ const Emailform = () => {
         <section css={styles.btnBlock}>
           <Button
             size="sm"
-            style={submit ? 'primary' : 'default'}
+            style={check ? 'primary' : 'default'}
             onClick={handleSubmit(handleDoneClick)}
-            disabled={!submit}
+            disabled={!check}
           >
             인증 확인
           </Button>
