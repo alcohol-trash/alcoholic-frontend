@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
 import { getSignupInfoFormSchema } from '@/libs/validations/signupInfoValidation'
+//import { signupApi } from '@/pages/api/user'
+import { apiBaseUrl } from '@/libs/config'
 
 type FormTypes = {
   id: string
@@ -16,20 +20,48 @@ type FormTypes = {
 }
 
 const SignupForm = () => {
+  const router = useRouter()
+  const email = router.query.email === undefined && ''
+  const [modal, setModal] = useState<boolean>(false)
+  //const [modalTitle, setModalTitle] = useState<string>('')
+
   const {
     register,
     setValue,
+    getValues,
     formState: { isValid, errors },
     handleSubmit,
   } = useForm<FormTypes>({
     resolver: yupResolver(getSignupInfoFormSchema),
   })
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
-  const handleBtnClick = (data: FormTypes) => {
-    console.log(data)
+
+  const handleBtnClick = async () => {
+    const [id, password] = getValues(['id', 'password'])
+    // signupApi({ email, id, password })
+    //   .then(() => {
+    //     router.push('/')
+    //   })
+    //   .then((data) => {
+    //     console.log(data)
+    //   })
+    //   .catch((error: any) => {
+    //     console.log(error)
+    //   })
+    const response = await fetch(`${apiBaseUrl}/api/auth/signup`, {
+      mode: 'no-cors',
+      method: 'POST',
+      body: JSON.stringify({ email: email, id: id, password: password }),
+    })
+    const data = await response.json()
+    if (data.success) {
+      router.push('/')
+    }
   }
+
   return (
     <section css={styles.container}>
       <form>
@@ -73,11 +105,19 @@ const SignupForm = () => {
             onClick={handleSubmit(handleBtnClick)}
             size="sm"
             style={isValid ? 'primary' : 'default'}
+            disabled={!isValid}
           >
             입력 완료
           </Button>
         </div>
       </form>
+      {/* <section>
+        <ModalAlert
+          title={modalTitle}
+          isOpen={modal}
+          onClick={() => setModal(!modal)}
+        />
+      </section> */}
     </section>
   )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -8,6 +9,7 @@ import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
 import { getLocalLoginFormSchema } from '@/libs/validations/localLoginValidation'
+import { loginApi } from '@/pages/api/user'
 
 type FormTypes = {
   id: string
@@ -15,16 +17,27 @@ type FormTypes = {
 }
 
 const Loginform = () => {
+  const queryClient = useQueryClient()
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: yupResolver(getLocalLoginFormSchema),
   })
-  const handleBtnClick = (data: FormTypes) => {
-    console.log(data)
+  const mutation = useMutation('user', loginApi, {
+    onSuccess: (user) => {
+      queryClient.setQueryData('user', user)
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
+  const handleBtnClick = () => {
+    const [id, password] = getValues(['id', 'password'])
+    mutation.mutate({ id, password })
   }
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })

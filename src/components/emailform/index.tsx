@@ -57,7 +57,7 @@ const Emailform = () => {
       setModal(true)
       setModalTitle(data.message)
       if (data.success) {
-        Router.push('/signup/info')
+        Router.push({ pathname: '/signup/info', query: { email: email } })
       }
     }
   }
