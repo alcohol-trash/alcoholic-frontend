@@ -14,3 +14,6 @@ export const list = css`
 export const border = css`
   border-bottom: 1px solid ${theme.gray[700]};
 `
+export const liColor = css`
+  color: ${theme.gray[300]};
+`

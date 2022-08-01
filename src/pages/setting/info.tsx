@@ -11,7 +11,7 @@ import Backbutton from '@/components/backbutton'
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
-  const [local, setLocal] = useState(true)
+  const [local, setLocal] = useState(false)
   const [modal, setModal] = useState(false)
   return (
     <section css={styles.container}>
