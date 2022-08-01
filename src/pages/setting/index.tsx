@@ -26,7 +26,9 @@ const Setting = () => {
         <Link href="/setting/terms">
           <li css={styles.border}>이용약관</li>
         </Link>
-        <li onClick={handleLogout}>로그아웃</li>
+        <li css={styles.liColor} onClick={handleLogout}>
+          로그아웃
+        </li>
       </ul>
     </section>
   )
