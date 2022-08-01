@@ -17,7 +17,7 @@ import * as styles from '@/css/home'
 
 const Home = () => {
   const router = useRouter()
-  const [isLoggedIn, setLoggedIn] = useState(false)
+  const [isLoggedIn, setLoggedIn] = useState(true)
   const [modal, setModal] = useState<boolean>(false)
   return (
     <>
@@ -52,15 +52,7 @@ const Home = () => {
           onClick={() => Router.push('/loginsignup')}
           onCancel={() => setModal(!modal)}
         />
-        <Bottombar
-          onClick={() => {
-            if (isLoggedIn) {
-              Router.push('/')
-            } else {
-              Router.push('/loginsignup')
-            }
-          }}
-        />
+        <Bottombar isLoggedIn={isLoggedIn} />
       </section>
     </>
   )

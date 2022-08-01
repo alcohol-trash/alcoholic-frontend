@@ -6,6 +6,7 @@ export const container = css`
   display: flex;
   flex-direction: column;
 `
+
 export const btnBlock = css`
   display: flex;
   justify-content: flex-end;
