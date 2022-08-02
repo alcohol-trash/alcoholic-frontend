@@ -12,7 +12,7 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from './styles'
 import { getSignupEmailFormSchema } from '@/libs/validations/signupEmailValidation'
 
-const MAIL_TYPE = 'id'
+const MAIL_TYPE = 'signup'
 type FormTypes = {
   email: string
 }
@@ -57,7 +57,10 @@ const Emailform = () => {
       setModal(true)
       setModalTitle(data.message)
       if (data.success) {
-        Router.push({ pathname: '/signup/info', query: { email: email } })
+        Router.push(
+          { pathname: '/signup/info', query: { email: email } },
+          '/signup/info',
+        )
       }
     }
   }

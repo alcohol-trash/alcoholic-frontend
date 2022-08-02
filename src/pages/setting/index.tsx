@@ -1,14 +1,29 @@
+import React, { useState } from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
 
 import Header from '@/components/Header'
 import Backbutton from '@/components/backbutton'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/setting/settingMainStyles'
 
+const AUTH_TYPE = 'logout'
 const Setting = () => {
-  const handleLogout = () => {
-    Router.push('/')
+  const [modal, setModal] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
+  const handleLogout = async () => {
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+      method: 'POST',
+    })
+    const data = await response.json()
+    console.log(data.message)
+    if (data.success) {
+      Router.push('/')
+    } else {
+      setModal(true)
+      setModalTitle(data.message)
+    }
   }
   return (
     <section css={styles.container}>
@@ -30,6 +45,11 @@ const Setting = () => {
           로그아웃
         </li>
       </ul>
+      <ModalAlert
+        title={modalTitle}
+        isOpen={modal}
+        onClick={() => setModal(!modal)}
+      />
     </section>
   )
 }

@@ -10,9 +10,8 @@ import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
 import { getSignupInfoFormSchema } from '@/libs/validations/signupInfoValidation'
-//import { signupApi } from '@/pages/api/user'
-import { apiBaseUrl } from '@/libs/config'
 
+const AUTH_TYPE = 'signup'
 type FormTypes = {
   id: string
   password: string
@@ -21,9 +20,9 @@ type FormTypes = {
 
 const SignupForm = () => {
   const router = useRouter()
-  const email = router.query.email === undefined && ''
+  const email = router.query.email
   const [modal, setModal] = useState<boolean>(false)
-  //const [modalTitle, setModalTitle] = useState<string>('')
+  const [modalTitle, setModalTitle] = useState<string>('')
 
   const {
     register,
@@ -41,24 +40,16 @@ const SignupForm = () => {
 
   const handleBtnClick = async () => {
     const [id, password] = getValues(['id', 'password'])
-    // signupApi({ email, id, password })
-    //   .then(() => {
-    //     router.push('/')
-    //   })
-    //   .then((data) => {
-    //     console.log(data)
-    //   })
-    //   .catch((error: any) => {
-    //     console.log(error)
-    //   })
-    const response = await fetch(`${apiBaseUrl}/api/auth/signup`, {
-      mode: 'no-cors',
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',
       body: JSON.stringify({ email: email, id: id, password: password }),
     })
     const data = await response.json()
     if (data.success) {
       router.push('/')
+    } else {
+      setModal(true)
+      setModalTitle(data.message)
     }
   }
 
@@ -111,13 +102,11 @@ const SignupForm = () => {
           </Button>
         </div>
       </form>
-      {/* <section>
-        <ModalAlert
-          title={modalTitle}
-          isOpen={modal}
-          onClick={() => setModal(!modal)}
-        />
-      </section> */}
+      <ModalAlert
+        title={modalTitle}
+        isOpen={modal}
+        onClick={() => setModal(!modal)}
+      />
     </section>
   )
 }
