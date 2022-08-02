@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 import { getFindPasswordResetFormSchema } from '@/libs/validations/findPasswordResetValidation'
 
@@ -10,7 +10,8 @@ import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from '@/css/login/findPasswordStyles'
-
+import ModalAlert from '@/components/ModalAlert'
+const TYPE = 'password'
 type FormTypes = {
   password: string
   passwordConfirm: string
@@ -21,32 +22,55 @@ const FindPasswordReset = () => {
     getValues,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: getFindPasswordResetFormSchema(),
   })
-  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
+  const router = useRouter()
+  const { query } = router
+  const { id, email } = query || {}
+  const [errorModalVisible, setErrorModalVisible] = useState<boolean>(true)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
 
   const handleChange = ({ name, value }: any) => {
-    // TODO: any 타입 변경
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleClick = () => {
-    // TODO: 비밀번호 재설정 API -> 로그인 이동
-    Router.push('/login')
+  const handleClick = async () => {
+    const response = await fetch(`/api/member/forget/${TYPE}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+        email,
+        password: getValues('password'),
+        newPassword: getValues('passwordConfirm'),
+      }),
+    })
+    const data = await response.json()
+    if (data) {
+      setModalVisible(true)
+      setModalTitle(data.message)
+
+      if (data.success) {
+        Router.push('/login')
+      }
+    }
   }
 
-  useEffect(() => {
-    if (
-      getValues('password') &&
-      !errors.password &&
-      getValues('passwordConfirm') &&
-      !errors.passwordConfirm
+  const handleResetError = () => {
+    Router.push('/login/find-password')
+  }
+
+  if (!id && !email)
+    return (
+      <ModalAlert
+        isOpen={errorModalVisible}
+        title="이메일 인증을 먼저 진행해주세요."
+        onClick={handleResetError}
+        onCancel={() => setErrorModalVisible(!errorModalVisible)}
+      />
     )
-      setSubmitDisabled(false)
-    else setSubmitDisabled(true)
-  }, [getValues, errors.password, errors.passwordConfirm])
 
   return (
     <>
@@ -90,13 +114,19 @@ const FindPasswordReset = () => {
       <div css={styles.buttonContainer}>
         <Button
           size="sm"
-          style={submitDisabled ? 'default' : 'primary'}
+          style={!isValid ? 'default' : 'primary'}
           onClick={handleSubmit(handleClick)}
-          disabled={submitDisabled}
+          disabled={!isValid}
         >
           설정 완료
         </Button>
       </div>
+
+      <ModalAlert
+        isOpen={modalVisible}
+        title={modalTitle}
+        onClick={() => setModalVisible(!modalVisible)}
+      />
     </>
   )
 }
