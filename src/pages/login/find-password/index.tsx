@@ -9,9 +9,11 @@ import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 import AuthTimer from '@/components/AuthTimer'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/login/findPasswordStyles'
 
+const MAIL_TYPE = 'password'
 type FormTypes = {
   id: string
   email: string
@@ -20,6 +22,7 @@ const FindPassword = () => {
   const {
     register,
     setValue,
+    getValues,
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
@@ -27,28 +30,45 @@ const FindPassword = () => {
   })
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [time, setTime] = useState<number>(5)
+  const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
 
   const handleChange = ({ name, value }: any) => {
-    // TODO: any 타입 변경
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleClick = (data: FormTypes) => {
-    // TODO: 인증 요청 API
-    console.log('인증 요청 클릭', data)
+  const handleClick = async (formData: FormTypes) => {
+    const { email } = formData
 
-    // 인증 확인 disabled -> default
-    setCheckDisabled(false)
+    const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
+    const data = await response.json()
+    if (data) {
+      setModalVisible(true)
+      setModalTitle(data.message)
 
-    if (!checkDisabled) {
-      // TODO: 재요청
-      setTime(5)
+      if (data.success) {
+        setCheckDisabled(false) // 인증 확인 disabled -> default
+        // 재요청
+        if (!checkDisabled) {
+          setTime(5)
+        }
+      }
     }
   }
 
-  const handleCheckClick = () => {
-    // TODO: 인증 확인 API -> 비밀번호 재설정 이동
-    Router.push('/login/find-password/reset')
+  const handleCheckClick = async () => {
+    const id = getValues('id')
+    const email = getValues('email')
+    const response = await fetch(`/api/email/check/${MAIL_TYPE}?email=${email}`)
+    const data = await response.json()
+    if (data) {
+      setModalVisible(true)
+      setModalTitle(data.message)
+
+      if (data.success) {
+        Router.push(`/login/find-password/reset?id=${id}&email=${email}`)
+      }
+    }
   }
 
   return (
@@ -115,6 +135,12 @@ const FindPassword = () => {
           인증 확인
         </Button>
       </div>
+
+      <ModalAlert
+        isOpen={modalVisible}
+        title={modalTitle}
+        onClick={() => setModalVisible(!modalVisible)}
+      />
     </>
   )
 }
