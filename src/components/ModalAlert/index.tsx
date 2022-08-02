@@ -18,7 +18,7 @@ type Props = {
 
 const customStyles: Modal.Styles = {
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0)',
+    backgroundColor: 'rgba(16, 17, 29, .8)',
   },
   content: {
     display: 'flex',
@@ -51,7 +51,7 @@ const ModalAlert = ({
       style={customStyles}
       isOpen={isOpen}
       ariaHideApp={false}
-      onRequestClose={onClick} // close modal when overlay clicked
+      onRequestClose={onCancel ? onCancel : onClick} // close modal when overlay clicked
     >
       <div css={styles.titleBlock}>{title}</div>
       <div css={styles.btnBlock}>
