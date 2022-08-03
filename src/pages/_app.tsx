@@ -34,7 +34,7 @@ function App({ Component, pageProps }: AppProps) {
       clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
     >
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={true} />
+        <ReactQueryDevtools initialIsOpen={false} />
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           <div css={componentContainer}>

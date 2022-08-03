@@ -51,18 +51,22 @@ const ModalWriteContent = ({ isOpen, onClick }: Props) => {
         <section css={styles.contentBlock}>
           <textarea placeholder="내용을 입력하세요" />
         </section>
-        <section css={styles.bottomBlock}>
+        <nav css={styles.bottomBlock}>
           <div css={styles.leftBlock}>
             <Image src="/assets/add_picture.png" width={24} height={24} />
           </div>
           <div css={styles.rightBlock}>
-            <Image src="/assets/undo_disabled.png" width={24} height={24} />
-            <Image src="/assets/redo_disabled.png" width={24} height={24} />
+            <div>
+              <Image src="/assets/undo_disabled.png" width={24} height={24} />
+            </div>
+            <div>
+              <Image src="/assets/redo_disabled.png" width={24} height={24} />
+            </div>
             <div css={styles.lineBlock}>
               <Image src="/assets/keyboard_down.png" width={24} height={24} />
             </div>
           </div>
-        </section>
+        </nav>
       </section>
     </Modal>
   )
