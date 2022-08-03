@@ -32,45 +32,47 @@ const Profile = () => {
     //api 연결
   }
   return (
-    <section css={styles.container}>
+    <>
       <Header
         title="프로필 편집"
         left={<Backbutton />}
         right={<Button style="secondary">수정</Button>}
       />
-      <section css={styles.btnBlock}>
-        <div css={styles.imgBlock}>
-          <Image src="/assets/camera.png" width={20} height={20} />
-        </div>
-        <div css={styles.imgBlock}>
-          <Image src="/assets/delete.png" width={20} height={20} />
-        </div>
-      </section>
-      <section css={styles.profileBlock}>
-        <div css={styles.img}>
-          <UserFace size={80} />
-        </div>
-        <div css={styles.nickname}>닉네임</div>
-      </section>
-      <section>
-        <label>닉네임</label>
-        <div css={styles.inputBlock}>
-          <div css={styles.leftBlock}>
-            <TextField {...register('nickname')} onChange={handleChange} />
+      <section css={styles.container}>
+        <section css={styles.btnBlock}>
+          <div css={styles.imgBlock}>
+            <Image src="/assets/camera.png" width={20} height={20} />
           </div>
-          <div css={styles.rightBlock}>
-            <Button
-              size="sm"
-              align="center"
-              style={isValid ? 'primary' : 'default'}
-              onClick={handleSubmit(handleSubmitClick)}
-            >
-              확인
-            </Button>
+          <div css={styles.imgBlock}>
+            <Image src="/assets/delete.png" width={20} height={20} />
           </div>
-        </div>
+        </section>
+        <section css={styles.profileBlock}>
+          <div css={styles.img}>
+            <UserFace size={80} />
+          </div>
+          <div css={styles.nickname}>닉네임</div>
+        </section>
+        <section>
+          <label>닉네임</label>
+          <div css={styles.inputBlock}>
+            <div css={styles.leftBlock}>
+              <TextField {...register('nickname')} onChange={handleChange} />
+            </div>
+            <div css={styles.rightBlock}>
+              <Button
+                size="sm"
+                align="center"
+                style={isValid ? 'primary' : 'default'}
+                onClick={handleSubmit(handleSubmitClick)}
+              >
+                확인
+              </Button>
+            </div>
+          </div>
+        </section>
       </section>
-    </section>
+    </>
   )
 }
 

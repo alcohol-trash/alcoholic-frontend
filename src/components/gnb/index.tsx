@@ -7,20 +7,18 @@ import Title from '@/components/Title'
 const Gnb = () => {
   return (
     <section css={styles.container}>
-      <div css={[styles.block, styles.blockDetail]}>
-        <Link href="/">
-          <a>
-            <Title>알코홀-릭</Title>
-          </a>
-        </Link>
-        <Link href="/loginsignup">
-          <a>
-            <div css={[styles.block, styles.profile]}>
-              <Image src="/assets/profile_img.png" width={32} height={32} />
-            </div>
-          </a>
-        </Link>
-      </div>
+      <Link href="/">
+        <a>
+          <Title>알코홀-릭</Title>
+        </a>
+      </Link>
+      <Link href="/loginsignup">
+        <a>
+          <div css={styles.profile}>
+            <Image src="/assets/profile_img.png" width={32} height={32} />
+          </div>
+        </a>
+      </Link>
     </section>
   )
 }

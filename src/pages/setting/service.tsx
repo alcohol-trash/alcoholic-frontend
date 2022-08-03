@@ -5,9 +5,10 @@ import * as styles from '@/css/setting/settingServiceStyles'
 
 const Service = () => {
   return (
-    <section css={styles.container}>
+    <>
       <Header title="고객센터" left={<Backbutton />} />
-    </section>
+      <section css={styles.container}></section>
+    </>
   )
 }
 

@@ -29,6 +29,10 @@ export const title = css`
   }
 `
 
+export const titleColor = css`
+  color: ${theme.aqua[500]};
+`
+
 export const imgBlock = css`
     display: flex;
     flex-direction: row;

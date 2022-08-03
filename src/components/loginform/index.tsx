@@ -7,10 +7,10 @@ import { useQueryClient } from 'react-query'
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
+import ModalAlert from '../ModalAlert'
 
 import * as styles from './styles'
 import { getLocalLoginFormSchema } from '@/libs/validations/localLoginValidation'
-import ModalAlert from '../ModalAlert'
 
 const AUTH_TYPE = 'login'
 type FormTypes = {
@@ -50,6 +50,7 @@ const Loginform = () => {
     const data = await response.json()
     if (data.success) {
       query.setQueryData('user', data.data)
+      console.log(data)
       Router.push('/')
     } else {
       setModal(true)
