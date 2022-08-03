@@ -5,6 +5,8 @@ export const container = css`
   top: 0;
   left: 0;
   right: 0;
+
+  overflow: hidden;
 `
 export const block = css`
   display: flex;

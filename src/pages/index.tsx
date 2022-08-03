@@ -63,15 +63,7 @@ const Home = () => {
           onClick={() => Router.push('/loginsignup')}
           onCancel={() => setModal(!modal)}
         />
-        <Bottombar
-          onClick={() => {
-            if (isLoggedIn) {
-              Router.push('/')
-            } else {
-              Router.push('/loginsignup')
-            }
-          }}
-        />
+        <Bottombar isLoggedIn={isLoggedIn} />
       </section>
     </>
   )

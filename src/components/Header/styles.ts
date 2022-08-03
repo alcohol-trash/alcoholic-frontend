@@ -22,4 +22,7 @@ export const leftBlock = css`
 export const rightBlock = css`
   position: absolute;
   right: 0;
+  button {
+    padding: 0;
+  }
 `
