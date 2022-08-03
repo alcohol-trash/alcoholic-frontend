@@ -53,9 +53,11 @@ const Terms = () => {
         </div>
         <div css={styles.btnBlock}>
           <Link href="/signup/email">
-            <Button size="sm" style={isValid ? 'primary' : 'default'}>
-              인증 확인
-            </Button>
+            <a>
+              <Button size="sm" style={isValid ? 'primary' : 'default'}>
+                인증 확인
+              </Button>
+            </a>
           </Link>
         </div>
       </form>
