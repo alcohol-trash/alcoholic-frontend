@@ -28,3 +28,26 @@ export const contentBlock = css`
     color: ${theme.gray[300]};
   }
 `
+
+export const bottomBlock = css`
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid ${theme.gray[800]};
+  display: flex;
+  align-items: center;
+  div {
+    display: inline-block;
+  }
+`
+
+export const leftBlock = css`
+  flex-grow: 9;
+`
+export const rightBlock = css`
+  flex-grow: 1;
+`
+export const lineBlock = css`
+  border-left: 1px solid ${theme.gray[800]};
+`

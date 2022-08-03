@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Router from 'next/router'
+import { useQueryClient } from 'react-query'
 
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
@@ -8,27 +10,53 @@ import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
 import { getLocalLoginFormSchema } from '@/libs/validations/localLoginValidation'
+import ModalAlert from '../ModalAlert'
 
+const AUTH_TYPE = 'login'
 type FormTypes = {
   id: string
   password: string
 }
 
 const Loginform = () => {
+  const [modal, setModal] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
+
+  const query = useQueryClient()
+
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: yupResolver(getLocalLoginFormSchema),
   })
-  const handleBtnClick = (data: FormTypes) => {
-    console.log(data)
-  }
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
+
+  const handleBtnClick = async () => {
+    const [id, password] = getValues(['id', 'password'])
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id: id,
+        password: password,
+      }),
+    })
+    const data = await response.json()
+    if (data.success) {
+      query.setQueryData('user', data.data)
+      Router.push('/')
+    } else {
+      setModal(true)
+      setModalTitle(data.message)
+    }
+  }
+
   return (
     <section css={styles.container}>
       <form css={styles.form}>
@@ -63,6 +91,11 @@ const Loginform = () => {
           </Button>
         </div>
       </form>
+      <ModalAlert
+        title={modalTitle}
+        isOpen={modal}
+        onClick={() => setModal(!modal)}
+      />
     </section>
   )
 }

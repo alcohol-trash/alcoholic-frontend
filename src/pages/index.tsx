@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { useRouter } from 'next/router'
+import { useQueryClient } from 'react-query'
 
 import Title from '@/components/Title'
 import Sentence from '@/components/Sentence'
@@ -17,8 +18,18 @@ import * as styles from '@/css/home'
 
 const Home = () => {
   const router = useRouter()
-  const [isLoggedIn, setLoggedIn] = useState(true)
+  const query = useQueryClient()
+  const userData = query.getQueryData('user')
+  const [isLoggedIn, setLoggedIn] = useState(false)
   const [modal, setModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (userData) {
+      setLoggedIn(true)
+      console.log(userData)
+    }
+  }, [userData, setLoggedIn])
+
   return (
     <>
       <Gnb />
