@@ -2,8 +2,7 @@ import { css } from '@emotion/react'
 import theme from '@/theme'
 
 export const container = css`
-  width: 100%;
-  height: 100vh;
+  padding: 0 20px;
 `
 
 export const titleBlock = css`
@@ -23,6 +22,7 @@ export const titleBlock = css`
 `
 export const contentBlock = css`
   textarea {
+    color: white;
     background-color: transparent;
     border: none;
     resize: none;

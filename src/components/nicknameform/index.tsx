@@ -5,36 +5,32 @@ import Router from 'next/router'
 
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
-import ModalAlert from '../ModalAlert'
 
 import * as styles from './styles'
-import { getSignupNicknameFormSchema } from '@/libs/validations/signupNicknameValidation'
-
+import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
 const AUTH_TYPE = 'signup'
 type FormTypes = {
   nickname: string
 }
 
 const Nickform = () => {
-  const [modal, setModal] = useState<boolean>(false)
-  const [modalTitle, setModalTitle] = useState<string>('')
   const {
     register,
-    setValue,
-    getValues,
     formState: { isValid, errors },
     handleSubmit,
   } = useForm<FormTypes>({
     mode: 'onChange',
-    resolver: yupResolver(getSignupNicknameFormSchema),
+    resolver: yupResolver(getNicknameFormSchema),
   })
-
-  const handleChange = ({ name, value }: any) => {
-    setValue(name, value, { shouldValidate: true })
+  const [success, setSuccess] = useState<boolean>(false)
+  const [errorMsg, setErrorMsg] = useState<string>('')
+  const handleChange = () => {
+    if (isValid) {
+      setSuccess(isValid)
+    }
   }
-
-  const handleSubmitClick = async () => {
-    const [nickname] = getValues('nickname')
+  const handleSubmitClick = async (formData: FormTypes) => {
+    const { nickname } = formData
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',
       body: JSON.stringify({
@@ -45,31 +41,28 @@ const Nickform = () => {
     if (data.success) {
       Router.push('/')
     } else {
-      setModal(true)
-      setModalTitle(data.message)
+      setSuccess(!isValid)
+      setErrorMsg(data.message)
     }
   }
   return (
     <section css={styles.container}>
-      <form css={styles.form}>
-        <input {...register('nickname')} onChange={handleChange} />
-        {errors?.nickname && <ValidateMessage result={errors?.nickname} />}
+      <form css={styles.form} onChange={handleChange}>
+        <input {...register('nickname')} />
+        {(errors?.nickname || errorMsg) && (
+          <ValidateMessage result={errors?.nickname || errorMsg} />
+        )}
         <div css={styles.btnBlock}>
           <Button
             size="sm"
-            style={isValid ? 'primary' : 'default'}
+            style={isValid && success ? 'primary' : 'default'}
             onClick={handleSubmit(handleSubmitClick)}
-            disabled={!isValid}
+            disabled={!isValid && !success}
           >
             알코홀-릭 시작하기
           </Button>
         </div>
       </form>
-      <ModalAlert
-        title={modalTitle}
-        isOpen={modal}
-        onClick={() => setModal(!modal)}
-      />
     </section>
   )
 }

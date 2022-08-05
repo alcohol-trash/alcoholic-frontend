@@ -9,11 +9,11 @@ export const container = css`
   height: 48px;
   overflow: hidden;
   background-color: ${theme.gray[900]};
-  z-index: 1;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 `
 export const profile = css`
   width: 32px;

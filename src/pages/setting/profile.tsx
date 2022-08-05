@@ -7,9 +7,10 @@ import Header from '@/components/Header'
 import Backbutton from '@/components/backbutton'
 import Button from '@/components/Button'
 import TextField from '@/components/TextField'
+import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from '@/css/setting/settingProfileStyles'
-import { getSettingNicknameFormSchema } from '@/libs/validations/settingNicknameValidation'
+import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
 
 type FormTypes = {
   nickname: string
@@ -22,7 +23,7 @@ const Profile = () => {
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSettingNicknameFormSchema),
+    resolver: yupResolver(getNicknameFormSchema),
   })
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
@@ -58,6 +59,9 @@ const Profile = () => {
           <div css={styles.inputBlock}>
             <div css={styles.leftBlock}>
               <TextField {...register('nickname')} onChange={handleChange} />
+              {errors?.nickname && (
+                <ValidateMessage result={errors?.nickname} />
+              )}
             </div>
             <div css={styles.rightBlock}>
               <Button

@@ -29,21 +29,15 @@ const Terms = () => {
       <form css={styles.form}>
         <div>
           <div css={styles.blockLine}>
-            <Checkbox
-              label="전체 동의하기"
-              value={true}
-              {...register('checkAll')}
-            />
+            <Checkbox label="전체 동의하기" {...register('checkAll')} />
           </div>
           <div css={styles.inputBlock}>
             <Checkbox
-              value={true}
               {...register('checkAge')}
               label="만 19세 이상입니다. (필수)"
             />
             <div css={styles.withBtnBlock}>
               <Checkbox
-                value={true}
                 {...register('checkService')}
                 label="서비스 이용약관에 동의 (필수)"
               />
@@ -51,7 +45,6 @@ const Terms = () => {
             </div>
             <div css={styles.withBtnBlock}>
               <Checkbox
-                value={true}
                 {...register('checkInfo')}
                 label="개인정보 수집 및 이용에 동의 (필수)"
               />
@@ -62,7 +55,11 @@ const Terms = () => {
         <div css={styles.btnBlock}>
           <Link href="/signup/email">
             <a>
-              <Button size="sm" style={isValid ? 'primary' : 'default'}>
+              <Button
+                size="sm"
+                style={isValid ? 'primary' : 'default'}
+                disabled={!isValid}
+              >
                 인증 확인
               </Button>
             </a>
