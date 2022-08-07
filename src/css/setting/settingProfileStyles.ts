@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import theme from '@/theme'
 
 export const container = css`
-  padding: 0 20px;
+  padding: 48px 20px;
   display: flex;
   flex-direction: column;
 `

@@ -15,6 +15,7 @@ import ModalAlert from '@/components/ModalAlert'
 import { categories, mainData } from '@/libs/mocks/homeData'
 
 import * as styles from '@/css/home'
+import Nocontentsblock from '@/components/nocontentsblock'
 
 const Home = () => {
   const router = useRouter()
@@ -26,13 +27,14 @@ const Home = () => {
   useEffect(() => {
     if (userData) {
       setLoggedIn(true)
-      console.log(userData)
     }
   }, [userData, setLoggedIn])
-
+  const handleBtnClick = () => {
+    //
+  }
   return (
     <>
-      <Gnb />
+      <Gnb isLoggedIn={isLoggedIn} />
       <section css={styles.container}>
         <Tabs defaultSelected={0} router={router}>
           {categories.map((category, index) => (
@@ -40,18 +42,26 @@ const Home = () => {
               <section css={styles.titleBlock}>
                 <Title>{category.name}</Title>
                 <Sentence size="sm">{category.description}</Sentence>
+                <section css={styles.btnBlock}>
+                  <button onClick={handleBtnClick}>최신순</button>
+                  <button onClick={handleBtnClick}>인기순</button>
+                </section>
               </section>
-              <section
-                onClick={() => {
-                  if (!isLoggedIn) {
-                    setModal(!modal)
-                  }
-                }}
-              >
-                {mainData.map((data, index) => (
-                  <Feed key={index} data={data} />
-                ))}
-              </section>
+              {mainData.length !== 0 ? (
+                <section
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      setModal(!modal)
+                    }
+                  }}
+                >
+                  {mainData.map((data, index) => (
+                    <Feed key={index} data={data} />
+                  ))}
+                </section>
+              ) : (
+                <Nocontentsblock isLoggedIn={isLoggedIn} />
+              )}
             </Tabs.Panel>
           ))}
         </Tabs>

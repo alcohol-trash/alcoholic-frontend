@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Router from 'next/router'
 
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
-import { getSignupNicknameFormSchema } from '@/libs/validations/signupNicknameValidation'
-
+import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
+const AUTH_TYPE = 'signup'
 type FormTypes = {
   nickname: string
 }
@@ -19,21 +20,44 @@ const Nickform = () => {
     handleSubmit,
   } = useForm<FormTypes>({
     mode: 'onChange',
-    resolver: yupResolver(getSignupNicknameFormSchema),
+    resolver: yupResolver(getNicknameFormSchema),
   })
-  const handleSubmitClick = (data: any) => {
-    console.log(data)
+  const [success, setSuccess] = useState<boolean>(false)
+  const [errorMsg, setErrorMsg] = useState<string>('')
+  const handleChange = () => {
+    if (isValid) {
+      setSuccess(isValid)
+    }
+  }
+  const handleSubmitClick = async (formData: FormTypes) => {
+    const { nickname } = formData
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        nickname: nickname,
+      }),
+    })
+    const data = await response.json()
+    if (data.success) {
+      Router.push('/')
+    } else {
+      setSuccess(!isValid)
+      setErrorMsg(data.message)
+    }
   }
   return (
     <section css={styles.container}>
-      <form css={styles.form}>
+      <form css={styles.form} onChange={handleChange}>
         <input {...register('nickname')} />
-        {errors?.nickname && <ValidateMessage result={errors?.nickname} />}
+        {(errors?.nickname || errorMsg) && (
+          <ValidateMessage result={errors?.nickname || errorMsg} />
+        )}
         <div css={styles.btnBlock}>
           <Button
             size="sm"
-            style={isValid ? 'primary' : 'default'}
+            style={isValid && success ? 'primary' : 'default'}
             onClick={handleSubmit(handleSubmitClick)}
+            disabled={!isValid && !success}
           >
             알코홀-릭 시작하기
           </Button>

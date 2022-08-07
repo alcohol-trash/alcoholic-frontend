@@ -2,9 +2,7 @@ import { css } from '@emotion/react'
 import theme from '@/theme'
 
 export const container = css`
-  position: relative;
-  height: 100vh;
-  padding: 0 20px;
+  padding: 48px 20px;
   button {
     padding: 0;
   }
@@ -16,10 +14,11 @@ export const emailBlock = css`
   margin: 16px 0;
 `
 export const btnBlock = css`
-  width: 100%;
-  position: absolute;
-  bottom: 16%;
-  padding-top: 24px;
+  position: fixed;
+  bottom: 12%;
+  left: 20px;
+  right: 20px;
+  padding: 24px 0;
   border-top: 1px solid ${theme.gray[700]};
   button {
     padding-left: 0;

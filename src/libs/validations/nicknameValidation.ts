@@ -1,6 +1,7 @@
 import * as yup from 'yup'
 
-export const getSignupNicknameFormSchema = yup.object({
+//소셜회원가입 닉네임 + 계정정보 수정 닉네임
+export const getNicknameFormSchema = yup.object({
   nickname: yup
     .string()
     .trim()

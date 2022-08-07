@@ -2,29 +2,31 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+import Title from '@/components/Title'
+
 import * as styles from '@/css/loginsignup'
+import { apiBaseUrl } from '@/libs/config'
 
 const LoginSignup = () => {
-  // const login = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY
-  // const second = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI
+  const KAKAO_AUTH_URL = `${apiBaseUrl}/oauth2/authorization/kakao`
+  const GOOGLE_AUTH_URL = `${apiBaseUrl}/oauth2/authorization/google`
   return (
     <section css={styles.container}>
       <section css={styles.topContainer}>
-        <h1 css={styles.title}>
-          <span>알코홀-릭</span>은 가입 후에
-          <br />
-          이용할 수 있어요!
-        </h1>
+        <Title>
+          <span css={styles.titleColor}>알코홀-릭은</span> 가입 후에
+        </Title>
+        <Title>이용할 수 있어요!</Title>
       </section>
       <section css={styles.bottomContainer}>
         <p>SNS 계정으로 시작하기</p>
         <div css={styles.imgBlock}>
-          <Link href="/signup/nickname">
+          <Link href={KAKAO_AUTH_URL} rel="noopener noreferrer">
             <div>
               <Image src="/assets/kakao.png" width={56} height={56} />
             </div>
           </Link>
-          <Link href="/signup/nickname">
+          <Link href={GOOGLE_AUTH_URL}>
             <div>
               <Image src="/assets/google.png" width={56} height={56} />
             </div>

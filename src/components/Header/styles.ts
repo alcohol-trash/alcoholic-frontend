@@ -1,10 +1,15 @@
 import { css } from '@emotion/react'
+import theme from '@/theme'
 
 export const container = css`
+  position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 10vh;
+  width: 100%;
+  height: 48px;
+  overflow: hidden;
+  background-color: ${theme.gray[900]};
+  z-index: 1;
+  padding: 0 20px;
 
   display: flex;
   justify-content: center;
@@ -17,11 +22,11 @@ export const titleBlock = css`
 `
 export const leftBlock = css`
   position: absolute;
-  left: 0;
+  left: 20px;
 `
 export const rightBlock = css`
   position: absolute;
-  right: 0;
+  right: 20px;
   button {
     padding: 0;
   }

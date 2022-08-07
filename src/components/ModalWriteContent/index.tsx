@@ -15,6 +15,10 @@ type Props = {
 }
 
 const customStyles: Modal.Styles = {
+  overlay: {
+    zIndex: '2',
+    backgroundColor: 'rgba(16, 17, 29, .8)',
+  },
   content: {
     display: 'flex',
     flexDirection: 'column',
@@ -25,25 +29,26 @@ const customStyles: Modal.Styles = {
     bottom: '0',
     width: '100%',
     height: '100vh',
-    padding: '0 20px',
+    padding: '0',
     border: 0,
     borderRadius: 0,
     position: 'fixed',
+    zIndex: '2',
   },
 }
 
 const ModalWriteContent = ({ isOpen, onClick }: Props) => {
   return (
     <Modal isOpen={isOpen} ariaHideApp={false} style={customStyles}>
+      <Header
+        left={
+          <div onClick={onClick}>
+            <Image src="/assets/close.png" width={24} height={24} />
+          </div>
+        }
+        right={<Button style="secondary">등록</Button>}
+      />
       <section css={styles.container}>
-        <Header
-          left={
-            <div onClick={onClick}>
-              <Image src="/assets/close.png" width={24} height={24} />
-            </div>
-          }
-          right={<Button style="secondary">등록</Button>}
-        />
         <section css={styles.titleBlock}>
           <label>#주류학개론</label>
           <TextField placeholder="제목입력" />
