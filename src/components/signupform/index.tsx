@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
 import { getSignupInfoFormSchema } from '@/libs/validations/signupInfoValidation'
 
+const AUTH_TYPE = 'signup'
 type FormTypes = {
   id: string
   password: string
@@ -16,20 +19,40 @@ type FormTypes = {
 }
 
 const SignupForm = () => {
+  const router = useRouter()
+  const email = router.query.email
+  const [modal, setModal] = useState<boolean>(false)
+  const [modalTitle, setModalTitle] = useState<string>('')
+
   const {
     register,
     setValue,
+    getValues,
     formState: { isValid, errors },
     handleSubmit,
   } = useForm<FormTypes>({
     resolver: yupResolver(getSignupInfoFormSchema),
   })
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
-  const handleBtnClick = (data: FormTypes) => {
-    console.log(data)
+
+  const handleBtnClick = async () => {
+    const [id, password] = getValues(['id', 'password'])
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+      method: 'POST',
+      body: JSON.stringify({ email: email, id: id, password: password }),
+    })
+    const data = await response.json()
+    if (data.success) {
+      router.push('/')
+    } else {
+      setModal(true)
+      setModalTitle(data.message)
+    }
   }
+
   return (
     <section css={styles.container}>
       <form>
@@ -73,11 +96,17 @@ const SignupForm = () => {
             onClick={handleSubmit(handleBtnClick)}
             size="sm"
             style={isValid ? 'primary' : 'default'}
+            disabled={!isValid}
           >
             입력 완료
           </Button>
         </div>
       </form>
+      <ModalAlert
+        title={modalTitle}
+        isOpen={modal}
+        onClick={() => setModal(!modal)}
+      />
     </section>
   )
 }

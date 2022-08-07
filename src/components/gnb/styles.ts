@@ -3,32 +3,21 @@ import theme from '@/theme'
 
 //Global Navigation Bar
 export const container = css`
+  position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-`
-export const block = css`
+  width: 100%;
+  height: 48px;
+  overflow: hidden;
+  background-color: ${theme.gray[900]};
+  padding: 0 20px;
   display: flex;
-  align-items: center;
-`
-export const blockDetail = css`
-  padding: 20px 20px;
   justify-content: space-between;
+  align-items: center;
+  z-index: 1;
 `
 export const profile = css`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  cursor: pointer;
-`
-export const list = css`
-  color: ${theme.gray[300]};
-`
-export const listItem = css`
-  display: inline-block;
-  width: 33%;
-  text-align: center;
-  padding-bottom: 14px;
-  border-bottom: 1px solid ${theme.gray[800]};
   cursor: pointer;
 `

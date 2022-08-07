@@ -4,6 +4,7 @@ export const tabs = css`
   display: flex;
   flex-direction: row;
   width: 100%;
+  cursor: pointer;
 `
 export const tabsInner = (isSelected: boolean) => {
   return css`

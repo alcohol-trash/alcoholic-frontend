@@ -28,34 +28,41 @@ const Terms = () => {
     <section css={styles.container}>
       <form css={styles.form}>
         <div>
-          <div css={[styles.blockLine]}>
-            <Checkbox
-              label="전체 동의하기"
-              value={true}
-              {...register('checkAll')}
-            />
+          <div css={styles.blockLine}>
+            <Checkbox label="전체 동의하기" {...register('checkAll')} />
           </div>
-          <Checkbox
-            value={true}
-            {...register('checkAge')}
-            label="만 19세 이상입니다. (필수)"
-          />
-          <Checkbox
-            value={true}
-            {...register('checkService')}
-            label="서비스 이용약관에 동의 (필수)"
-          />
-          <Checkbox
-            value={true}
-            {...register('checkInfo')}
-            label="개인정보 수집 및 이용에 동의 (필수)"
-          />
+          <div css={styles.inputBlock}>
+            <Checkbox
+              {...register('checkAge')}
+              label="만 19세 이상입니다. (필수)"
+            />
+            <div css={styles.withBtnBlock}>
+              <Checkbox
+                {...register('checkService')}
+                label="서비스 이용약관에 동의 (필수)"
+              />
+              <button css={styles.button}>보기</button>
+            </div>
+            <div css={styles.withBtnBlock}>
+              <Checkbox
+                {...register('checkInfo')}
+                label="개인정보 수집 및 이용에 동의 (필수)"
+              />
+              <button css={styles.button}>보기</button>
+            </div>
+          </div>
         </div>
         <div css={styles.btnBlock}>
           <Link href="/signup/email">
-            <Button size="sm" style={isValid ? 'primary' : 'default'}>
-              인증 확인
-            </Button>
+            <a>
+              <Button
+                size="sm"
+                style={isValid ? 'primary' : 'default'}
+                disabled={!isValid}
+              >
+                인증 확인
+              </Button>
+            </a>
           </Link>
         </div>
       </form>

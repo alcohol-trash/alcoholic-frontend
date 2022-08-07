@@ -1,22 +1,26 @@
 import { css } from '@emotion/react'
+import theme from '@/theme'
 
 export const Feed = {
   FeedContainer: css`
-    padding-bottom: 20px;
+    padding-bottom: 40px;
   `,
   FeedHeader: css`
     display: flex;
     align-items: center;
   `,
-  FeedHeaderProfile: css``,
+  FeedHeaderProfile: css`
+    padding-top: 4px;
+  `,
   FeedHeaderTitle: css`
     display: flex;
     flex-direction: column;
     padding-left: 10px;
     font-size: 14px;
     p {
+      margin: 0;
       font-size: 12px;
-      padding-top: 4px;
+      color: ${theme.gray[300]};
     }
   `,
   FeedContent: css`
@@ -29,8 +33,7 @@ export const Feed = {
     font-weight: 700;
   `,
   FeedContentDescription: css`
-    padding-top: 6px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
   `,
   FeedContentImage: css`
@@ -43,23 +46,10 @@ export const Feed = {
   FeedFooter: css`
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    color: ${theme.gray[300]};
+    font-size: 14px;
   `,
-  FeedHash: css``,
-  FeedComment: css`
-    padding-top: 20px;
-    padding-right: 4px;
-    p {
-      font-weight: 400;
-      strong {
-        font-weight: 700;
-      }
-    }
-  `,
-  CategoryContainer: css`
-    display: flex;
-    margin-top: 12px;
-    div {
-      margin-right: 8px;
-    }
-  `,
+  FeedLike: css``,
+  FeedComment: css``,
 }

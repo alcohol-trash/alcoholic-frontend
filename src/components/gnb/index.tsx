@@ -4,26 +4,25 @@ import Image from 'next/image'
 import * as styles from './styles'
 import Title from '@/components/Title'
 
-const Gnb = () => {
+type Props = {
+  isLoggedIn: boolean
+}
+
+const Gnb = ({ isLoggedIn }: Props) => {
   return (
     <section css={styles.container}>
-      <div css={[styles.block, styles.blockDetail]}>
-        <Link href="/">
+      <Link href="/">
+        <a>
           <Title>알코홀-릭</Title>
-        </Link>
-        <Link href="/loginsignup">
-          <div css={[styles.block, styles.profile]}>
+        </a>
+      </Link>
+      <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
+        <a>
+          <div css={styles.profile}>
             <Image src="/assets/profile_img.png" width={32} height={32} />
           </div>
-        </Link>
-      </div>
-      <ul css={styles.list}>
-        <Link href="/main">
-          <li css={styles.listItem}>주류학개론</li>
-        </Link>
-        <li css={styles.listItem}>술 위키</li>
-        <li css={styles.listItem}>질문과 답변</li>
-      </ul>
+        </a>
+      </Link>
     </section>
   )
 }
