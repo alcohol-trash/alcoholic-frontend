@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
+import Router from 'next/router'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
@@ -18,36 +19,49 @@ const Info = () => {
       await fetch(`/api/member/info`).then((response) => response.json()),
   )
   const [modal, setModal] = useState(false)
+  useEffect(() => {
+    if (!me || !me.email) {
+      Router.push('/')
+    }
+  }, [me])
   return (
     <>
-      {me.provider === 'LOCAL' ? (
-        <AccountInfo />
-      ) : (
+      {me && me.email && (
         <section>
-          <Header title="계정정보" left={<Backbutton />} />
-          <section css={styles.container}>
-            <label>이메일</label>
-            <div css={styles.emailBlock}>
-              <Sentence size="base">{me.email}</Sentence>
-              <Image
-                src={
-                  me.provider === 'KAKAO'
-                    ? '/assets/kakao.png'
-                    : '/assets/google.png'
-                }
-                width={32}
-                height={32}
-              />
-            </div>
-          </section>
+          {me.provider === 'LOCAL' ? (
+            <AccountInfo />
+          ) : (
+            <section>
+              <Header title="계정정보" left={<Backbutton />} />
+              <section css={styles.container}>
+                <label>이메일</label>
+                <div css={styles.emailBlock}>
+                  <Sentence size="base">{me.email}</Sentence>
+                  <Image
+                    src={
+                      me.provider === 'KAKAO'
+                        ? '/assets/kakao.png'
+                        : '/assets/google.png'
+                    }
+                    width={32}
+                    height={32}
+                  />
+                </div>
+              </section>
+            </section>
+          )}
+          <div css={styles.btnBlock}>
+            <Button
+              style="secondary"
+              size="base"
+              onClick={() => setModal(!modal)}
+            >
+              회원탈퇴
+            </Button>
+          </div>
+          <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
         </section>
       )}
-      <div css={styles.btnBlock}>
-        <Button style="secondary" size="base" onClick={() => setModal(!modal)}>
-          회원탈퇴
-        </Button>
-      </div>
-      <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
     </>
   )
 }

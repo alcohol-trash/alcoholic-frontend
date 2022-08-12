@@ -24,15 +24,12 @@ const Home = () => {
   )
   const router = useRouter()
   const [modal, setModal] = useState<boolean>(false)
-  useEffect(() => {
-    console.log(me)
-  })
   const handleBtnClick = () => {
     //
   }
   return (
     <>
-      <Gnb isLoggedIn={me && me.success} />
+      <Gnb isLoggedIn={me && me.email} />
       <section css={styles.container}>
         <Tabs defaultSelected={0} router={router}>
           {categories.map((category, index) => (
@@ -48,7 +45,7 @@ const Home = () => {
               {mainData.length !== 0 ? (
                 <section
                   onClick={() => {
-                    if (!me || !me.success) {
+                    if (!me || !me.email) {
                       setModal(!modal)
                     }
                   }}
@@ -58,7 +55,7 @@ const Home = () => {
                   ))}
                 </section>
               ) : (
-                <Nocontentsblock isLoggedIn={me && me.success} />
+                <Nocontentsblock isLoggedIn={me && me.email} />
               )}
             </Tabs.Panel>
           ))}
@@ -72,7 +69,7 @@ const Home = () => {
           onCancel={() => setModal(!modal)}
         />
       </section>
-      <Bottombar isLoggedIn={me && me.success} />
+      <Bottombar isLoggedIn={me && me.email} />
     </>
   )
 }

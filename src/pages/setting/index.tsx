@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import Router from 'next/router'
 import Link from 'next/link'
@@ -25,7 +25,6 @@ const Setting = () => {
       method: 'POST',
     })
     const data = await response.json()
-    console.log(data.message)
     if (data.success) {
       Router.push('/')
     } else {
@@ -33,33 +32,42 @@ const Setting = () => {
       setModalTitle(data.message)
     }
   }
+  useEffect(() => {
+    if (!me || !me.email) {
+      Router.push('/')
+    }
+  }, [me])
   return (
     <>
-      <Header title="설정" left={<Backbutton />} />
-      <section css={styles.container}>
-        <ul css={styles.list}>
-          <Link href="/setting/info">
-            <li>계정 정보</li>
-          </Link>
-          <Link href="/setting/profile">
-            <li css={styles.border}>프로필 편집</li>
-          </Link>
-          <Link href="/setting/service">
-            <li>고객센터</li>
-          </Link>
-          <Link href="/setting/terms">
-            <li css={styles.border}>이용약관</li>
-          </Link>
-          <li css={styles.liColor} onClick={handleLogout}>
-            로그아웃
-          </li>
-        </ul>
-        <ModalAlert
-          title={modalTitle}
-          isOpen={modal}
-          onClick={() => setModal(!modal)}
-        />
-      </section>
+      {me && me.email && (
+        <section>
+          <Header title="설정" left={<Backbutton />} />
+          <section css={styles.container}>
+            <ul css={styles.list}>
+              <Link href="/setting/info">
+                <li>계정 정보</li>
+              </Link>
+              <Link href="/setting/profile">
+                <li css={styles.border}>프로필 편집</li>
+              </Link>
+              <Link href="/setting/service">
+                <li>고객센터</li>
+              </Link>
+              <Link href="/setting/terms">
+                <li css={styles.border}>이용약관</li>
+              </Link>
+              <li css={styles.liColor} onClick={handleLogout}>
+                로그아웃
+              </li>
+            </ul>
+            <ModalAlert
+              title={modalTitle}
+              isOpen={modal}
+              onClick={() => setModal(!modal)}
+            />
+          </section>
+        </section>
+      )}
     </>
   )
 }

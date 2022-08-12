@@ -8,7 +8,6 @@ import Editor from '@/components/Editor'
 import theme from '@/theme'
 
 import * as styles from './styles'
-import TextField from '../TextField'
 
 type Props = {
   isOpen: boolean
@@ -55,41 +54,6 @@ const ModalWriteContent = ({ isOpen, onClick }: Props) => {
         right={<Button style="secondary">등록</Button>}
       />
       <section css={styles.container}>
-        {/* <section css={styles.titleBlock}>
-          <label>#주류학개론</label>
-          <TextField placeholder="제목입력" />
-        </section> */}
-        {/* <section css={styles.contentBlock}>
-          <textarea placeholder="내용을 입력하세요" />
-        </section> */}
-        {/* <section>
-          <div css={styles.editBlock} contentEditable="true"></div>
-          <div css={styles.leftBlock}>
-            <label htmlFor="file">
-              <Image src="/assets/add_picture.png" width={24} height={24} />
-            </label>
-            <input type="file" accept="image/*" id="file" />
-          </div>
-        </section>
-        <nav css={styles.bottomBlock}>
-          <div css={styles.leftBlock}>
-            <label htmlFor="file">
-              <Image src="/assets/add_picture.png" width={24} height={24} />
-            </label>
-            <input type="file" accept="image/*" id="file" />
-          </div>
-          <div css={styles.rightBlock}>
-            <div>
-              <Image src="/assets/undo_disabled.png" width={24} height={24} />
-            </div>
-            <div>
-              <Image src="/assets/redo_disabled.png" width={24} height={24} />
-            </div>
-            <div css={styles.lineBlock}>
-              <Image src="/assets/keyboard_down.png" width={24} height={24} />
-            </div>
-          </div>
-        </nav> */}
         <Editor />
       </section>
     </Modal>
