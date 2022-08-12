@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
-//import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
@@ -52,30 +51,5 @@ const Info = () => {
     </>
   )
 }
-
-// 이후 토큰 추가 예정
-// export const getServerSideProps = async (
-//   context: GetServerSidePropsContext,
-// ) => {
-//   const cookie = context.req ? context.req.headers.cookie : ''
-//   // axios.defaults.headers.Cookie = '';
-//   // if (context.req && cookie) {
-//   //   fetch.defaults.headers.Cookie = cookie;
-//   // }
-//   console.log(cookie)
-//   const response = await fetch(`/api/member/${TYPE}`)
-//   const data = await response.json()
-//   if (!data) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       },
-//     }
-//   }
-//   return {
-//     props: {},
-//   }
-// }
 
 export default Info
