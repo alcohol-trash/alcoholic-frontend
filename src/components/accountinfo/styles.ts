@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import theme from '@/theme'
 
 export const container = css`
-  padding: 48px 20px;
+  padding: 16px 20px;
 `
 
 export const infoBlock = css`

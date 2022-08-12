@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import theme from '@/theme'
 
 export const container = css`
-  padding: 48px 20px;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
 `
@@ -41,6 +41,7 @@ export const nickname = css`
 export const inputBlock = css`
   display: flex;
   height: 44px;
+  width: 100%;
 `
 export const leftBlock = css`
   flex-grow: 9;

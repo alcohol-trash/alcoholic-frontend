@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -21,6 +22,11 @@ type FormTypes = {
 }
 
 const AccountInfo = () => {
+  const { data: me } = useQuery(
+    'user',
+    async () =>
+      await fetch(`/api/member/info`).then((response) => response.json()),
+  )
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const {
@@ -36,11 +42,11 @@ const AccountInfo = () => {
     setValue(name, value, { shouldValidate: true })
   }
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/member/forget/${TYPE}`, {
+    const response = await fetch(`/api/member/change/${TYPE}`, {
       method: 'POST',
       body: JSON.stringify({
-        // id,
-        // email,
+        id: me.id,
+        email: me.email,
         password: getValues('password'),
         newPassword: getValues('newPassword'),
       }),
@@ -51,7 +57,7 @@ const AccountInfo = () => {
       setModalTitle(data.message)
       if (data.success) {
         setModal(true)
-        setModalTitle('성공했습니다.')
+        setModalTitle('정보가 수정되었습니다.')
       }
     }
   }
@@ -71,9 +77,13 @@ const AccountInfo = () => {
         }
       />
       <section css={styles.container}>
+        <label>이메일</label>
+        <div css={styles.infoBlock}>
+          <Sentence size="base">{me.email}</Sentence>
+        </div>
         <label>아이디</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">alcoholic</Sentence>
+          <Sentence size="base">{me.id}</Sentence>
         </div>
         <form>
           <div>
