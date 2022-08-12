@@ -15,29 +15,28 @@ const Info = () => {
   const [modal, setModal] = useState(false)
   return (
     <>
-      <Header
-        title="계정정보"
-        left={<Backbutton />}
-        right={local && <Button style="secondary">수정</Button>}
-      />
-      <section css={styles.container}>
-        <label>이메일</label>
-        <div css={styles.emailBlock}>
-          <Sentence size="base">alcoholic@kakao.com</Sentence>
-          {!local && <Image src="/assets/kakao.png" width={32} height={32} />}
-        </div>
-        {local && <AccountInfo />}
-        <div css={styles.btnBlock}>
-          <Button
-            style="secondary"
-            size="base"
-            onClick={() => setModal(!modal)}
-          >
-            회원탈퇴
-          </Button>
-        </div>
-        <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
-      </section>
+      {local ? (
+        <AccountInfo />
+      ) : (
+        <section>
+          <Header title="계정정보" left={<Backbutton />} />
+          <section css={styles.container}>
+            <label>이메일</label>
+            <div css={styles.emailBlock}>
+              <Sentence size="base">alcoholic@kakao.com</Sentence>
+              {!local && (
+                <Image src="/assets/kakao.png" width={32} height={32} />
+              )}
+            </div>
+          </section>
+        </section>
+      )}
+      <div css={styles.btnBlock}>
+        <Button style="secondary" size="base" onClick={() => setModal(!modal)}>
+          회원탈퇴
+        </Button>
+      </div>
+      <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
     </>
   )
 }

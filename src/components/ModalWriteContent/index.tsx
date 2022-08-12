@@ -4,6 +4,7 @@ import Image from 'next/image'
 
 import Button from '@/components/Button'
 import Header from '@/components/Header'
+import Editor from '@/components/Editor'
 import theme from '@/theme'
 
 import * as styles from './styles'
@@ -33,13 +34,18 @@ const customStyles: Modal.Styles = {
     border: 0,
     borderRadius: 0,
     position: 'fixed',
-    zIndex: '2',
+    zIndex: '3',
   },
 }
 
 const ModalWriteContent = ({ isOpen, onClick }: Props) => {
   return (
-    <Modal isOpen={isOpen} ariaHideApp={false} style={customStyles}>
+    <Modal
+      isOpen={isOpen}
+      ariaHideApp={false}
+      style={customStyles}
+      onRequestClose={onClick}
+    >
       <Header
         left={
           <div onClick={onClick}>
@@ -49,16 +55,28 @@ const ModalWriteContent = ({ isOpen, onClick }: Props) => {
         right={<Button style="secondary">등록</Button>}
       />
       <section css={styles.container}>
-        <section css={styles.titleBlock}>
+        {/* <section css={styles.titleBlock}>
           <label>#주류학개론</label>
           <TextField placeholder="제목입력" />
-        </section>
-        <section css={styles.contentBlock}>
+        </section> */}
+        {/* <section css={styles.contentBlock}>
           <textarea placeholder="내용을 입력하세요" />
+        </section> */}
+        {/* <section>
+          <div css={styles.editBlock} contentEditable="true"></div>
+          <div css={styles.leftBlock}>
+            <label htmlFor="file">
+              <Image src="/assets/add_picture.png" width={24} height={24} />
+            </label>
+            <input type="file" accept="image/*" id="file" />
+          </div>
         </section>
         <nav css={styles.bottomBlock}>
           <div css={styles.leftBlock}>
-            <Image src="/assets/add_picture.png" width={24} height={24} />
+            <label htmlFor="file">
+              <Image src="/assets/add_picture.png" width={24} height={24} />
+            </label>
+            <input type="file" accept="image/*" id="file" />
           </div>
           <div css={styles.rightBlock}>
             <div>
@@ -71,7 +89,8 @@ const ModalWriteContent = ({ isOpen, onClick }: Props) => {
               <Image src="/assets/keyboard_down.png" width={24} height={24} />
             </div>
           </div>
-        </nav>
+        </nav> */}
+        <Editor />
       </section>
     </Modal>
   )

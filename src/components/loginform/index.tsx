@@ -50,7 +50,7 @@ const Loginform = () => {
     const data = await response.json()
     if (data.success) {
       query.setQueryData('user', data.data)
-      console.log(data)
+      console.log(data.headers)
       Router.push('/')
     } else {
       setModal(true)
