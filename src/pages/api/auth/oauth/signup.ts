@@ -5,8 +5,7 @@ export default async function Signup(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { type } = req.query
-  const response = await fetch(`${apiBaseUrl}/api/auth/oauth/${type}`, {
+  const response = await fetch(`${apiBaseUrl}/api/auth/oauth/signup`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
