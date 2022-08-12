@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useQuery } from 'react-query'
 import Router from 'next/router'
 import Link from 'next/link'
 
@@ -12,6 +13,13 @@ const AUTH_TYPE = 'logout'
 const Setting = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+
+  const { data: me } = useQuery(
+    'user',
+    async () =>
+      await fetch(`/api/member/info`).then((response) => response.json()),
+  )
+
   const handleLogout = async () => {
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',

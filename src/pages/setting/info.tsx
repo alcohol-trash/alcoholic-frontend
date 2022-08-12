@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useQuery } from 'react-query'
+//import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
@@ -11,11 +13,15 @@ import Backbutton from '@/components/backbutton'
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
-  const [local, setLocal] = useState(true)
+  const { data: me } = useQuery(
+    'user',
+    async () =>
+      await fetch(`/api/member/info`).then((response) => response.json()),
+  )
   const [modal, setModal] = useState(false)
   return (
     <>
-      {local ? (
+      {me.provider === 'LOCAL' ? (
         <AccountInfo />
       ) : (
         <section>
@@ -23,10 +29,16 @@ const Info = () => {
           <section css={styles.container}>
             <label>이메일</label>
             <div css={styles.emailBlock}>
-              <Sentence size="base">alcoholic@kakao.com</Sentence>
-              {!local && (
-                <Image src="/assets/kakao.png" width={32} height={32} />
-              )}
+              <Sentence size="base">{me.email}</Sentence>
+              <Image
+                src={
+                  me.provider === 'KAKAO'
+                    ? '/assets/kakao.png'
+                    : '/assets/google.png'
+                }
+                width={32}
+                height={32}
+              />
             </div>
           </section>
         </section>
@@ -40,5 +52,30 @@ const Info = () => {
     </>
   )
 }
+
+// 이후 토큰 추가 예정
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext,
+// ) => {
+//   const cookie = context.req ? context.req.headers.cookie : ''
+//   // axios.defaults.headers.Cookie = '';
+//   // if (context.req && cookie) {
+//   //   fetch.defaults.headers.Cookie = cookie;
+//   // }
+//   console.log(cookie)
+//   const response = await fetch(`/api/member/${TYPE}`)
+//   const data = await response.json()
+//   if (!data) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       },
+//     }
+//   }
+//   return {
+//     props: {},
+//   }
+// }
 
 export default Info

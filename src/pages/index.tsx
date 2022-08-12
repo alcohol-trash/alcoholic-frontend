@@ -1,40 +1,38 @@
 import React, { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 import Router from 'next/router'
 import { useRouter } from 'next/router'
-import { useQueryClient } from 'react-query'
 
 import Title from '@/components/Title'
 import Sentence from '@/components/Sentence'
-
 import Gnb from '@/components/gnb'
 import Tabs from '@/components/Tabs'
 import Feed from '@/components/feed'
 import Bottombar from '@/components/Bottombar'
 import ModalAlert from '@/components/ModalAlert'
+import Nocontentsblock from '@/components/nocontentsblock'
 
 import { categories, mainData } from '@/libs/mocks/homeData'
 
 import * as styles from '@/css/home'
-import Nocontentsblock from '@/components/nocontentsblock'
 
 const Home = () => {
+  const { data: me } = useQuery(
+    'user',
+    async () =>
+      await fetch(`/api/member/info`).then((response) => response.json()),
+  )
   const router = useRouter()
-  const query = useQueryClient()
-  const userData = query.getQueryData('user')
-  const [isLoggedIn, setLoggedIn] = useState(false)
   const [modal, setModal] = useState<boolean>(false)
-
   useEffect(() => {
-    if (userData) {
-      setLoggedIn(true)
-    }
-  }, [userData, setLoggedIn])
+    console.log(me)
+  })
   const handleBtnClick = () => {
     //
   }
   return (
     <>
-      <Gnb isLoggedIn={isLoggedIn} />
+      <Gnb isLoggedIn={me && me.success} />
       <section css={styles.container}>
         <Tabs defaultSelected={0} router={router}>
           {categories.map((category, index) => (
@@ -50,7 +48,7 @@ const Home = () => {
               {mainData.length !== 0 ? (
                 <section
                   onClick={() => {
-                    if (!isLoggedIn) {
+                    if (!me || !me.success) {
                       setModal(!modal)
                     }
                   }}
@@ -60,7 +58,7 @@ const Home = () => {
                   ))}
                 </section>
               ) : (
-                <Nocontentsblock isLoggedIn={isLoggedIn} />
+                <Nocontentsblock isLoggedIn={me && me.success} />
               )}
             </Tabs.Panel>
           ))}
@@ -74,7 +72,7 @@ const Home = () => {
           onCancel={() => setModal(!modal)}
         />
       </section>
-      <Bottombar isLoggedIn={isLoggedIn} />
+      <Bottombar isLoggedIn={me && me.success} />
     </>
   )
 }

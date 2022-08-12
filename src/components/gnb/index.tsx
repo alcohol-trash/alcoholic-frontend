@@ -5,10 +5,11 @@ import * as styles from './styles'
 import Title from '@/components/Title'
 
 type Props = {
-  isLoggedIn: boolean
+  isLoggedIn: boolean | undefined | void
+  img?: string
 }
 
-const Gnb = ({ isLoggedIn }: Props) => {
+const Gnb = ({ isLoggedIn, img }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">
@@ -19,7 +20,12 @@ const Gnb = ({ isLoggedIn }: Props) => {
       <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
         <a>
           <div css={styles.profile}>
-            <Image src="/assets/profile_img.png" width={32} height={32} />
+            <Image
+              // src={isLoggedIn ? '' : '/assets/profile_img.png'}
+              src="/assets/profile_img.png"
+              width={32}
+              height={32}
+            />
           </div>
         </a>
       </Link>
