@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import Router from 'next/router'
 import { useRouter } from 'next/router'
@@ -13,7 +13,6 @@ import ModalAlert from '@/components/ModalAlert'
 import Nocontentsblock from '@/components/nocontentsblock'
 
 import { categories, mainData } from '@/libs/mocks/homeData'
-
 import * as styles from '@/css/home'
 
 const Home = () => {
