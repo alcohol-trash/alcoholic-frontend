@@ -23,6 +23,7 @@ export const titleBlock = css`
 export const leftBlock = css`
   position: absolute;
   left: 20px;
+  display: inline;
 `
 export const rightBlock = css`
   position: absolute;
@@ -30,4 +31,5 @@ export const rightBlock = css`
   button {
     padding: 0;
   }
+  display: inline;
 `

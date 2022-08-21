@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 
 export const container = css`
-  padding: 48px 20px;
+  padding: 16px 20px;
 `
 export const list = css`
   li {

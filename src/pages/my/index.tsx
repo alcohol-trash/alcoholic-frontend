@@ -40,7 +40,7 @@ const MyPage = () => {
           </a>
         </Link>
         {/* TODO: 설정 이동 */}
-        <Link href="">
+        <Link href="/setting">
           <a>설정</a>
         </Link>
       </div>
