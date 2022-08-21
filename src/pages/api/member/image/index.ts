@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { apiBaseUrl } from '@/libs/config'
-async function ChangeImage(req: NextApiRequest, res: NextApiResponse) {
+export default async function ChangeImage(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { id } = req.query
   if (req.method === 'PUT') {
     const response = await fetch(`${apiBaseUrl}/api/member/image/${id}`, {
@@ -27,5 +30,3 @@ async function ChangeImage(req: NextApiRequest, res: NextApiResponse) {
     res.status(response.status).json(data)
   }
 }
-
-export default ChangeImage
