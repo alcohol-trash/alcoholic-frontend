@@ -15,7 +15,6 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from '@/css/setting/settingProfileStyles'
 import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
 
-const TYPE = 'nickname'
 type FormTypes = {
   nickname: string
 }
@@ -41,11 +40,10 @@ const Profile = () => {
     setValue(name, value, { shouldValidate: true })
   }
   const handleCheckClick = async () => {
-    //api 연결
-    const response = await fetch(`/api/member/change/${TYPE}`, {
-      method: 'POST',
+    //닉네임 변경
+    const response = await fetch(`/api/member/change/${me.id}`, {
+      method: 'PUT',
       body: JSON.stringify({
-        email: me.email,
         nickname: getValues('nickname'),
       }),
     })
@@ -61,6 +59,14 @@ const Profile = () => {
   }
   const handleSubmitClick = () => {
     //api 연결
+  }
+  const handleDeleteClick = async () => {
+    //이미지 삭제
+    const response = await fetch(`/api/member/change/${me.id}`, {
+      method: 'PUT',
+    })
+    const data = await response.json()
+    console.log(data)
   }
   return (
     <>
@@ -81,7 +87,7 @@ const Profile = () => {
           />
           <section css={styles.container}>
             <section css={styles.btnBlock}>
-              <div css={styles.imgBlock}>
+              <div css={styles.imgBlock} onClick={handleDeleteClick}>
                 <Image src="/assets/camera.png" width={20} height={20} />
               </div>
               <div css={styles.imgBlock}>
