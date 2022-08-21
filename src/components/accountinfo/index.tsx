@@ -16,7 +16,6 @@ import { Toasts } from '@/components/ToastsAlert'
 import * as styles from './styles'
 import { getSettingEditFormSchema } from '@/libs/validations/settingEditValidation'
 
-const TYPE = 'password'
 type FormTypes = {
   password: string
   newPassword: string
@@ -44,11 +43,9 @@ const AccountInfo = () => {
     setValue(name, value, { shouldValidate: true })
   }
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/member/change/${TYPE}`, {
-      method: 'POST',
+    const response = await fetch(`/api/member/change/${me.id}`, {
+      method: 'PUT',
       body: JSON.stringify({
-        id: me.id,
-        email: me.email,
         password: getValues('password'),
         newPassword: getValues('newPassword'),
       }),
