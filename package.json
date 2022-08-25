@@ -34,7 +34,6 @@
     "react-query": "^3.38.1",
     "react-quill": "^2.0.0",
     "react-toastify": "^9.0.8",
-    "styled-reset": "^4.3.4",
     "yup": "^0.32.11"
   },
   "devDependencies": {
