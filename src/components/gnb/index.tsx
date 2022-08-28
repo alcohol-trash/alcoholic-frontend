@@ -5,7 +5,7 @@ import * as styles from './styles'
 import Title from '@/components/Title'
 
 type Props = {
-  isLoggedIn: boolean
+  isLoggedIn: boolean | undefined | void
 }
 
 const Gnb = ({ isLoggedIn }: Props) => {

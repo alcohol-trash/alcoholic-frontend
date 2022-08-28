@@ -9,7 +9,7 @@ import ModalWriteContent from '@/components/ModalWriteContent'
 import * as styles from './styles'
 
 type Props = {
-  isLoggedIn: boolean
+  isLoggedIn: boolean | undefined | void
 }
 
 const NoContentsBlock = ({ isLoggedIn }: Props) => {

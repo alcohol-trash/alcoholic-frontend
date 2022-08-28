@@ -8,7 +8,7 @@ import ModalWriteContent from '@/components/ModalWriteContent'
 import * as styles from './styles'
 
 type Props = {
-  isLoggedIn: boolean
+  isLoggedIn: boolean | undefined | void
 }
 
 const BottomBar = ({ isLoggedIn }: Props) => {
@@ -28,23 +28,25 @@ const BottomBar = ({ isLoggedIn }: Props) => {
   }
 
   return (
-    <section css={styles.container} onClick={onHandleClick}>
-      <form css={styles.form} onSubmit={handleSubmit(onVaild)}>
-        <div css={styles.block}>
-          <Image src="/assets/profile_img.png" width={32} height={32} />
-        </div>
-        <textarea
-          placeholder={
-            isLoggedIn
-              ? '주류학개론에 글 남기기'
-              : '로그인 후에 작성할 수 있습니다.'
-          }
-          rows={1}
-          {...register('content')}
-        />
-      </form>
+    <>
+      <section css={styles.container} onClick={onHandleClick}>
+        <form css={styles.form} onSubmit={handleSubmit(onVaild)}>
+          <div css={styles.block}>
+            <Image src="/assets/profile_img.png" width={32} height={32} />
+          </div>
+          <textarea
+            placeholder={
+              isLoggedIn
+                ? '주류학개론에 글 남기기'
+                : '로그인 후에 작성할 수 있습니다.'
+            }
+            rows={1}
+            {...register('content')}
+          />
+        </form>
+      </section>
       <ModalWriteContent isOpen={modal} onClick={() => setModal(!modal)} />
-    </section>
+    </>
   )
 }
 

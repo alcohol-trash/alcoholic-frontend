@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
+import Router from 'next/router'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
@@ -11,33 +13,55 @@ import Backbutton from '@/components/backbutton'
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
-  const [local, setLocal] = useState(true)
+  const { data: me } = useQuery(
+    'user',
+    async () =>
+      await fetch(`/api/member/info`).then((response) => response.json()),
+  )
   const [modal, setModal] = useState(false)
+  useEffect(() => {
+    if (!me || !me.email) {
+      Router.push('/')
+    }
+  }, [me])
   return (
     <>
-      <Header
-        title="계정정보"
-        left={<Backbutton />}
-        right={local && <Button style="secondary">수정</Button>}
-      />
-      <section css={styles.container}>
-        <label>이메일</label>
-        <div css={styles.emailBlock}>
-          <Sentence size="base">alcoholic@kakao.com</Sentence>
-          {!local && <Image src="/assets/kakao.png" width={32} height={32} />}
-        </div>
-        {local && <AccountInfo />}
-        <div css={styles.btnBlock}>
-          <Button
-            style="secondary"
-            size="base"
-            onClick={() => setModal(!modal)}
-          >
-            회원탈퇴
-          </Button>
-        </div>
-        <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
-      </section>
+      {me && me.email && (
+        <section>
+          {me.provider === 'LOCAL' ? (
+            <AccountInfo />
+          ) : (
+            <section>
+              <Header title="계정정보" left={<Backbutton />} />
+              <section css={styles.container}>
+                <label>이메일</label>
+                <div css={styles.emailBlock}>
+                  <Sentence size="base">{me.email}</Sentence>
+                  <Image
+                    src={
+                      me.provider === 'KAKAO'
+                        ? '/assets/kakao.png'
+                        : '/assets/google.png'
+                    }
+                    width={32}
+                    height={32}
+                  />
+                </div>
+              </section>
+            </section>
+          )}
+          <div css={styles.btnBlock}>
+            <Button
+              style="secondary"
+              size="base"
+              onClick={() => setModal(!modal)}
+            >
+              회원탈퇴
+            </Button>
+          </div>
+          <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
+        </section>
+      )}
     </>
   )
 }

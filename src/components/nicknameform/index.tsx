@@ -8,7 +8,6 @@ import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
 import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
-const AUTH_TYPE = 'signup'
 type FormTypes = {
   nickname: string
 }
@@ -31,7 +30,7 @@ const Nickform = () => {
   }
   const handleSubmitClick = async (formData: FormTypes) => {
     const { nickname } = formData
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+    const response = await fetch(`/api/auth/signup`, {
       method: 'POST',
       body: JSON.stringify({
         nickname: nickname,
