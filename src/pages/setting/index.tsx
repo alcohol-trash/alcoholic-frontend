@@ -5,7 +5,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/backbutton'
+import Backbutton from '@/components/BackButton'
 import ModalAlert from '@/components/ModalAlert'
 
 import { MemberInfo } from '@/pages/api/member/info'

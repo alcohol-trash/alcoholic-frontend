@@ -6,10 +6,9 @@ import Image from 'next/image'
 import ModalWriteContent from '@/components/ModalWriteContent'
 
 import * as styles from './styles'
-import User from '@/types/user'
 
 type Props = {
-  isLoggedIn: boolean | undefined | void | string | null | User
+  isLoggedIn: boolean
 }
 
 const BottomBar = ({ isLoggedIn }: Props) => {
@@ -51,4 +50,4 @@ const BottomBar = ({ isLoggedIn }: Props) => {
   )
 }
 
-export default BottomBar
+export default React.memo(BottomBar)

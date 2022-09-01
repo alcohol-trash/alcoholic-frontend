@@ -1,5 +1,5 @@
 import Header from '@/components/Header'
-import Backbutton from '@/components/backbutton'
+import Backbutton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingServiceStyles'
 

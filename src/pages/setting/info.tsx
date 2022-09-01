@@ -6,9 +6,9 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
-import AccountInfo from '@/components/accountinfo'
+import AccountInfo from '@/components/AccountInfo'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
-import Backbutton from '@/components/backbutton'
+import Backbutton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 

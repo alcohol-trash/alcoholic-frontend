@@ -8,6 +8,7 @@ import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
 import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
+
 type FormTypes = {
   nickname: string
 }

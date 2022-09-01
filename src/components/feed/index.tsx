@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 
-import * as styles from './styles'
 import LikeButton from '@/components/LikeButton'
+
+import * as styles from './styles'
 
 interface BoardsProps {
   content: string

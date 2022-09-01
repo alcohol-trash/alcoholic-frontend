@@ -1,12 +1,13 @@
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import * as styles from './styles'
 import Title from '@/components/Title'
-import User from '@/types/user'
+
+import * as styles from './styles'
 
 type Props = {
-  isLoggedIn: boolean | undefined | void | string | null | User
+  isLoggedIn: boolean
 }
 
 const Gnb = ({ isLoggedIn }: Props) => {
@@ -28,4 +29,4 @@ const Gnb = ({ isLoggedIn }: Props) => {
   )
 }
 
-export default Gnb
+export default React.memo(Gnb)
