@@ -29,11 +29,10 @@ const Nickform = () => {
     }
   }
   const handleSubmitClick = async (formData: FormTypes) => {
-    const { nickname } = formData
     const response = await fetch(`/api/auth/signup`, {
       method: 'POST',
       body: JSON.stringify({
-        nickname: nickname,
+        nickname: formData,
       }),
     })
     const data = await response.json()

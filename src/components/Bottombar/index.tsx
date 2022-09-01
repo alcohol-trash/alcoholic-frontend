@@ -6,9 +6,10 @@ import Image from 'next/image'
 import ModalWriteContent from '@/components/ModalWriteContent'
 
 import * as styles from './styles'
+import User from '@/types/user'
 
 type Props = {
-  isLoggedIn: boolean | undefined | void
+  isLoggedIn: boolean | undefined | void | string | null | User
 }
 
 const BottomBar = ({ isLoggedIn }: Props) => {

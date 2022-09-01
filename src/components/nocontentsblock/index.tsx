@@ -7,9 +7,10 @@ import ModalAlert from '@/components/ModalAlert'
 import ModalWriteContent from '@/components/ModalWriteContent'
 
 import * as styles from './styles'
+import User from '@/types/user'
 
 type Props = {
-  isLoggedIn: boolean | undefined | void
+  isLoggedIn: boolean | undefined | void | string | null | User
 }
 
 const NoContentsBlock = ({ isLoggedIn }: Props) => {

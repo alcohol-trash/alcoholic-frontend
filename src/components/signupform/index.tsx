@@ -39,10 +39,13 @@ const SignupForm = () => {
   }
 
   const handleBtnClick = async () => {
-    const [id, password] = getValues(['id', 'password'])
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',
-      body: JSON.stringify({ email: email, id: id, password: password }),
+      body: JSON.stringify({
+        email: email,
+        id: getValues('id'),
+        password: getValues('password'),
+      }),
     })
     const data = await response.json()
     if (data.success) {

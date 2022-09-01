@@ -39,19 +39,19 @@ const Loginform = () => {
   }
 
   const handleBtnClick = async () => {
-    const [id, password] = getValues(['id', 'password'])
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',
       body: JSON.stringify({
-        id: id,
-        password: password,
+        id: getValues('id'),
+        password: getValues('password'),
       }),
     })
     const data = await response.json()
     if (data.success) {
-      query.setQueryData('user', data.data)
+      query.setQueryData('user', data)
       Router.push('/')
     } else {
+      console.log(data)
       setModal(true)
       setModalTitle(data.message)
     }

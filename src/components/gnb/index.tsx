@@ -3,9 +3,10 @@ import Image from 'next/image'
 
 import * as styles from './styles'
 import Title from '@/components/Title'
+import User from '@/types/user'
 
 type Props = {
-  isLoggedIn: boolean | undefined | void
+  isLoggedIn: boolean | undefined | void | string | null | User
 }
 
 const Gnb = ({ isLoggedIn }: Props) => {

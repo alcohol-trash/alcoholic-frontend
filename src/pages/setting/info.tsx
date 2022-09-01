@@ -15,8 +15,7 @@ import * as styles from '@/css/setting/settingInfoStyles'
 const Info = () => {
   const { data: me } = useQuery(
     'user',
-    async () =>
-      await fetch(`/api/member/info`).then((response) => response.json()),
+    async () => await fetch(`/api/member`).then((response) => response.json()),
   )
   const [modal, setModal] = useState(false)
   useEffect(() => {
@@ -24,6 +23,10 @@ const Info = () => {
       Router.push('/')
     }
   }, [me])
+  useEffect(() => {
+    console.log(me)
+    console.log(me.id)
+  })
   return (
     <>
       {me && me.email && (

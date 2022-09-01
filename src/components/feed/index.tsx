@@ -2,34 +2,42 @@ import React from 'react'
 import Image from 'next/image'
 
 import * as styles from './styles'
+import LikeButton from '@/components/LikeButton'
 
-type ImagesProps = {
-  src?: string
+interface BoardsProps {
+  content: string
+  createdData: string
+  heartCheck: boolean
+  heartCount: number
+  images: any
+  seq: number
+  title: string
+  updatedDate: string
+  writer: string
 }
 
-type FeedContentProps = {
-  writer?: string //작성자
-  date?: string //작성일
-  title?: string //제목
-  content?: string //내용
-  images?: ImagesProps[] //이미지
-  heartCount?: number //좋아요 수
-  commentCount?: number //댓글 수
-}
-
-type Props = {
-  data?: FeedContentProps
+interface Props {
+  data?: BoardsProps
   [key: string]: any
 }
 
 const Feed = ({ data }: Props) => {
-  const { writer, date, title, content, images, heartCount, commentCount } =
-    data || {}
+  const {
+    content,
+    createdData,
+    heartCheck,
+    heartCount,
+    images,
+    seq,
+    title,
+    updatedDate,
+    writer,
+  } = data || {}
 
   return (
-    <section css={styles.Feed.FeedContainer}>
-      <div css={styles.Feed.FeedHeader}>
-        <div css={styles.Feed.FeedHeaderProfile}>
+    <section css={styles.container}>
+      <div css={styles.header}>
+        <div css={styles.profile}>
           <Image
             src="/assets/profile_default.png"
             alt="회색 배경에 흰 사람 동그란 프로필 이미지"
@@ -37,30 +45,32 @@ const Feed = ({ data }: Props) => {
             height={32}
           />
         </div>
-        <div css={styles.Feed.FeedHeaderTitle}>
+        <div css={styles.title}>
           <strong>{writer}</strong>
-          <p>{date}</p>
+          <p>{createdData}</p>
         </div>
       </div>
 
-      <div css={styles.Feed.FeedContent}>
-        <div css={styles.Feed.FeedContentTitle}>{title}</div>
-        <p css={styles.Feed.FeedContentDescription}>{content}</p>
-        <div css={styles.Feed.FeedContentImage}>
-          <Image
-            src="/assets/babamba.png"
-            alt="바밤바 캔 막걸리"
-            width={335}
-            height={189}
-            layout="responsive"
-          />
-        </div>
+      <div css={styles.content}>
+        <div css={styles.contentTitle}>{title}</div>
+        <p css={styles.contentDescription}>{content}</p>
+        {images?.length !== 0 && (
+          <div css={styles.contentImage}>
+            <Image
+              src={images[0].url}
+              alt="바밤바 캔 막걸리"
+              width={335}
+              height={189}
+              layout="responsive"
+            />
+          </div>
+        )}
       </div>
 
-      <div css={styles.Feed.FeedFooter}>
-        <div css={styles.Feed.FeedLike}>{heartCount}</div>
-        <div css={styles.Feed.FeedComment}>
-          <p>댓글 {commentCount}개</p>
+      <div css={styles.footer}>
+        <LikeButton heartCount={heartCount} heartCheck={heartCheck} />
+        <div>
+          <p>댓글 0개</p>
         </div>
       </div>
     </section>

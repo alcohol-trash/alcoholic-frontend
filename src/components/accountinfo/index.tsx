@@ -25,8 +25,7 @@ type FormTypes = {
 const AccountInfo = () => {
   const { data: me } = useQuery(
     'user',
-    async () =>
-      await fetch(`/api/member/info`).then((response) => response.json()),
+    async () => await fetch(`/api/member`).then((response) => response.json()),
   )
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -55,8 +54,6 @@ const AccountInfo = () => {
       setModal(true)
       setModalTitle(data.message)
       if (data.success) {
-        // setModal(true)
-        // setModalTitle('정보가 수정되었습니다.')
         Toasts('정보가 수정되었습니다')
       }
     }
