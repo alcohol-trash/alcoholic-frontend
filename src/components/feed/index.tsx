@@ -69,7 +69,7 @@ const Feed = ({ data }: Props) => {
       </div>
 
       <div css={styles.footer}>
-        <LikeButton heartCount={heartCount} heartCheck={heartCheck} />
+        <LikeButton heartCount={heartCount} heartCheck={heartCheck} id={seq} />
         <div>
           <p>댓글 0개</p>
         </div>
