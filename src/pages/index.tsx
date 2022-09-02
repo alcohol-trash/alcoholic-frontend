@@ -13,7 +13,6 @@ import Bottombar from '@/components/Bottombar'
 import ModalAlert from '@/components/ModalAlert'
 import Nocontentsblock from '@/components/NoContentsBlock'
 
-import Post from '@/types/post'
 import { categories, mainData } from '@/libs/mocks/homeData'
 import * as styles from '@/css/home'
 
@@ -22,9 +21,6 @@ const Home = () => {
     'user',
     async () => await fetch(`/api/member`).then((response) => response.json()),
   )
-  // const {data, fetchNextPage} = useInfiniteQuery<Post[]>('posts', ({pageParam = 1}) => fetch("").then((response) => response.json()), {
-  //   getNextPageParam: (lastPage) => lastPage?.
-  // })
   const router = useRouter()
   const [modal, setModal] = useState<boolean>(false)
   const handleBtnClick = async () => {
