@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/BackButton'
+import BackButton from '@/components/BackButton'
 import Sentence from '@/components/Sentence'
 import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'
@@ -62,7 +62,7 @@ const AccountInfo = () => {
     <section>
       <Header
         title="계정정보"
-        left={<Backbutton />}
+        left={<BackButton />}
         right={
           <Button
             style={isValid ? 'modalLogin' : 'secondary'}
