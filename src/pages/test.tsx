@@ -92,7 +92,7 @@ export default function Test() {
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery('boards', await Boards())
+  await queryClient.prefetchInfiniteQuery('boards', await Boards())
   return {
     props: {
       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),

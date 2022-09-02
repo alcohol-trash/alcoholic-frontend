@@ -10,6 +10,9 @@ export async function Boards(
     `${apiBaseUrl}/api/boards?category=${category || 1}&page=${
       pageNum || 0
     }&size=${lastId || 3}`,
+    {
+      credentials: 'include',
+    },
   )
   const data = await res.json()
   return data

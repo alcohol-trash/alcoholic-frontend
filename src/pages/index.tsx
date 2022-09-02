@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery, useInfiniteQuery } from 'react-query'
 import Head from 'next/head'
 import Router from 'next/router'
@@ -13,18 +13,28 @@ import Bottombar from '@/components/Bottombar'
 import ModalAlert from '@/components/ModalAlert'
 import Nocontentsblock from '@/components/NoContentsBlock'
 
-import { categories, mainData } from '@/libs/mocks/homeData'
+import { mainData } from '@/libs/mocks/homeData'
+import { categories } from '@/libs/data'
 import * as styles from '@/css/home'
 
 const Home = () => {
   const { data: me } = useQuery(
     'user',
     async () => await fetch(`/api/member`).then((response) => response.json()),
+    {
+      retry: 0,
+    },
   )
+
   const router = useRouter()
   const [modal, setModal] = useState<boolean>(false)
+  const [index, setIndex] = useState<number>(1)
+
   const handleBtnClick = async () => {
     //
+  }
+  const getData = (index: number) => {
+    setIndex(index)
   }
   return (
     <>
@@ -33,7 +43,7 @@ const Home = () => {
       </Head>
       <Gnb isLoggedIn={me?.success} />
       <section css={styles.container}>
-        <Tabs defaultSelected={0} router={router}>
+        <Tabs defaultSelected={0} router={router} getData={getData}>
           {categories.map((category, index) => (
             <Tabs.Panel key={index} name={category.name}>
               <section css={styles.titleBlock}>
@@ -71,7 +81,7 @@ const Home = () => {
           onCancel={() => setModal(!modal)}
         />
       </section>
-      <Bottombar isLoggedIn={me?.success} />
+      <Bottombar isLoggedIn={me?.success} index={index} />
     </>
   )
 }

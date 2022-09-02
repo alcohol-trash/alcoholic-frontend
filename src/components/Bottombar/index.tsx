@@ -9,9 +9,10 @@ import * as styles from './styles'
 
 type Props = {
   isLoggedIn: boolean
+  index?: number
 }
 
-const BottomBar = ({ isLoggedIn }: Props) => {
+const BottomBar = ({ isLoggedIn, index }: Props) => {
   const { register, handleSubmit, reset } = useForm()
   const [modal, setModal] = useState(false)
   const onVaild = (data: any) => {
@@ -20,6 +21,7 @@ const BottomBar = ({ isLoggedIn }: Props) => {
   }
 
   const onHandleClick = () => {
+    console.log('botttomBar' + index)
     if (isLoggedIn) {
       setModal(!modal)
     } else {
@@ -45,7 +47,11 @@ const BottomBar = ({ isLoggedIn }: Props) => {
           />
         </form>
       </section>
-      <ModalWriteContent isOpen={modal} onClick={() => setModal(!modal)} />
+      <ModalWriteContent
+        isOpen={modal}
+        onClick={() => setModal(!modal)}
+        index={index}
+      />
     </>
   )
 }

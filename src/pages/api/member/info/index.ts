@@ -3,9 +3,7 @@ import { apiBaseUrl } from '@/libs/config'
 
 export async function MemberInfo() {
   const res = await fetch(`${apiBaseUrl}/api/member`, {
-    headers: {
-      credentials: 'include',
-    },
+    credentials: 'include',
   })
   const data = await res.json()
   return data
