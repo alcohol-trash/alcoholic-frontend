@@ -21,7 +21,6 @@ const BottomBar = ({ isLoggedIn, index }: Props) => {
   }
 
   const onHandleClick = () => {
-    console.log('botttomBar' + index)
     if (isLoggedIn) {
       setModal(!modal)
     } else {
