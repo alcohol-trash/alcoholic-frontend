@@ -1,5 +1,5 @@
 //일반 회원가입 -> 이메일 인증
-import EmailForm from '@/components/EmailForm'
+import EmailForm from '@/components/Temp'
 import Title from '@/components/Title'
 
 import * as styles from '@/css/signup/signupEmailStyles'
