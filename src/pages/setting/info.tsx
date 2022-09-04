@@ -19,17 +19,13 @@ const Info = () => {
   )
   const [modal, setModal] = useState(false)
   useEffect(() => {
-    if (!me || !me.email) {
+    if (!me.data.id) {
       Router.push('/')
     }
   }, [me])
-  useEffect(() => {
-    console.log(me)
-    console.log(me.id)
-  })
   return (
     <>
-      {me && me.email && (
+      {me?.data.id && (
         <section>
           {me.provider === 'LOCAL' ? (
             <AccountInfo />

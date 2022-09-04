@@ -69,7 +69,7 @@ const Profile = () => {
   }
   return (
     <>
-      {me && me.email && (
+      {me?.data.id && (
         <section>
           <Header
             title="프로필 편집"
