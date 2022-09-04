@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import Title from '@/components/Title'
 import Sentence from '@/components/Sentence'
-import Gnb from '@/components/Temp'
+import Gnb from '@/components/Gnb'
 import Tabs from '@/components/Tabs'
 import Feed from '@/components/Feed'
 import BottomBar from '@/components/BottomBar'
