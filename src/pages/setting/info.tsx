@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
-import AccountInfo from '@/components/AccountInfo'
+import AccountInfo from '@/components/Temp'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
 import BackButton from '@/components/BackButton'
 
