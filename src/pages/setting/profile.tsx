@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { FaUserCircle as UserFace } from 'react-icons/fa'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/BackButton'
+import BackButton from '@/components/BackButton'
 import Button from '@/components/Button'
 import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'
@@ -73,7 +73,7 @@ const Profile = () => {
         <section>
           <Header
             title="프로필 편집"
-            left={<Backbutton />}
+            left={<BackButton />}
             right={
               <Button
                 style={isValid ? 'modalLogin' : 'secondary'}

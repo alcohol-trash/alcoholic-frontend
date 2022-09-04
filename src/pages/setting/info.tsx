@@ -8,7 +8,7 @@ import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
 import AccountInfo from '@/components/AccountInfo'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
-import Backbutton from '@/components/BackButton'
+import BackButton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 
@@ -35,7 +35,7 @@ const Info = () => {
             <AccountInfo />
           ) : (
             <section>
-              <Header title="계정정보" left={<Backbutton />} />
+              <Header title="계정정보" left={<BackButton />} />
               <section css={styles.container}>
                 <label>이메일</label>
                 <div css={styles.emailBlock}>

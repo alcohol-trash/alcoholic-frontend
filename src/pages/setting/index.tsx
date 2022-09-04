@@ -5,7 +5,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/BackButton'
+import BackButton from '@/components/BackButton'
 import ModalAlert from '@/components/ModalAlert'
 
 import { MemberInfo } from '@/pages/api/member/info'
@@ -39,7 +39,7 @@ const Setting = () => {
     <>
       {me?.success && (
         <section>
-          <Header title="설정" left={<Backbutton />} />
+          <Header title="설정" left={<BackButton />} />
           <section css={styles.container}>
             <ul css={styles.list}>
               <Link href="/setting/info">
