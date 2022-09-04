@@ -41,7 +41,7 @@ const Home = () => {
       <Head>
         <title>알코홀릭</title>
       </Head>
-      <Gnb isLoggedIn={me?.success} />
+      <Gnb isLoggedIn={me?.success} image={me?.data.image} />
       <section css={styles.container}>
         <Tabs defaultSelected={0} router={router} getData={getData}>
           {categories.map((category, index) => (
