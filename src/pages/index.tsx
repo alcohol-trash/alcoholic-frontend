@@ -9,7 +9,7 @@ import Sentence from '@/components/Sentence'
 import Gnb from '@/components/Gnb'
 import Tabs from '@/components/Tabs'
 import Feed from '@/components/Feed'
-import BottomBar from '@/components/BottomBar'
+import BottomBar from '@/components/Temp'
 import ModalAlert from '@/components/ModalAlert'
 import NoContentsBlock from '@/components/NoContentsBlock'
 
