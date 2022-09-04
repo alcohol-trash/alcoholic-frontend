@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 
+import Profile from '@/components/Profile'
+
 import * as styles from './styles'
 
 type ImagesProps = {
@@ -28,21 +30,7 @@ const Feed = ({ data }: Props) => {
 
   return (
     <section css={styles.Feed.FeedContainer}>
-      <div css={styles.Feed.FeedHeader}>
-        <div css={styles.Feed.FeedHeaderProfile}>
-          <Image
-            src="/assets/profile_default.png"
-            alt="회색 배경에 흰 사람 동그란 프로필 이미지"
-            width={32}
-            height={32}
-          />
-        </div>
-        <div css={styles.Feed.FeedHeaderTitle}>
-          <strong>{writer}</strong>
-          <p>{date}</p>
-        </div>
-      </div>
-
+      <Profile writer={writer} date={date} />
       <div css={styles.Feed.FeedContent}>
         <div css={styles.Feed.FeedContentTitle}>{title}</div>
         <p css={styles.Feed.FeedContentDescription}>{content}</p>
