@@ -20,27 +20,27 @@ export const titleBlock = css`
     color: ${theme.gray[300]};
   }
 `
-// export const contentBlock = css`
-//   textarea {
-//     color: white;
-//     background-color: transparent;
-//     border: none;
-//     resize: none;
-//   }
-//   textarea::placeholder {
-//     font-size: 14px;
-//     color: ${theme.gray[300]};
-//   }
-//   textarea:focus {
-//     outline: none;
-//   }
-// `
-
-export const editBlock = css`
-  :focus {
+export const contentBlock = css`
+  textarea {
+    color: white;
+    background-color: transparent;
+    border: none;
+    resize: none;
+  }
+  textarea::placeholder {
+    font-size: 14px;
+    color: ${theme.gray[300]};
+  }
+  textarea:focus {
     outline: none;
   }
 `
+
+// export const editBlock = css`
+//   :focus {
+//     outline: none;
+//   }
+// `
 
 export const bottomBlock = css`
   position: fixed;

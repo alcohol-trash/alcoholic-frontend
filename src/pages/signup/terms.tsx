@@ -1,5 +1,5 @@
 //일반 회원가입 -> 이용약관
-import Terms from '@/components/terms'
+import Terms from '@/components/Terms'
 import Title from '@/components/Title'
 
 import * as styles from '@/css/signup/signupTermsStyles'

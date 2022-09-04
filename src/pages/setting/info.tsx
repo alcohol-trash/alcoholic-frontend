@@ -6,17 +6,16 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
-import AccountInfo from '@/components/accountinfo'
+import AccountInfo from '@/components/AccountInfo'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
-import Backbutton from '@/components/backbutton'
+import BackButton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
   const { data: me } = useQuery(
     'user',
-    async () =>
-      await fetch(`/api/member/info`).then((response) => response.json()),
+    async () => await fetch(`/api/member`).then((response) => response.json()),
   )
   const [modal, setModal] = useState(false)
   useEffect(() => {
@@ -24,6 +23,10 @@ const Info = () => {
       Router.push('/')
     }
   }, [me])
+  useEffect(() => {
+    console.log(me)
+    console.log(me.id)
+  })
   return (
     <>
       {me && me.email && (
@@ -32,7 +35,7 @@ const Info = () => {
             <AccountInfo />
           ) : (
             <section>
-              <Header title="계정정보" left={<Backbutton />} />
+              <Header title="계정정보" left={<BackButton />} />
               <section css={styles.container}>
                 <label>이메일</label>
                 <div css={styles.emailBlock}>

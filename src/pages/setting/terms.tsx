@@ -1,12 +1,12 @@
 import Header from '@/components/Header'
-import Backbutton from '@/components/backbutton'
+import BackButton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingTermsStyles'
 
 const Terms = () => {
   return (
     <>
-      <Header title="이용약관" left={<Backbutton />} />
+      <Header title="이용약관" left={<BackButton />} />
       <section css={styles.container}>
         <ul css={styles.list}>
           <li>서비스 이용약관</li>

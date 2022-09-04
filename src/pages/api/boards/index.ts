@@ -1,16 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { apiBaseUrl } from '@/libs/config'
-import { URLSearchParams } from 'url'
 
-export default async function GetBoards(
+export async function Boards(
+  category?: number,
+  pageNum?: number,
+  lastId?: number,
+) {
+  const res = await fetch(
+    `${apiBaseUrl}/api/boards?category=${category || 1}&page=${
+      pageNum || 0
+    }&size=${lastId || 3}`,
+    {
+      credentials: 'include',
+    },
+  )
+  const data = await res.json()
+  return data
+}
+
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { category } = req.query
-  const searchParams = new URLSearchParams({
-    category: `${category}`,
-  })
-  const response = await fetch(`${apiBaseUrl}/api/boards?` + searchParams)
-  const data = await response.json()
-  res.status(response.status).json(data)
+  const data = await Boards()
+  res.status(200).json(data)
 }
