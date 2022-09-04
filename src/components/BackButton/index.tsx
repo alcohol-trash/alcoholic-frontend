@@ -4,7 +4,7 @@ import Router from 'next/router'
 
 import * as styles from './styles'
 
-const Temp = () => {
+const BackButton = () => {
   return (
     <div css={styles.imgBlock} onClick={() => Router.back()}>
       <Image src="/assets/back.png" width={24} height={24} />
@@ -12,4 +12,4 @@ const Temp = () => {
   )
 }
 
-export default React.memo(Temp)
+export default React.memo(BackButton)

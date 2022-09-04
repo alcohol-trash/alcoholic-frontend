@@ -8,7 +8,7 @@ import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
 import AccountInfo from '@/components/AccountInfo'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
-import BackButton from '@/components/Temp'
+import BackButton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 
