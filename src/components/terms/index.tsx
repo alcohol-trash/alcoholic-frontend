@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 
 import Button from '@/components/Button'
-import CheckBox from '@/components/CheckBox'
+import CheckBox from '@/components/Temp'
 
 import * as styles from './styles'
 import { getSignupTermsFormSchema } from '@/libs/validations/signupTermsValidation'
