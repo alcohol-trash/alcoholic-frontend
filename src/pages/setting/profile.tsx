@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { FaUserCircle as UserFace } from 'react-icons/fa'
 
 import Header from '@/components/Header'
-import BackButton from '@/components/BackButton'
+import BackButton from '@/components/Temp'
 import Button from '@/components/Button'
 import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'

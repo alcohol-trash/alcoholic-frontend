@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import Header from '@/components/Header'
-import BackButton from '@/components/BackButton'
+import BackButton from '@/components/Temp'
 import Sentence from '@/components/Sentence'
 import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'
