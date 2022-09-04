@@ -70,12 +70,4 @@ const Setting = () => {
   )
 }
 
-export const getServerSideProps = async () => {
-  //쿠키 헤더 포함
-  const data = await MemberInfo()
-  return {
-    props: { notes: data },
-  }
-}
-
 export default Setting
