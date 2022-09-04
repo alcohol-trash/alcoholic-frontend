@@ -11,7 +11,7 @@ import Tabs from '@/components/Tabs'
 import Feed from '@/components/Feed'
 import BottomBar from '@/components/BottomBar'
 import ModalAlert from '@/components/ModalAlert'
-import NoContentsBlock from '@/components/NoContentsBlock'
+import NoContentsBlock from '@/components/Temp1'
 
 import { mainData } from '@/libs/mocks/homeData'
 import { categories } from '@/libs/data'

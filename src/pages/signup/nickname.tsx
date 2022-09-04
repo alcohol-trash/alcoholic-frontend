@@ -1,5 +1,5 @@
 //소셜 회원가입 -> 닉네임 생성 페이지
-import NicknameForm from '@/components/NicknameForm'
+import NicknameForm from '@/components/Temp'
 import Sentence from '@/components/Sentence'
 import Title from '@/components/Title'
 
