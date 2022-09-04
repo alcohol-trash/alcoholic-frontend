@@ -1,1 +1,1 @@
-export const apiBaseUrl = 'http://api.alcoholic.ml:80'
+export const apiBaseUrl = 'https://api.alcoholic.ml'
