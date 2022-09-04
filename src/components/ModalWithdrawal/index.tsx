@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import WithdrawalBlock from './withdrawalBlock'
-import CheckBox from '@/components/Temp'
+import CheckBox from '@/components/CheckBox'
 import Button from '@/components/Button'
 import theme from '@/theme'
 
