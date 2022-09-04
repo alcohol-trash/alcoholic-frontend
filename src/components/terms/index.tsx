@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 
 import Button from '@/components/Button'
-import Checkbox from '@/components/Checkbox'
+import CheckBox from '@/components/CheckBox'
 
 import * as styles from './styles'
 import { getSignupTermsFormSchema } from '@/libs/validations/signupTermsValidation'
@@ -29,22 +29,22 @@ const Terms = () => {
       <form css={styles.form}>
         <div>
           <div css={styles.blockLine}>
-            <Checkbox label="전체 동의하기" {...register('checkAll')} />
+            <CheckBox label="전체 동의하기" {...register('checkAll')} />
           </div>
           <div css={styles.inputBlock}>
-            <Checkbox
+            <CheckBox
               {...register('checkAge')}
               label="만 19세 이상입니다. (필수)"
             />
             <div css={styles.withBtnBlock}>
-              <Checkbox
+              <CheckBox
                 {...register('checkService')}
                 label="서비스 이용약관에 동의 (필수)"
               />
               <button css={styles.button}>보기</button>
             </div>
             <div css={styles.withBtnBlock}>
-              <Checkbox
+              <CheckBox
                 {...register('checkInfo')}
                 label="개인정보 수집 및 이용에 동의 (필수)"
               />

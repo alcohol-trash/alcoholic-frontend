@@ -9,9 +9,9 @@ import Sentence from '@/components/Sentence'
 import Gnb from '@/components/Gnb'
 import Tabs from '@/components/Tabs'
 import Feed from '@/components/Feed'
-import Bottombar from '@/components/Bottombar'
+import BottomBar from '@/components/BottomBar'
 import ModalAlert from '@/components/ModalAlert'
-import Nocontentsblock from '@/components/NoContentsBlock'
+import NoContentsBlock from '@/components/NoContentsBlock'
 
 import { mainData } from '@/libs/mocks/homeData'
 import { categories } from '@/libs/data'
@@ -67,7 +67,7 @@ const Home = () => {
                   ))}
                 </section>
               ) : (
-                <Nocontentsblock isLoggedIn={me?.success} />
+                <NoContentsBlock isLoggedIn={me?.success} />
               )}
             </Tabs.Panel>
           ))}
@@ -81,7 +81,7 @@ const Home = () => {
           onCancel={() => setModal(!modal)}
         />
       </section>
-      <Bottombar isLoggedIn={me?.success} index={index} />
+      <BottomBar isLoggedIn={me?.success} index={index} />
     </>
   )
 }

@@ -18,7 +18,7 @@ type FormTypes = {
   password: string
 }
 
-const Loginform = () => {
+const LoginForm = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
 
@@ -100,4 +100,4 @@ const Loginform = () => {
   )
 }
 
-export default Loginform
+export default LoginForm

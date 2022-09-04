@@ -13,7 +13,7 @@ type FormTypes = {
   nickname: string
 }
 
-const Nickform = () => {
+const NicknameForm = () => {
   const {
     register,
     formState: { isValid, errors },
@@ -66,4 +66,4 @@ const Nickform = () => {
   )
 }
 
-export default Nickform
+export default NicknameForm

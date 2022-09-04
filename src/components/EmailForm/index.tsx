@@ -17,7 +17,7 @@ type FormTypes = {
   email: string
 }
 
-const Emailform = () => {
+const EmailForm = () => {
   const [check, setCheck] = useState<boolean>(false)
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -120,4 +120,4 @@ const Emailform = () => {
   )
 }
 
-export default Emailform
+export default EmailForm

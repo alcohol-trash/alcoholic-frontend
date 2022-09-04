@@ -3,7 +3,7 @@ import Router from 'next/router'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
-import Loginform from '@/components/LoginForm'
+import LoginForm from '@/components/LoginForm'
 import Title from '@/components/Title'
 
 import * as styles from '@/css/login/localLoginStyles'
@@ -31,7 +31,7 @@ const Login = () => {
           </div>
         </section>
         <section css={styles.bottomContainer}>
-          <Loginform />
+          <LoginForm />
         </section>
       </section>
     </>

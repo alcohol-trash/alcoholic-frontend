@@ -1,5 +1,5 @@
 //일반 회원가입 -> 이메일 인증
-import Emailform from '@/components/EmailForm'
+import EmailForm from '@/components/EmailForm'
 import Title from '@/components/Title'
 
 import * as styles from '@/css/signup/signupEmailStyles'
@@ -15,7 +15,7 @@ const SignupEmail = () => {
         </Title>
       </section>
       <section css={styles.bottomContainer}>
-        <Emailform />
+        <EmailForm />
       </section>
     </section>
   )
