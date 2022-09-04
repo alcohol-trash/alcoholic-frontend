@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import WithdrawalBlock from './withdrawalBlock'
-import Checkbox from '@/components/Checkbox'
+import CheckBox from '@/components/CheckBox'
 import Button from '@/components/Button'
 import theme from '@/theme'
 
@@ -56,7 +56,7 @@ const ModalWithdrawal = ({ isOpen, onClick }: Props) => {
       <div css={styles.titleBlock}>회원탈퇴</div>
       <WithdrawalBlock />
       <form>
-        <Checkbox
+        <CheckBox
           {...register('check')}
           label="모든 내용을 확인했으며 정보 삭제에 동의합니다."
         />

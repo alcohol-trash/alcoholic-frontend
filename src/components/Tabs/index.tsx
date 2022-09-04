@@ -14,8 +14,9 @@ type Props = {
   children: React.ReactNode
   defaultSelected: number
   router: any
+  getData?: any
 }
-const Tabs = ({ children, defaultSelected = 0, router }: Props) => {
+const Tabs = ({ children, defaultSelected = 0, router, getData }: Props) => {
   const [selected, setSelected] = useState(defaultSelected)
   const { replace, pathname } = router || {}
 
@@ -35,6 +36,7 @@ const Tabs = ({ children, defaultSelected = 0, router }: Props) => {
         { shallow: true },
       )
     }
+    getData(index + 1)
   }
 
   return (

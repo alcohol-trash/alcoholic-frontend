@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { FaUserCircle as UserFace } from 'react-icons/fa'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/backbutton'
+import BackButton from '@/components/BackButton'
 import Button from '@/components/Button'
 import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'
@@ -22,8 +22,7 @@ type FormTypes = {
 const Profile = () => {
   const { data: me } = useQuery(
     'user',
-    async () =>
-      await fetch(`/api/member/info`).then((response) => response.json()),
+    async () => await fetch(`/api/member`).then((response) => response.json()),
   )
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -74,7 +73,7 @@ const Profile = () => {
         <section>
           <Header
             title="프로필 편집"
-            left={<Backbutton />}
+            left={<BackButton />}
             right={
               <Button
                 style={isValid ? 'modalLogin' : 'secondary'}
