@@ -32,6 +32,8 @@ interface BoardsProps {
   writer: string
 }
 
+const AUTH_TYPE = 'login'
+
 export default function Test() {
   const router = useRouter()
   const [ref, inView] = useInView()
@@ -87,10 +89,22 @@ export default function Test() {
     const data = await response.json()
     console.log('테스트2' + data)
   }
+  const onClick3 = async () => {
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id: 'test1234',
+        password: 'password1234!',
+      }),
+    })
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <>
       <button onClick={onClick1}>테스트1</button>
       <button onClick={onClick2}>테스트2</button>
+      <button onClick={onClick3}>로그인 테스트</button>
       {mainData && (
         <Tabs defaultSelected={0} router={router}>
           {categories.map((category, index) => (
