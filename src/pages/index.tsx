@@ -28,6 +28,7 @@ const Home = () => {
 
   const router = useRouter()
   const [modal, setModal] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>('주류학개론')
   const [index, setIndex] = useState<number>(1)
 
   const handleBtnClick = async () => {
@@ -36,6 +37,13 @@ const Home = () => {
   const getData = (index: number) => {
     setIndex(index)
   }
+  useEffect(() => {
+    categories?.find((i) => {
+      if (i.index === index) {
+        setTitle(i.name)
+      }
+    })
+  }, [index])
   return (
     <>
       <Head>
@@ -67,7 +75,11 @@ const Home = () => {
                   ))}
                 </section>
               ) : (
-                <NoContentsBlock isLoggedIn={me?.success} />
+                <NoContentsBlock
+                  isLoggedIn={me?.success}
+                  index={index}
+                  title={title}
+                />
               )}
             </Tabs.Panel>
           ))}
@@ -81,7 +93,7 @@ const Home = () => {
           onCancel={() => setModal(!modal)}
         />
       </section>
-      <BottomBar isLoggedIn={me?.success} index={index} />
+      <BottomBar isLoggedIn={me?.success} index={index} title={title} />
     </>
   )
 }

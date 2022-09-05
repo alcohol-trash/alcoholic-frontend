@@ -124,7 +124,7 @@ export default function Test() {
                   ))}
                 </section>
               ) : (
-                <Nocontentsblock isLoggedIn={false} />
+                <div>테스트</div>
               )}
             </Tabs.Panel>
           ))}

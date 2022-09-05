@@ -6,18 +6,18 @@ import Image from 'next/image'
 import ModalWriteContent from '@/components/ModalWriteContent'
 
 import * as styles from './styles'
-import { categories } from '@/libs/data'
 
 type Props = {
   isLoggedIn: boolean
-  index?: number
+  index: number
+  title: string
 }
 
-const BottomBar = ({ isLoggedIn, index }: Props) => {
+const BottomBar = ({ isLoggedIn, index, title }: Props) => {
   const { register, handleSubmit, reset } = useForm()
   const [modal, setModal] = useState(false)
-  const [category, setCategory] = useState<string>('주류학개론')
-  const [categoryNum, setCategoryNum] = useState<number>(1)
+  const [category, setCategory] = useState<string>(title)
+  const [categoryNum, setCategoryNum] = useState<number>(index)
   const onVaild = (data: any) => {
     console.log(data)
     reset()
@@ -30,22 +30,19 @@ const BottomBar = ({ isLoggedIn, index }: Props) => {
     }
   }
   useEffect(() => {
-    categories?.find((i) => {
-      if (i.index === index) {
-        setCategoryNum(i.index)
-        setCategory(i.name)
-      }
-    })
-  }, [index])
+    setCategory(title)
+    setCategoryNum(index)
+  }, [title, index])
 
   return (
     <>
-      <section css={styles.container} onClick={onHandleClick}>
+      <section css={styles.container}>
         <form css={styles.form} onSubmit={handleSubmit(onVaild)}>
           <div css={styles.block}>
             <Image src="/assets/profile_img.png" width={32} height={32} />
           </div>
           <textarea
+            onClick={onHandleClick}
             placeholder={
               isLoggedIn
                 ? `${category}에 글 남기기`
