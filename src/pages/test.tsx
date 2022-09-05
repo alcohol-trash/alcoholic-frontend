@@ -101,11 +101,17 @@ export default function Test() {
     const data = await response.json()
     console.log(data)
   }
+  const onClick4 = async () => {
+    const response = await fetch(`/api/member/info`)
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <>
       <button onClick={onClick1}>테스트1</button>
       <button onClick={onClick2}>테스트2</button>
       <button onClick={onClick3}>로그인 테스트</button>
+      <button onClick={onClick4}>사용자 정보 조회 테스트</button>
       {mainData && (
         <Tabs defaultSelected={0} router={router}>
           {categories.map((category, index) => (
@@ -148,7 +154,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const cookie = context.req ? context.req.headers.cookie : ''
-  const response = await fetch(`/api/auth/info`, {
+  const response = await fetch(`/api/member/info`, {
     headers: {
       cookie: `${cookie}`,
     },
