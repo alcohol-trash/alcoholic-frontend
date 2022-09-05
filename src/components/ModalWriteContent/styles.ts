@@ -20,56 +20,29 @@ export const titleBlock = css`
     color: ${theme.gray[300]};
   }
 `
-export const contentBlock = css`
-  textarea {
-    color: white;
-    background-color: transparent;
-    border: none;
-    resize: none;
-  }
-  textarea::placeholder {
-    font-size: 14px;
-    color: ${theme.gray[300]};
-  }
-  textarea:focus {
-    outline: none;
-  }
-`
-
-// export const editBlock = css`
-//   :focus {
-//     outline: none;
-//   }
-// `
-
 export const bottomBlock = css`
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
   padding: 10px;
   margin: 0;
   border-top: 1px solid ${theme.gray[800]};
-  div {
-    display: inline-block;
-    margin-left: 10px;
-  }
 `
 
-export const leftBlock = css`
+export const imgBtn = css`
   display: inline-block;
+  float: right;
   input {
-    display: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
   }
-`
-export const rightBlock = css``
-
-export const lineBlock = css`
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 1px solid ${theme.gray[800]};
+  label {
+    cursor: pointer;
+  }
 `

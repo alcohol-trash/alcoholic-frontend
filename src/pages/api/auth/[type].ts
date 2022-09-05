@@ -5,6 +5,7 @@ export default async function Auth(req: NextApiRequest, res: NextApiResponse) {
   const { type } = req.query
   const response = await fetch(`${apiBaseUrl}/api/auth/${type}`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -12,5 +13,6 @@ export default async function Auth(req: NextApiRequest, res: NextApiResponse) {
     body: req.body,
   })
   const data = await response.json()
+  console.log(res.getHeader('cookie'))
   res.status(response.status).json(data)
 }

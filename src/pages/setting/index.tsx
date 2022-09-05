@@ -8,7 +8,6 @@ import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
 import ModalAlert from '@/components/ModalAlert'
 
-import { MemberInfo } from '@/pages/api/member/info'
 import * as styles from '@/css/setting/settingMainStyles'
 
 const AUTH_TYPE = 'logout'
@@ -16,7 +15,10 @@ const Setting = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
 
-  const { data: me } = useQuery('user', MemberInfo)
+  const { data: me } = useQuery(
+    'user',
+    async () => await fetch(`/api/member`).then((response) => response.json()),
+  )
 
   const handleLogout = async () => {
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
@@ -37,7 +39,7 @@ const Setting = () => {
   }, [me])
   return (
     <>
-      {me?.success && (
+      {me?.data.id && (
         <section>
           <Header title="설정" left={<BackButton />} />
           <section css={styles.container}>

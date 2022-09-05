@@ -24,6 +24,7 @@ export const leftBlock = css`
   position: absolute;
   left: 20px;
   display: inline;
+  cursor: pointer;
 `
 export const rightBlock = css`
   position: absolute;
@@ -32,4 +33,5 @@ export const rightBlock = css`
     padding: 0;
   }
   display: inline;
+  cursor: pointer;
 `

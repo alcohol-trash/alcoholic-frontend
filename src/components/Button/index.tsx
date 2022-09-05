@@ -5,6 +5,7 @@ export type ButtonStyle =
   | 'default'
   | 'primary'
   | 'secondary'
+  | 'secondaryTrue'
   | 'modal'
   | 'modalLogin'
 export type TextAlign = 'left' | 'right' | 'center'

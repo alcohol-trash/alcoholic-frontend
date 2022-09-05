@@ -1,9 +1,3 @@
-export const categories = [
-  { name: '주류학개론', description: '술에 대한 정보, 리뷰를 올려주세요.' },
-  { name: '술 위키', description: '술에 대한 정보, 리뷰를 올려주세요.' },
-  { name: '질문과 답변', description: '술에 대한 정보, 리뷰를 올려주세요.' },
-]
-
 export const mainData = [
   {
     writer: '누가바',
@@ -65,3 +59,5 @@ export const mainData = [
     seq: 2,
   },
 ]
+
+//export const mainData = []

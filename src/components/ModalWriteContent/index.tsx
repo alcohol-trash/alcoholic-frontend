@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/image'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from 'react-query'
 
 import Button from '@/components/Button'
 import Header from '@/components/Header'
-import TextField from '../TextField'
+import TextField from '@/components/TextField'
+import ContentForm from '@/components/ContentForm'
 
 import * as styles from './styles'
 import theme from '@/theme'
-import { categories } from '@/libs/data'
+import { writeContentFormSchema } from '@/libs/validations/writeContentValidation'
 
 type Props = {
   isOpen: boolean
   onClick: () => void
-  index?: number
+  category: string
+  categoryNum: number
 }
 
 const customStyles: Modal.Styles = {
@@ -22,6 +27,7 @@ const customStyles: Modal.Styles = {
     backgroundColor: 'rgba(16, 17, 29, .8)',
   },
   content: {
+    overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: theme.gray[900],
@@ -39,19 +45,63 @@ const customStyles: Modal.Styles = {
   },
 }
 
-const ModalWriteContent = ({ isOpen, onClick, index }: Props) => {
-  const [category, setCategory] = useState<string>('')
-  const handleOpen = () => {
-    categories?.find((i) => {
-      if (i.index === index) {
-        setCategory(i.name)
-      }
+type FormTypes = {
+  title: string
+  content: string
+}
+
+const ModalWriteContent = ({
+  isOpen,
+  onClick,
+  category,
+  categoryNum,
+}: Props) => {
+  const [imagePaths, setImagePaths] = useState<string[]>([])
+  const image = useRef<HTMLInputElement>(null)
+  const fetchAdd = async (formData: any) => {
+    const response = await fetch(`/api/board/`, {
+      method: 'POST',
+      body: formData,
     })
+    const data = await response.json()
+    return data
   }
+  const mutation = useMutation('post', fetchAdd, {
+    onError: (error) => {
+      console.log(error)
+    },
+    onSuccess: () => {
+      console.log('success')
+      reset()
+    },
+  })
+  const {
+    register,
+    setValue,
+    getValues,
+    reset,
+    formState: { isValid },
+  } = useForm<FormTypes>({
+    mode: 'onChange',
+    resolver: yupResolver(writeContentFormSchema),
+  })
+  const handleClose = () => {
+    reset()
+  }
+  const handleChange = ({ name, value }: any) => {
+    setValue(name, value, { shouldValidate: true })
+  }
+  const handleSubmit = useCallback(() => {
+    const formData = new FormData()
+    formData.append('category', categoryNum.toString())
+    formData.append('content', getValues('content'))
+    formData.append('title', getValues('title'))
+    mutation.mutate(formData)
+  }, [categoryNum, getValues, mutation])
   return (
     <Modal
       isOpen={isOpen}
-      onAfterOpen={handleOpen}
+      onAfterClose={handleClose}
       ariaHideApp={false}
       style={customStyles}
       onRequestClose={onClick}
@@ -62,33 +112,41 @@ const ModalWriteContent = ({ isOpen, onClick, index }: Props) => {
             <Image src="/assets/close.png" width={24} height={24} />
           </div>
         }
-        right={<Button style="secondary">등록</Button>}
+        right={
+          <Button
+            onClick={handleSubmit}
+            style={isValid ? 'secondaryTrue' : 'secondary'}
+            disabled={!isValid}
+          >
+            등록
+          </Button>
+        }
       />
-      <section css={styles.container}>
+      <form css={styles.container} encType="multipart/form-data">
         <section css={styles.titleBlock}>
           <label>#{category}</label>
-          <TextField placeholder="제목입력" />
+          <TextField
+            placeholder="제목입력"
+            {...register('title')}
+            onChange={handleChange}
+          />
         </section>
-        <section css={styles.contentBlock}>
-          <textarea placeholder="내용을 입력하세요" />
+        <section>
+          <ContentForm
+            placeholder="내용을 입력하세요"
+            {...register('content')}
+            onChange={handleChange}
+          />
         </section>
         <nav css={styles.bottomBlock}>
-          <div css={styles.leftBlock}>
-            <Image src="/assets/add_picture.png" width={24} height={24} />
-          </div>
-          <div css={styles.rightBlock}>
-            <div>
-              <Image src="/assets/undo_disabled.png" width={24} height={24} />
-            </div>
-            <div>
-              <Image src="/assets/redo_disabled.png" width={24} height={24} />
-            </div>
-            <div css={styles.lineBlock}>
-              <Image src="/assets/keyboard_down.png" width={24} height={24} />
-            </div>
+          <div css={styles.imgBtn}>
+            <input type="file" accept="image/*" id="file" />
+            <label htmlFor="file">
+              <Image src="/assets/add_picture.png" width={24} height={24} />
+            </label>
           </div>
         </nav>
-      </section>
+      </form>
     </Modal>
   )
 }

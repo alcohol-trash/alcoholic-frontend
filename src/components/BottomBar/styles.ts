@@ -24,6 +24,7 @@ export const form = css`
   padding: 0px;
   width: 100%;
   textarea {
+    cursor: pointer;
     width: 100%;
     font-size: 14px;
     background-color: ${theme.gray[700]};
