@@ -34,6 +34,10 @@ export const Style = {
     color: theme.gray[300],
     bgColor: 'transparent',
   },
+  secondaryTrue: {
+    color: theme.aqua[500],
+    bgColor: 'transparent',
+  },
   modal: {
     color: 'white',
     bgColor: 'transparent',

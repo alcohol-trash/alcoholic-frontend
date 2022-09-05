@@ -8,9 +8,10 @@ import * as styles from './styles'
 
 type Props = {
   isLoggedIn: boolean
+  image?: string
 }
 
-const Gnb = ({ isLoggedIn }: Props) => {
+const Gnb = ({ isLoggedIn, image = '/assets/profile_img.png' }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">
@@ -21,7 +22,7 @@ const Gnb = ({ isLoggedIn }: Props) => {
       <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
         <a>
           <div css={styles.profile}>
-            <Image src="/assets/profile_img.png" width={32} height={32} />
+            <Image src={image} width={32} height={32} />
           </div>
         </a>
       </Link>
