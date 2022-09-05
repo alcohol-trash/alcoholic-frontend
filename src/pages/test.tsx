@@ -7,6 +7,7 @@ import {
   useQueryClient,
 } from 'react-query'
 import { useInView } from 'react-intersection-observer'
+//import { GetServerSidePropsContext } from 'next'
 import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
 
@@ -134,12 +135,34 @@ export default function Test() {
   )
 }
 
-export const getStaticProps = async () => {
-  const queryClient = new QueryClient()
-  await queryClient.prefetchInfiniteQuery('boards', await Boards())
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+// export const getStaticProps = async () => {
+//   const queryClient = new QueryClient()
+//   await queryClient.prefetchInfiniteQuery('boards', await Boards())
+//   return {
+//     props: {
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   }
+// }
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
+  const cookie = context.req ? context.req.headers.cookie : ''
+  const response = await fetch(`/api/auth/info`, {
+    headers: {
+      cookie: `${cookie}`,
     },
+  })
+  const data = await response.json()
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {},
   }
 }
