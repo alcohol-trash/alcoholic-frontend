@@ -59,8 +59,38 @@ export default function Test() {
   const handleBtnClick = async () => {
     //
   }
+  const onClick1 = async () => {
+    const response = await fetch(`/api/board/`, {
+      method: 'POST',
+      body: JSON.stringify({
+        category: 1,
+        content: '테스트 내용',
+        title: '테스트 제목',
+      }),
+    })
+    const data = await response.json()
+    console.log('테스트1' + data)
+  }
+  const onClick2 = async () => {
+    const formData = new FormData()
+    formData.append('category', '1')
+    formData.append('content', '두번째 테스트 내용')
+    formData.append('title', '두번째 테스트 제목')
+    const response = await fetch(`/api/board/`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+    const data = await response.json()
+    console.log('테스트2' + data)
+  }
   return (
     <>
+      <button onClick={onClick1}>테스트1</button>
+      <button onClick={onClick2}>테스트2</button>
       {mainData && (
         <Tabs defaultSelected={0} router={router}>
           {categories.map((category, index) => (
