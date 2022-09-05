@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
@@ -6,6 +6,7 @@ import Image from 'next/image'
 import ModalWriteContent from '@/components/ModalWriteContent'
 
 import * as styles from './styles'
+import { categories } from '@/libs/data'
 
 type Props = {
   isLoggedIn: boolean
@@ -15,11 +16,12 @@ type Props = {
 const BottomBar = ({ isLoggedIn, index }: Props) => {
   const { register, handleSubmit, reset } = useForm()
   const [modal, setModal] = useState(false)
+  const [category, setCategory] = useState<string>('주류학개론')
+  const [categoryNum, setCategoryNum] = useState<number>(1)
   const onVaild = (data: any) => {
     console.log(data)
     reset()
   }
-
   const onHandleClick = () => {
     if (isLoggedIn) {
       setModal(!modal)
@@ -27,6 +29,14 @@ const BottomBar = ({ isLoggedIn, index }: Props) => {
       Router.push('/loginsignup')
     }
   }
+  useEffect(() => {
+    categories?.find((i) => {
+      if (i.index === index) {
+        setCategoryNum(i.index)
+        setCategory(i.name)
+      }
+    })
+  }, [index])
 
   return (
     <>
@@ -38,7 +48,7 @@ const BottomBar = ({ isLoggedIn, index }: Props) => {
           <textarea
             placeholder={
               isLoggedIn
-                ? '주류학개론에 글 남기기'
+                ? `${category}에 글 남기기`
                 : '로그인 후에 작성할 수 있습니다.'
             }
             rows={1}
@@ -49,7 +59,8 @@ const BottomBar = ({ isLoggedIn, index }: Props) => {
       <ModalWriteContent
         isOpen={modal}
         onClick={() => setModal(!modal)}
-        index={index}
+        category={category}
+        categoryNum={categoryNum}
       />
     </>
   )

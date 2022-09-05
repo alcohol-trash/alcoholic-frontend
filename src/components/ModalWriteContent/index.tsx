@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from 'react-query'
 
 import Button from '@/components/Button'
 import Header from '@/components/Header'
@@ -11,13 +12,13 @@ import ContentForm from '@/components/ContentForm'
 
 import * as styles from './styles'
 import theme from '@/theme'
-import { categories } from '@/libs/data'
 import { writeContentFormSchema } from '@/libs/validations/writeContentValidation'
 
 type Props = {
   isOpen: boolean
   onClick: () => void
-  index?: number
+  category: string
+  categoryNum: number
 }
 
 const customStyles: Modal.Styles = {
@@ -49,33 +50,58 @@ type FormTypes = {
   content: string
 }
 
-const ModalWriteContent = ({ isOpen, onClick, index }: Props) => {
-  const [category, setCategory] = useState<string>('')
+const ModalWriteContent = ({
+  isOpen,
+  onClick,
+  category,
+  categoryNum,
+}: Props) => {
+  const [imagePaths, setImagePaths] = useState<string[]>([])
+  const image = useRef<HTMLInputElement>(null)
+  const fetchAdd = async (formData: any) => {
+    const response = await fetch(`/api/board/`, {
+      method: 'POST',
+      body: formData,
+    })
+    const data = await response.json()
+    return data
+  }
+  const mutation = useMutation('post', fetchAdd, {
+    onError: (error) => {
+      console.log(error)
+    },
+    onSuccess: () => {
+      console.log('success')
+      reset()
+    },
+  })
   const {
     register,
     setValue,
+    getValues,
+    reset,
     formState: { isValid },
   } = useForm<FormTypes>({
     mode: 'onChange',
     resolver: yupResolver(writeContentFormSchema),
   })
-  const handleOpen = () => {
-    categories?.find((i) => {
-      if (i.index === index) {
-        setCategory(i.name)
-      }
-    })
+  const handleClose = () => {
+    reset()
   }
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
-  const handleSubmit = () => {
-    //
-  }
+  const handleSubmit = useCallback(() => {
+    const formData = new FormData()
+    formData.append('category', categoryNum.toString())
+    formData.append('content', getValues('content'))
+    formData.append('title', getValues('title'))
+    mutation.mutate(formData)
+  }, [categoryNum, getValues, mutation])
   return (
     <Modal
       isOpen={isOpen}
-      onAfterOpen={handleOpen}
+      onAfterClose={handleClose}
       ariaHideApp={false}
       style={customStyles}
       onRequestClose={onClick}
@@ -113,19 +139,11 @@ const ModalWriteContent = ({ isOpen, onClick, index }: Props) => {
           />
         </section>
         <nav css={styles.bottomBlock}>
-          <div css={styles.leftBlock}>
-            <Image src="/assets/add_picture.png" width={24} height={24} />
-          </div>
-          <div css={styles.rightBlock}>
-            <div>
-              <Image src="/assets/undo_disabled.png" width={24} height={24} />
-            </div>
-            <div>
-              <Image src="/assets/redo_disabled.png" width={24} height={24} />
-            </div>
-            <div css={styles.lineBlock}>
-              <Image src="/assets/keyboard_down.png" width={24} height={24} />
-            </div>
+          <div css={styles.imgBtn}>
+            <input type="file" accept="image/*" id="file" />
+            <label htmlFor="file">
+              <Image src="/assets/add_picture.png" width={24} height={24} />
+            </label>
           </div>
         </nav>
       </form>
