@@ -11,6 +11,7 @@ export default async function ChangePassword(
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      cookie: `${req.headers.cookie}`,
     },
     body: req.body,
   })

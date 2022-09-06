@@ -44,6 +44,9 @@ const AccountInfo = () => {
   const handleBtnClick = async () => {
     const response = await fetch(`/api/member/change/${me.data.id}`, {
       method: 'PUT',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
       body: JSON.stringify({
         newPassword: getValues('newPassword'),
         password: getValues('password'),
