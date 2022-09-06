@@ -15,10 +15,10 @@ export const emailBlock = css`
 `
 export const btnBlock = css`
   position: fixed;
-  bottom: 0;
+  bottom: 24px;
   left: 20px;
   right: 20px;
-  padding-top: 24px;
+  padding-top: 12px;
   border-top: 1px solid ${theme.gray[700]};
   button {
     padding-left: 0;
