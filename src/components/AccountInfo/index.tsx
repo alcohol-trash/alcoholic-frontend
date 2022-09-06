@@ -42,7 +42,7 @@ const AccountInfo = () => {
     setValue(name, value, { shouldValidate: true })
   }
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/member/change/${me.data.id}`, {
+    const response = await fetch(`/api/member/password/${me.data.id}`, {
       method: 'PUT',
       headers: {
         cookie: `${document.cookie}`,

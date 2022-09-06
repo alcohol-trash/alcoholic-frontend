@@ -40,7 +40,7 @@ const Profile = () => {
   }
   const handleCheckClick = async () => {
     //닉네임 변경
-    const response = await fetch(`/api/member/change/${me.data.id}`, {
+    const response = await fetch(`/api/member/nickname/${me.data.id}`, {
       method: 'PUT',
       headers: {
         cookie: `${document.cookie}`,
