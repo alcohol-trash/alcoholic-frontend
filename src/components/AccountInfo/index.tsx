@@ -42,7 +42,7 @@ const AccountInfo = () => {
     setValue(name, value, { shouldValidate: true })
   }
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/member/change/${me.id}`, {
+    const response = await fetch(`/api/member/change/${me.data.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         password: getValues('password'),
