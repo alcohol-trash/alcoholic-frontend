@@ -13,7 +13,11 @@ export default async function Auth(req: NextApiRequest, res: NextApiResponse) {
     body: req.body,
   })
   const data = await response.json()
-  const token = response.headers.get('Set-Cookie')
+  const token = req.headers.cookie
+  //const token = response.headers.get('Set-Cookie')
   res.setHeader('Set-Cookie', `${token}; path=/;`)
+  if (type === 'logout') {
+    res.setHeader('Set-Cookie', `; path=/; expires=-1`)
+  }
   res.status(response.status).json(data)
 }
