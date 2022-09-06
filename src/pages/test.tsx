@@ -1,7 +1,7 @@
 import React from 'react'
 
 const AUTH_TYPE = 'login'
-
+const LOGOUT = 'logout'
 export default function Test() {
   const onClick1 = async () => {
     const response = await fetch(`/api/board/`, {
@@ -47,12 +47,20 @@ export default function Test() {
     const data = await response.json()
     console.log(data)
   }
+  const onClick5 = async () => {
+    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+      method: 'POST',
+    })
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <>
       <button onClick={onClick1}>테스트1</button>
       <button onClick={onClick2}>테스트2</button>
       <button onClick={onClick3}>로그인 테스트</button>
       <button onClick={onClick4}>사용자 정보 조회 테스트</button>
+      <button onClick={onClick5}>로그아웃 테스트</button>
     </>
   )
 }
