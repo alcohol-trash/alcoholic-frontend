@@ -10,8 +10,6 @@ import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'
 import Button from '@/components/Button'
 import ModalAlert from '@/components/ModalAlert'
-import ToastsAlerts from '@/components/ToastsAlert'
-import { Toasts } from '@/components/ToastsAlert'
 
 import * as styles from './styles'
 import { getSettingEditFormSchema } from '@/libs/validations/settingEditValidation'
@@ -57,7 +55,8 @@ const AccountInfo = () => {
       setModal(true)
       setModalTitle(data.message)
       if (data.success) {
-        Toasts('정보가 수정되었습니다')
+        setModal(true)
+        setModalTitle('정보가 수정되었습니다.')
       }
     }
   }
@@ -131,7 +130,6 @@ const AccountInfo = () => {
         title={modalTitle}
         onClick={() => setModal(!modal)}
       />
-      <ToastsAlerts />
     </section>
   )
 }
