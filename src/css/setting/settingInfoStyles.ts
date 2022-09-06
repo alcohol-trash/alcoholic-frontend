@@ -15,7 +15,7 @@ export const emailBlock = css`
 `
 export const btnBlock = css`
   position: fixed;
-  bottom: 8%;
+  bottom: 4%;
   left: 20px;
   right: 20px;
   padding: 24px 0;

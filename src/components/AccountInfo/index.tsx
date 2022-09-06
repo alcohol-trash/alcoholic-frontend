@@ -45,8 +45,8 @@ const AccountInfo = () => {
     const response = await fetch(`/api/member/change/${me.data.id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        password: getValues('password'),
         newPassword: getValues('newPassword'),
+        password: getValues('password'),
       }),
     })
     const data = await response.json()
