@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { GetServerSidePropsContext } from 'next'
+import cookies from 'next-cookies'
 
 const AUTH_TYPE = 'login'
 const LOGOUT = 'logout'
@@ -36,18 +37,19 @@ export default function Test() {
   const onClick3 = async () => {
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify({
         id: 'test1234',
         password: 'password1234!',
       }),
     })
-    const token = response.headers.get('Set-Cookie')
-    console.log(token)
     const data = await response.json()
     console.log(data)
   }
   const onClick4 = async () => {
-    const response = await fetch(`/api/member`)
+    const response = await fetch(`/api/member`, {
+      credentials: 'include',
+    })
     const data = await response.json()
     console.log(data)
   }
