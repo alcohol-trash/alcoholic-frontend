@@ -44,13 +44,20 @@ export default function Test() {
     console.log(document.cookie)
   }
   const onClick4 = async () => {
-    const response = await fetch(`/api/member`)
+    const response = await fetch(`/api/member`, {
+      headers: {
+        cookie: `${document.cookie}`,
+      },
+    })
     const data = await response.json()
     console.log(data)
   }
   const onClick5 = async () => {
     const response = await fetch(`/api/auth/${LOGOUT}`, {
       method: 'POST',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
     })
     const data = await response.json()
     console.log(data)
@@ -58,6 +65,9 @@ export default function Test() {
   const onClick6 = async () => {
     const response = await fetch(`/api/heart/board/1`, {
       method: 'POST',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
     })
     const data = await response.json()
     console.log(data)
