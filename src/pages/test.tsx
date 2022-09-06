@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import { GetServerSidePropsContext } from 'next'
 
 const AUTH_TYPE = 'login'
 const LOGOUT = 'logout'
@@ -39,6 +41,8 @@ export default function Test() {
         password: 'password1234!',
       }),
     })
+    const token = response.headers.get('Set-Cookie')
+    console.log(token)
     const data = await response.json()
     console.log(data)
   }
