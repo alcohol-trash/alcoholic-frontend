@@ -23,7 +23,7 @@ const Gnb = ({ isLoggedIn, image }: Props) => {
         <a>
           <div css={styles.profile}>
             {/* <Image src={image} width={32} height={32} /> */}
-            <img src={image} />
+            <img referrerPolicy="no-referrer" src={image} />
           </div>
         </a>
       </Link>
