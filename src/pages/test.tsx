@@ -48,7 +48,7 @@ export default function Test() {
     console.log(data)
   }
   const onClick5 = async () => {
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+    const response = await fetch(`/api/auth/${LOGOUT}`, {
       method: 'POST',
     })
     const data = await response.json()
