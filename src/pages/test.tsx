@@ -43,7 +43,7 @@ export default function Test() {
     console.log(data)
   }
   const onClick4 = async () => {
-    const response = await fetch(`/api/member/info`)
+    const response = await fetch(`/api/member`)
     const data = await response.json()
     console.log(data)
   }
