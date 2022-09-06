@@ -12,7 +12,5 @@ export default async function Auth(req: NextApiRequest, res: NextApiResponse) {
     body: req.body,
   })
   const data = await response.json()
-  const token = response.headers.get('Set-Cookie')
-  res.setHeader('Set-Cookie', `${token}; path=/;`)
   res.status(response.status).json(data)
 }
