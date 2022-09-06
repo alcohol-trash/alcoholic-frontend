@@ -3,9 +3,6 @@ import { apiBaseUrl } from '@/libs/config'
 
 export async function MemberInfo(req: NextApiRequest, res: NextApiResponse) {
   const response = await fetch(`${apiBaseUrl}/api/member`, {
-    headers: {
-      cookie: `${req.headers['set-cookie']}`,
-    },
     credentials: 'include',
   })
   const data = await response.json()
