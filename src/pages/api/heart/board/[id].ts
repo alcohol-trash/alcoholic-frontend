@@ -8,6 +8,7 @@ export default async function Heart(req: NextApiRequest, res: NextApiResponse) {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        cookie: `${document.cookie}`,
       },
       body: req.body,
     })

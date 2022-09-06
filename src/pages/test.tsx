@@ -55,6 +55,13 @@ export default function Test() {
     const data = await response.json()
     console.log(data)
   }
+  const onClick6 = async () => {
+    const response = await fetch(`/api/heart/board/1`, {
+      method: 'POST',
+    })
+    const data = await response.json()
+    console.log(data)
+  }
   return (
     <>
       <button onClick={onClick1}>테스트1</button>
@@ -62,6 +69,7 @@ export default function Test() {
       <button onClick={onClick3}>로그인 테스트</button>
       <button onClick={onClick4}>사용자 정보 조회 테스트</button>
       <button onClick={onClick5}>로그아웃 테스트</button>
+      <button onClick={onClick6}>게시물 좋아요 테스트</button>
     </>
   )
 }
