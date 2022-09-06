@@ -154,21 +154,22 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
   const cookie = context.req ? context.req.headers.cookie : ''
-  const response = await fetch(`/api/member/info`, {
-    headers: {
-      cookie: `${cookie}`,
-    },
-  })
-  const data = await response.json()
-  if (!data) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: {},
-  }
+  console.log(cookie)
+  // const response = await fetch(`/api/member/info`, {
+  //   headers: {
+  //     cookie: `${cookie}`,
+  //   },
+  // })
+  // const data = await response.json()
+  // if (!data) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
+  // return {
+  //   props: {},
+  // }
 }
