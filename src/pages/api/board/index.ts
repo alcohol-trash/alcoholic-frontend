@@ -10,6 +10,7 @@ export default async function CreateBoard(
     headers: {
       Accept: 'application/json',
       'Content-Type': 'multipart/form-data',
+      cookie: `${req.headers.cookie}`,
     },
     body: req.body,
   })

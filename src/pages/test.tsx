@@ -4,8 +4,11 @@ const AUTH_TYPE = 'login'
 const LOGOUT = 'logout'
 export default function Test() {
   const onClick1 = async () => {
-    const response = await fetch(`/api/board/`, {
+    const response = await fetch(`/api/board`, {
       method: 'POST',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
       body: JSON.stringify({
         category: 1,
         content: '테스트 내용',
@@ -20,11 +23,10 @@ export default function Test() {
     formData.append('category', '1')
     formData.append('content', '두번째 테스트 내용')
     formData.append('title', '두번째 테스트 제목')
-    const response = await fetch(`/api/board/`, {
+    const response = await fetch(`/api/board`, {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
+        cookie: `${document.cookie}`,
       },
       body: formData,
     })
