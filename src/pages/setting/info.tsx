@@ -27,7 +27,7 @@ const Info = () => {
     <>
       {me?.data.id && (
         <section>
-          {me.provider == 'LOCAL' ? (
+          {me.data.provider === 'LOCAL' ? (
             <AccountInfo />
           ) : (
             <section>
@@ -38,7 +38,7 @@ const Info = () => {
                   <Sentence size="base">{me.data.email}</Sentence>
                   <Image
                     src={
-                      me.provider == 'KAKAO'
+                      me.data.provider === 'KAKAO'
                         ? '/assets/kakao.png'
                         : '/assets/google.png'
                     }
