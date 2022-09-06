@@ -8,10 +8,10 @@ import * as styles from './styles'
 
 type Props = {
   isLoggedIn: boolean
-  image?: string
+  image: string
 }
 
-const Gnb = ({ isLoggedIn, image = '/assets/profile_img.png' }: Props) => {
+const Gnb = ({ isLoggedIn, image }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">

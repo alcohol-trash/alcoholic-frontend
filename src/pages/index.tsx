@@ -21,9 +21,6 @@ const Home = () => {
   const { data: me } = useQuery(
     'user',
     async () => await fetch(`/api/member`).then((response) => response.json()),
-    {
-      retry: 0,
-    },
   )
 
   const router = useRouter()
@@ -49,7 +46,10 @@ const Home = () => {
       <Head>
         <title>알코홀릭</title>
       </Head>
-      <Gnb isLoggedIn={me?.success} image={me?.data.image} />
+      <Gnb
+        isLoggedIn={me?.success}
+        image={me?.success ? me.data.image : '/assets/profile_img.png'}
+      />
       <section css={styles.container}>
         <Tabs defaultSelected={0} router={router} getData={getData}>
           {categories.map((category, index) => (
