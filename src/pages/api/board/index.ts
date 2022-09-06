@@ -5,7 +5,7 @@ export default async function CreateBoard(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const response = await fetch(`${apiBaseUrl}/api/board/$`, {
+  const response = await fetch(`${apiBaseUrl}/api/board`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

@@ -76,11 +76,11 @@ const AccountInfo = () => {
       <section css={styles.container}>
         <label>이메일</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">{me.email}</Sentence>
+          <Sentence size="base">{me.data.email}</Sentence>
         </div>
         <label>아이디</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">{me.id}</Sentence>
+          <Sentence size="base">{me.data.id}</Sentence>
         </div>
         <form>
           <div>
