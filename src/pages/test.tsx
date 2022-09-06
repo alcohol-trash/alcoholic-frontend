@@ -34,7 +34,6 @@ export default function Test() {
   const onClick3 = async () => {
     const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
       method: 'POST',
-      credentials: 'same-origin',
       body: JSON.stringify({
         id: 'test1234',
         password: 'password1234!',
@@ -42,18 +41,16 @@ export default function Test() {
     })
     const data = await response.json()
     console.log(data)
+    console.log(document.cookie)
   }
   const onClick4 = async () => {
-    const response = await fetch(`/api/member`, {
-      credentials: 'same-origin',
-    })
+    const response = await fetch(`/api/member`)
     const data = await response.json()
     console.log(data)
   }
   const onClick5 = async () => {
     const response = await fetch(`/api/auth/${LOGOUT}`, {
       method: 'POST',
-      credentials: 'same-origin',
     })
     const data = await response.json()
     console.log(data)
