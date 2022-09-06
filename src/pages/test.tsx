@@ -7,6 +7,8 @@ export default function Test() {
     const response = await fetch(`/api/board`, {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         cookie: `${document.cookie}`,
       },
       body: JSON.stringify({
@@ -26,6 +28,8 @@ export default function Test() {
     const response = await fetch(`/api/board`, {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         cookie: `${document.cookie}`,
       },
       body: formData,
