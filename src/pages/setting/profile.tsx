@@ -97,7 +97,7 @@ const Profile = () => {
               <div css={styles.img}>
                 <UserFace size={80} />
               </div>
-              <div css={styles.nickname}>{me.nickname}</div>
+              <div css={styles.nickname}>{me.data.nickname}</div>
             </section>
             <section>
               <label>닉네임</label>
