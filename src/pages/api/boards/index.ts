@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { apiBaseUrl } from '@/libs/config'
 
-export async function Boards(
+export async function GetBoards(
   category?: number,
   pageNum?: number,
   lastId?: number,
@@ -22,6 +22,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const data = await Boards()
+  const data = await GetBoards()
   res.status(200).json(data)
 }

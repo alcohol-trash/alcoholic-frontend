@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { apiBaseUrl } from '@/libs/config'
 
-export default async function CreatePost(
+export default async function CreateBoard(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
