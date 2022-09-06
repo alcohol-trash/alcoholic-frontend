@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { GetServerSidePropsContext } from 'next'
-import cookies from 'next-cookies'
+import { apiBaseUrl } from '@/libs/config'
+
+axios.defaults.baseURL = apiBaseUrl
+axios.defaults.withCredentials = true
 
 const AUTH_TYPE = 'login'
 const LOGOUT = 'logout'
@@ -34,16 +36,24 @@ export default function Test() {
     const data = await response.json()
     console.log('테스트2' + data)
   }
+  // const onClick3 = async () => {
+  //   const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
+  //     method: 'POST',
+  //     credentials: 'include',
+  //     body: JSON.stringify({
+  //       id: 'test1234',
+  //       password: 'password1234!',
+  //     }),
+  //   })
+  //   const data = await response.json()
+  //   console.log(data)
+  // }
   const onClick3 = async () => {
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        id: 'test1234',
-        password: 'password1234!',
-      }),
+    const response = await axios.post('/api/auth/login', {
+      id: 'test1234',
+      password: 'password1234!',
     })
-    const data = await response.json()
+    const data = await response.data
     console.log(data)
   }
   const onClick4 = async () => {
@@ -53,11 +63,16 @@ export default function Test() {
     const data = await response.json()
     console.log(data)
   }
+  // const onClick5 = async () => {
+  //   const response = await fetch(`/api/auth/${LOGOUT}`, {
+  //     method: 'POST',
+  //   })
+  //   const data = await response.json()
+  //   console.log(data)
+  // }
   const onClick5 = async () => {
-    const response = await fetch(`/api/auth/${LOGOUT}`, {
-      method: 'POST',
-    })
-    const data = await response.json()
+    const response = await axios.post('api/auth/logout')
+    const data = await response.data
     console.log(data)
   }
   return (
