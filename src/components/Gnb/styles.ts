@@ -20,4 +20,8 @@ export const profile = css`
   height: 32px;
   border-radius: 50%;
   cursor: pointer;
+  img {
+    width: 32px;
+    height: 32px;
+  }
 `
