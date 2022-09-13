@@ -36,7 +36,7 @@ const Tabs = ({ children, defaultSelected = 0, router, getData }: Props) => {
         { shallow: true },
       )
     }
-    getData(index + 1)
+    getData && getData(index + 1)
   }
 
   return (
