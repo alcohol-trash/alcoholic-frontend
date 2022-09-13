@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { contentData } from '@/libs/mocks/mockData'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/Backbutton'
+import BackButton from '@/components/Backbutton'
 import Profile from '@/components/Profile'
 
 import * as styles from './styles'
@@ -18,7 +18,7 @@ const ContentDetail = () => {
   const { title, content, writer, created } = data || {}
   return (
     <>
-      <Header left={<Backbutton />} />
+      <Header left={<BackButton />} />
       <div css={styles.wrapper}>
         <Profile writer={writer} date={created} />
         <div css={styles.title}>{title}</div>
