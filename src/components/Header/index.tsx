@@ -1,3 +1,4 @@
+import React from 'react'
 import * as styles from './styles'
 
 type Props = {
@@ -16,4 +17,4 @@ const Header = ({ title, left, right }: Props) => {
   )
 }
 
-export default Header
+export default React.memo(Header)

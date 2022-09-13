@@ -6,40 +6,39 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
-import AccountInfo from '@/components/accountinfo'
+import AccountInfo from '@/components/AccountInfo'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
-import Backbutton from '@/components/backbutton'
+import BackButton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
   const { data: me } = useQuery(
     'user',
-    async () =>
-      await fetch(`/api/member/info`).then((response) => response.json()),
+    async () => await fetch(`/api/member`).then((response) => response.json()),
   )
   const [modal, setModal] = useState(false)
   useEffect(() => {
-    if (!me || !me.email) {
+    if (!me.data.id) {
       Router.push('/')
     }
   }, [me])
   return (
     <>
-      {me && me.email && (
+      {me?.data.id && (
         <section>
-          {me.provider === 'LOCAL' ? (
+          {me.data.provider === 'LOCAL' ? (
             <AccountInfo />
           ) : (
             <section>
-              <Header title="계정정보" left={<Backbutton />} />
+              <Header title="계정정보" left={<BackButton />} />
               <section css={styles.container}>
                 <label>이메일</label>
                 <div css={styles.emailBlock}>
-                  <Sentence size="base">{me.email}</Sentence>
+                  <Sentence size="base">{me.data.email}</Sentence>
                   <Image
                     src={
-                      me.provider === 'KAKAO'
+                      me.data.provider === 'KAKAO'
                         ? '/assets/kakao.png'
                         : '/assets/google.png'
                     }

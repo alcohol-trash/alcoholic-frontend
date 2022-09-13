@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
+//import { GetServerSidePropsContext } from 'next'
 import Router from 'next/router'
 import Link from 'next/link'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/backbutton'
+import BackButton from '@/components/BackButton'
 import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/setting/settingMainStyles'
@@ -16,8 +17,7 @@ const Setting = () => {
 
   const { data: me } = useQuery(
     'user',
-    async () =>
-      await fetch(`/api/member/info`).then((response) => response.json()),
+    async () => await fetch(`/api/member`).then((response) => response.json()),
   )
 
   const handleLogout = async () => {
@@ -33,15 +33,15 @@ const Setting = () => {
     }
   }
   useEffect(() => {
-    if (!me || !me.email) {
+    if (!me?.success) {
       Router.push('/')
     }
   }, [me])
   return (
     <>
-      {me && me.email && (
+      {me?.data.id && (
         <section>
-          <Header title="설정" left={<Backbutton />} />
+          <Header title="설정" left={<BackButton />} />
           <section css={styles.container}>
             <ul css={styles.list}>
               <Link href="/setting/info">

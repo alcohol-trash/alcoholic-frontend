@@ -8,9 +8,17 @@ export default async function Auth(req: NextApiRequest, res: NextApiResponse) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      cookie: `${req.headers.cookie}`,
     },
     body: req.body,
   })
   const data = await response.json()
+  if (type === 'login') {
+    const token = response.headers.get('Set-Cookie')
+    res.setHeader('Set-Cookie', `${token}; path=/;`)
+  }
+  if (type === 'logout') {
+    res.setHeader('Set-Cookie', `; path=/; expires=-1`)
+  }
   res.status(response.status).json(data)
 }

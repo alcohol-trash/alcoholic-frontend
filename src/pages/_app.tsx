@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import type { AppProps } from 'next/app'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider, Hydrate } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
@@ -35,13 +35,15 @@ function App({ Component, pageProps }: AppProps) {
       clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
     >
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <div css={componentContainer}>
-            <Component {...pageProps} />
-          </div>
-        </ThemeProvider>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <div css={componentContainer}>
+              <Component {...pageProps} />
+            </div>
+          </ThemeProvider>
+        </Hydrate>
       </QueryClientProvider>
     </GoogleOAuthProvider>
   )
