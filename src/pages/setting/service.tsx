@@ -1,3 +1,4 @@
+import React from 'react'
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
 
@@ -12,4 +13,4 @@ const Service = () => {
   )
 }
 
-export default Service
+export default React.memo(Service)

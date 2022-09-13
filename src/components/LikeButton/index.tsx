@@ -6,12 +6,12 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from './styles'
 
 type Props = {
-  heartCount: number | undefined
-  heartCheck: boolean | undefined
-  id: number | undefined
+  heartCount?: number
+  heartCheck?: boolean
+  id?: number
 }
 
-const LikeButton = ({ heartCount, heartCheck, id }: Props) => {
+const LikeButton = ({ heartCount, heartCheck = false, id }: Props) => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const handleLike = async () => {

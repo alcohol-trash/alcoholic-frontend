@@ -151,4 +151,4 @@ const ModalWriteContent = ({
   )
 }
 
-export default React.memo(ModalWriteContent)
+export default ModalWriteContent

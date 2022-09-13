@@ -66,4 +66,4 @@ const NicknameForm = () => {
   )
 }
 
-export default NicknameForm
+export default React.memo(NicknameForm)

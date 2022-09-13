@@ -1,4 +1,4 @@
-//일반 회원가입 -> 정보 입력
+import React from 'react'
 import SignupForm from '@/components/SignupForm'
 import Title from '@/components/Title'
 
@@ -17,4 +17,4 @@ const SignupInfo = () => {
   )
 }
 
-export default SignupInfo
+export default React.memo(SignupInfo)

@@ -1,4 +1,4 @@
-//소셜 회원가입 -> 닉네임 생성 페이지
+import React from 'react'
 import NicknameForm from '@/components/NicknameForm'
 import Sentence from '@/components/Sentence'
 import Title from '@/components/Title'
@@ -27,4 +27,4 @@ const SignupNickname = () => {
   )
 }
 
-export default SignupNickname
+export default React.memo(SignupNickname)

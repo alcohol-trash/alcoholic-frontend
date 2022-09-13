@@ -1,3 +1,4 @@
+import React from 'react'
 import * as styles from './styles'
 
 const WithdrawalBlock = () => {
@@ -15,4 +16,4 @@ const WithdrawalBlock = () => {
   )
 }
 
-export default WithdrawalBlock
+export default React.memo(WithdrawalBlock)
