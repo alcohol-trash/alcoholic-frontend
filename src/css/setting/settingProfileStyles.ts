@@ -11,6 +11,17 @@ export const btnBlock = css`
   display: flex;
   justify-content: flex-end;
 `
+
+export const label = css`
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+`
 export const imgBlock = css`
   display: flex;
   justify-content: center;

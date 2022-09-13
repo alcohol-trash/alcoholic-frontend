@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -58,26 +58,45 @@ const Profile = () => {
       }
     }
   }
-  const handleSendClick = async () => {
-    const response = await fetch(`/api/member/image/${me.data.id}`, {
-      method: 'PUT',
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-    })
-    const data = await response.json()
-    if (data) {
-      setModal(true)
-      setModalTitle(data.message)
-      if (data.success) {
+  const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
+    const formData = new FormData()
+    if (e.target.files) {
+      formData.append('image', e.target.files[0])
+      const response = await fetch(`/api/member/image/${me.data.id}`, {
+        method: 'PUT',
+        headers: {
+          cookie: `${document.cookie}`,
+        },
+      })
+      const data = await response.json()
+      if (data) {
         setModal(true)
-        setModalTitle('이미지가 변경되었습니다.')
+        setModalTitle(data.message)
+        if (data.success) {
+          setModal(true)
+          setModalTitle('이미지가 변경되었습니다.')
+        }
       }
     }
   }
-  const handleChangeClick = () => {
-    //
-  }
+  // const handleSendClick = async () => {
+  //   const response = await fetch(`/api/member/image/${me.data.id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       cookie: `${document.cookie}`,
+  //     },
+  //   })
+  //   const data = await response.json()
+  //   if (data) {
+  //     setModal(true)
+  //     setModalTitle(data.message)
+  //     if (data.success) {
+  //       setModal(true)
+  //       setModalTitle('이미지가 변경되었습니다.')
+  //     }
+  //   }
+  // }
+
   const handleDeleteClick = async () => {
     //이미지 삭제
     const response = await fetch(`/api/member/image/${me.data.id}`, {
@@ -100,11 +119,27 @@ const Profile = () => {
     <>
       {me?.data.id && (
         <section>
-          <Header title="프로필 편집" left={<BackButton />} />
+          <Header
+            title="프로필 편집"
+            left={<BackButton />}
+            // right={
+            //   <Button style="secondary" onClick={handleSendClick}>
+            //     이미지 업로드
+            //   </Button>
+            // }
+          />
           <section css={styles.container}>
             <section css={styles.btnBlock}>
-              <div css={styles.imgBlock} onClick={handleChangeClick}>
-                <Image src="/assets/camera.png" width={20} height={20} />
+              <div css={[styles.imgBlock, styles.label]}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="file"
+                  onChange={handleChangeImage}
+                />
+                <label htmlFor="file">
+                  <Image src="/assets/camera.png" width={20} height={20} />
+                </label>
               </div>
               <div css={styles.imgBlock} onClick={handleDeleteClick}>
                 <Image src="/assets/delete.png" width={20} height={20} />
