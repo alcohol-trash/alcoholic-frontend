@@ -57,7 +57,7 @@ const FindId = () => {
 
   const handleCheckClick = async () => {
     const email = getValues('email')
-    const response = await fetch(`/api/email/check/${MAIL_TYPE}?email=${email}`)
+    const response = await fetch(`/api/member/forget/id?email=${email}`)
     const data = await response.json()
     if (data) {
       setModalVisible(true)
