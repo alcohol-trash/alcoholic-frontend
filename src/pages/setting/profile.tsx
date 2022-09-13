@@ -65,8 +65,10 @@ const Profile = () => {
       const response = await fetch(`/api/member/image/${me.data.id}`, {
         method: 'PUT',
         headers: {
+          'Content-Type': 'multipart/form-data',
           cookie: `${document.cookie}`,
         },
+        body: formData,
       })
       const data = await response.json()
       if (data) {
