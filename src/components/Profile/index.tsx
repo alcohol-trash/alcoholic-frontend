@@ -6,13 +6,18 @@ import * as styles from './styles'
 type Props = {
   writer?: string
   date?: string
+  img?: string
 }
-const Profile = ({ writer, date }: Props) => {
+const Profile = ({
+  writer,
+  date,
+  img = '/assets/profile_default.png',
+}: Props) => {
   return (
     <div css={styles.container}>
       <div css={styles.profile}>
         <Image
-          src="/assets/profile_default.png"
+          src={img}
           alt="회색 배경에 흰 사람 동그란 프로필 이미지"
           width={40}
           height={40}

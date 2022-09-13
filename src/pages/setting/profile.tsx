@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Image from 'next/image'
-import { FaUserCircle as UserFace } from 'react-icons/fa'
 
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
@@ -98,7 +97,7 @@ const Profile = () => {
             </section>
             <section css={styles.profileBlock}>
               <div css={styles.img}>
-                <UserFace size={80} />
+                <img referrerPolicy="no-referrer" src={me.data.image} />
               </div>
               <div css={styles.nickname}>{me.data.nickname}</div>
             </section>
