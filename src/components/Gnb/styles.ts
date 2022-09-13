@@ -18,6 +18,10 @@ export const container = css`
 export const profile = css`
   width: 32px;
   height: 32px;
-  border-radius: 50%;
   cursor: pointer;
+  img {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+  }
 `

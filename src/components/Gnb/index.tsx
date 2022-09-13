@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+//import Image from 'next/image'
 
 import Title from '@/components/Title'
 
@@ -8,10 +8,10 @@ import * as styles from './styles'
 
 type Props = {
   isLoggedIn: boolean
-  image?: string
+  image: string
 }
 
-const Gnb = ({ isLoggedIn, image = '/assets/profile_img.png' }: Props) => {
+const Gnb = ({ isLoggedIn, image }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">
@@ -22,7 +22,8 @@ const Gnb = ({ isLoggedIn, image = '/assets/profile_img.png' }: Props) => {
       <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
         <a>
           <div css={styles.profile}>
-            <Image src={image} width={32} height={32} />
+            {/* <Image src={image} width={32} height={32} /> */}
+            <img referrerPolicy="no-referrer" src={image} />
           </div>
         </a>
       </Link>

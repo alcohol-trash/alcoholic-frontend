@@ -10,8 +10,6 @@ import TextField from '@/components/TextField'
 import ValidateMessage from '@/components/ValidateMessage'
 import Button from '@/components/Button'
 import ModalAlert from '@/components/ModalAlert'
-import ToastsAlerts from '@/components/ToastsAlert'
-import { Toasts } from '@/components/ToastsAlert'
 
 import * as styles from './styles'
 import { getSettingEditFormSchema } from '@/libs/validations/settingEditValidation'
@@ -42,11 +40,14 @@ const AccountInfo = () => {
     setValue(name, value, { shouldValidate: true })
   }
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/member/change/${me.id}`, {
+    const response = await fetch(`/api/member/password/${me.data.id}`, {
       method: 'PUT',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
       body: JSON.stringify({
-        password: getValues('password'),
         newPassword: getValues('newPassword'),
+        password: getValues('password'),
       }),
     })
     const data = await response.json()
@@ -54,7 +55,8 @@ const AccountInfo = () => {
       setModal(true)
       setModalTitle(data.message)
       if (data.success) {
-        Toasts('정보가 수정되었습니다')
+        setModal(true)
+        setModalTitle('정보가 수정되었습니다.')
       }
     }
   }
@@ -76,11 +78,11 @@ const AccountInfo = () => {
       <section css={styles.container}>
         <label>이메일</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">{me.email}</Sentence>
+          <Sentence size="base">{me.data.email}</Sentence>
         </div>
         <label>아이디</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">{me.id}</Sentence>
+          <Sentence size="base">{me.data.id}</Sentence>
         </div>
         <form>
           <div>
@@ -128,7 +130,6 @@ const AccountInfo = () => {
         title={modalTitle}
         onClick={() => setModal(!modal)}
       />
-      <ToastsAlerts />
     </section>
   )
 }

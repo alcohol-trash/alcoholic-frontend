@@ -27,7 +27,7 @@ const Info = () => {
     <>
       {me?.data.id && (
         <section>
-          {me.provider === 'LOCAL' ? (
+          {me.data.provider === 'LOCAL' ? (
             <AccountInfo />
           ) : (
             <section>
@@ -35,10 +35,10 @@ const Info = () => {
               <section css={styles.container}>
                 <label>이메일</label>
                 <div css={styles.emailBlock}>
-                  <Sentence size="base">{me.email}</Sentence>
+                  <Sentence size="base">{me.data.email}</Sentence>
                   <Image
                     src={
-                      me.provider === 'KAKAO'
+                      me.data.provider === 'KAKAO'
                         ? '/assets/kakao.png'
                         : '/assets/google.png'
                     }

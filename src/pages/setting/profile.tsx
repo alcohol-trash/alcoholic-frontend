@@ -40,8 +40,11 @@ const Profile = () => {
   }
   const handleCheckClick = async () => {
     //닉네임 변경
-    const response = await fetch(`/api/member/change/${me.id}`, {
+    const response = await fetch(`/api/member/nickname/${me.data.id}`, {
       method: 'PUT',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
       body: JSON.stringify({
         nickname: getValues('nickname'),
       }),
@@ -61,7 +64,7 @@ const Profile = () => {
   }
   const handleDeleteClick = async () => {
     //이미지 삭제
-    const response = await fetch(`/api/member/change/${me.id}`, {
+    const response = await fetch(`/api/member/change/${me.data.id}`, {
       method: 'PUT',
     })
     const data = await response.json()
@@ -97,7 +100,7 @@ const Profile = () => {
               <div css={styles.img}>
                 <UserFace size={80} />
               </div>
-              <div css={styles.nickname}>{me.nickname}</div>
+              <div css={styles.nickname}>{me.data.nickname}</div>
             </section>
             <section>
               <label>닉네임</label>
