@@ -61,7 +61,7 @@ const Profile = () => {
   const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const formData = new FormData()
     if (e.target.files) {
-      formData.append('image', e.target.files[0])
+      formData.append('file', e.target.files[0])
       const response = await fetch(`/api/member/image/${me.data.id}`, {
         method: 'PUT',
         headers: {
