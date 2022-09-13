@@ -1,7 +1,6 @@
 import React from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
-
-import Title from '@/components/Title'
 
 import * as styles from './styles'
 
@@ -14,9 +13,7 @@ const Gnb = ({ isLoggedIn, image }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">
-        <a>
-          <Title>알코홀-릭</Title>
-        </a>
+        <Image src="/assets/logo.png" width={74} height={20} />
       </Link>
       <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
         <a>

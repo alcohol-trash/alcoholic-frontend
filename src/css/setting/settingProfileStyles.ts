@@ -26,11 +26,12 @@ export const profileBlock = css`
   width: 100%;
 `
 export const img = css`
-  width: 80px;
-  height: 80px;
   margin: 0 auto;
-  border-radius: 50%;
-  background-color: ${theme.gray[300]};
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
 `
 export const nickname = css`
   margin: 10px 0;
