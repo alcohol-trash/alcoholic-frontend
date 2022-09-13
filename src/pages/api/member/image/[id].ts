@@ -10,7 +10,6 @@ export default async function ChangeImage(
       method: 'PUT',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
         cookie: `${req.headers.cookie}`,
       },
       body: req.body,
