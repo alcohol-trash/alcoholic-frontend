@@ -7,7 +7,7 @@ import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
 import Profile from '@/components/Profile'
 
-import * as styles from './styles'
+import * as styles from '@/css/content/contentDetailStyles'
 
 const ContentDetail = () => {
   const router = useRouter()
