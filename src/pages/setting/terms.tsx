@@ -1,3 +1,4 @@
+import React from 'react'
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
 
@@ -17,4 +18,4 @@ const Terms = () => {
   )
 }
 
-export default Terms
+export default React.memo(Terms)

@@ -1,11 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 
+import Profile from '@/components/Profile'
 import LikeButton from '@/components/LikeButton'
 
 import * as styles from './styles'
 
-interface BoardsProps {
+type BoardsProps = {
   content: string
   createdData: string
   heartCheck: boolean
@@ -17,7 +18,7 @@ interface BoardsProps {
   writer: string
 }
 
-interface Props {
+type Props = {
   data?: BoardsProps
   [key: string]: any
 }
@@ -37,21 +38,7 @@ const Feed = ({ data }: Props) => {
 
   return (
     <section css={styles.container}>
-      <div css={styles.header}>
-        <div css={styles.profile}>
-          <Image
-            src="/assets/profile_default.png"
-            alt="회색 배경에 흰 사람 동그란 프로필 이미지"
-            width={32}
-            height={32}
-          />
-        </div>
-        <div css={styles.title}>
-          <strong>{writer}</strong>
-          <p>{createdData}</p>
-        </div>
-      </div>
-
+      <Profile writer={writer} date={createdData} />
       <div css={styles.content}>
         <div css={styles.contentTitle}>{title}</div>
         <p css={styles.contentDescription}>{content}</p>
@@ -67,7 +54,6 @@ const Feed = ({ data }: Props) => {
           </div>
         )}
       </div>
-
       <div css={styles.footer}>
         <LikeButton heartCount={heartCount} heartCheck={heartCheck} id={seq} />
         <div>

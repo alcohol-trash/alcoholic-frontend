@@ -1,4 +1,4 @@
-//일반 회원가입 -> 이메일 인증
+import React from 'react'
 import EmailForm from '@/components/EmailForm'
 import Title from '@/components/Title'
 
@@ -21,4 +21,4 @@ const SignupEmail = () => {
   )
 }
 
-export default SignupEmail
+export default React.memo(SignupEmail)

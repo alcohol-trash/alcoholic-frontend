@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-//import Image from 'next/image'
 
 import Title from '@/components/Title'
 
@@ -22,7 +21,6 @@ const Gnb = ({ isLoggedIn, image }: Props) => {
       <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
         <a>
           <div css={styles.profile}>
-            {/* <Image src={image} width={32} height={32} /> */}
             <img referrerPolicy="no-referrer" src={image} />
           </div>
         </a>

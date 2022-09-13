@@ -1,4 +1,4 @@
-//일반 회원가입 -> 이용약관
+import React from 'react'
 import Terms from '@/components/Terms'
 import Title from '@/components/Title'
 
@@ -22,4 +22,4 @@ const SignupTerms = () => {
   )
 }
 
-export default SignupTerms
+export default React.memo(SignupTerms)
