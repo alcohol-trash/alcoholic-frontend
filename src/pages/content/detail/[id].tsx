@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { contentData } from '@/libs/mocks/mockData'
 
 import Header from '@/components/Header'
-import Backbutton from '@/components/backbutton'
+import Backbutton from '@/components/Backbutton'
 import Profile from '@/components/Profile'
 
 import * as styles from './styles'
