@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { apiBaseUrl } from '@/libs/config'
-async function MemberForget(req: NextApiRequest, res: NextApiResponse) {
-  const { type } = req.query
-  const response = await fetch(`${apiBaseUrl}/api/member/forget/${type}`, {
-    method: 'POST',
+async function MemberForgetPwd(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query
+  const response = await fetch(`${apiBaseUrl}/api/member/forget/${id}`, {
+    method: 'PUT',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -14,4 +14,4 @@ async function MemberForget(req: NextApiRequest, res: NextApiResponse) {
   res.status(response.status).json(data)
 }
 
-export default MemberForget
+export default MemberForgetPwd

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Router, { useRouter } from 'next/router'
 
@@ -11,7 +11,7 @@ import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from '@/css/login/findPasswordStyles'
 import ModalAlert from '@/components/ModalAlert'
-const TYPE = 'password'
+
 type FormTypes = {
   password: string
   passwordConfirm: string
@@ -38,12 +38,10 @@ const FindPasswordReset = () => {
   }
 
   const handleClick = async () => {
-    const response = await fetch(`/api/member/forget/${TYPE}`, {
+    const response = await fetch(`/api/member/forget/${id}`, {
       method: 'POST',
       body: JSON.stringify({
-        id,
         email,
-        password: getValues('password'),
         newPassword: getValues('passwordConfirm'),
       }),
     })

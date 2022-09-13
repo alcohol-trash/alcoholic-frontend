@@ -64,7 +64,10 @@ const FindId = () => {
       setModalTitle(data.message)
 
       if (data.success) {
-        Router.push('/login/find-id/success')
+        Router.push({
+          pathname: '/login/find-id/success',
+          query: { id: data.data },
+        })
       }
     }
   }
@@ -82,7 +85,6 @@ const FindId = () => {
                   <TextField
                     placeholder="이메일을 입력해주세요."
                     {...register('email')}
-                    // 'onChange' is specified more than once, so this usage will be overwritten. -> register spread 이후에
                     onChange={handleChange}
                   />
                 </div>
