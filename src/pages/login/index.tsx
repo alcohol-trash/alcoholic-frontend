@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link'
 import Router from 'next/router'
 import Image from 'next/image'
@@ -38,4 +39,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default React.memo(Login)

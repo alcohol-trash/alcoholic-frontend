@@ -20,6 +20,11 @@ type FormTypes = {
   check: boolean
 }
 
+type changeTypes = {
+  name: any
+  checked: boolean
+}
+
 const customStyles: Modal.Styles = {
   overlay: {
     backgroundColor: 'rgba(16, 17, 29, .8)',
@@ -46,11 +51,14 @@ const customStyles: Modal.Styles = {
 const ModalWithdrawal = ({ isOpen, onClick }: Props) => {
   const {
     register,
+    setValue,
     formState: { isValid },
   } = useForm<FormTypes>({
-    mode: 'onChange',
     resolver: yupResolver(getSettingTermsFormSchema),
   })
+  const changeHandler = ({ name, checked }: changeTypes) => {
+    setValue(name, checked, { shouldValidate: true })
+  }
   return (
     <Modal isOpen={isOpen} ariaHideApp={false} style={customStyles}>
       <div css={styles.titleBlock}>회원탈퇴</div>
@@ -58,6 +66,7 @@ const ModalWithdrawal = ({ isOpen, onClick }: Props) => {
       <form>
         <CheckBox
           {...register('check')}
+          onChange={changeHandler}
           label="모든 내용을 확인했으며 정보 삭제에 동의합니다."
         />
         <div css={styles.btnBlock}>
