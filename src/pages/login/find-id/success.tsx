@@ -19,7 +19,7 @@ const FindIdSuccess = () => {
             <div css={styles.box}>
               <label>아이디 정보</label>
               <div>
-                <TextField value="id" readonly={true} />
+                <TextField value={id} readonly={true} />
               </div>
             </div>
           </div>

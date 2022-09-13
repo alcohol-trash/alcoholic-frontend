@@ -10,7 +10,8 @@ export default async function ChangeImage(
       method: 'PUT',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        cookie: `${req.headers.cookie}`,
       },
       body: req.body,
     })
@@ -23,8 +24,8 @@ export default async function ChangeImage(
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        cookie: `${req.headers.cookie}`,
       },
-      body: req.body,
     })
     const data = await response.json()
     res.status(response.status).json(data)

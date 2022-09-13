@@ -58,40 +58,55 @@ const Profile = () => {
       }
     }
   }
-  const handleSubmitClick = () => {
-    //api 연결
+  const handleSendClick = async () => {
+    const response = await fetch(`/api/member/image/${me.data.id}`, {
+      method: 'PUT',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
+    })
+    const data = await response.json()
+    if (data) {
+      setModal(true)
+      setModalTitle(data.message)
+      if (data.success) {
+        setModal(true)
+        setModalTitle('이미지가 변경되었습니다.')
+      }
+    }
+  }
+  const handleChangeClick = () => {
+    //
   }
   const handleDeleteClick = async () => {
     //이미지 삭제
-    const response = await fetch(`/api/member/change/${me.data.id}`, {
-      method: 'PUT',
+    const response = await fetch(`/api/member/image/${me.data.id}`, {
+      method: 'DELETE',
+      headers: {
+        cookie: `${document.cookie}`,
+      },
     })
     const data = await response.json()
-    console.log(data)
+    if (data) {
+      setModal(true)
+      setModalTitle(data.message)
+      if (data.success) {
+        setModal(true)
+        setModalTitle('이미지가 삭제되었습니다.')
+      }
+    }
   }
   return (
     <>
       {me?.data.id && (
         <section>
-          <Header
-            title="프로필 편집"
-            left={<BackButton />}
-            right={
-              <Button
-                style={isValid ? 'modalLogin' : 'secondary'}
-                disabled={!isValid}
-                onClick={handleSubmit(handleSubmitClick)}
-              >
-                수정
-              </Button>
-            }
-          />
+          <Header title="프로필 편집" left={<BackButton />} />
           <section css={styles.container}>
             <section css={styles.btnBlock}>
-              <div css={styles.imgBlock} onClick={handleDeleteClick}>
+              <div css={styles.imgBlock} onClick={handleChangeClick}>
                 <Image src="/assets/camera.png" width={20} height={20} />
               </div>
-              <div css={styles.imgBlock}>
+              <div css={styles.imgBlock} onClick={handleDeleteClick}>
                 <Image src="/assets/delete.png" width={20} height={20} />
               </div>
             </section>

@@ -59,7 +59,7 @@ const ModalWriteContent = ({
   const [imagePaths, setImagePaths] = useState<string[]>([])
   const image = useRef<HTMLInputElement>(null)
   const fetchAdd = async (formData: any) => {
-    const response = await fetch(`/api/board/`, {
+    const response = await fetch(`/api/board`, {
       method: 'POST',
       body: formData,
     })
