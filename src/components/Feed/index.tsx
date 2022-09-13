@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
+import Profile from '@/components/Profile'
 import LikeButton from '@/components/LikeButton'
 
 import * as styles from './styles'
@@ -37,7 +38,7 @@ const Feed = ({ data }: Props) => {
 
   return (
     <section css={styles.container}>
-      <div css={styles.header}>
+      {/* <div css={styles.header}>
         <div css={styles.profile}>
           <Image
             src="/assets/profile_default.png"
@@ -50,8 +51,8 @@ const Feed = ({ data }: Props) => {
           <strong>{writer}</strong>
           <p>{createdData}</p>
         </div>
-      </div>
-
+      </div> */}
+      <Profile writer={writer} date={createdData} />
       <div css={styles.content}>
         <div css={styles.contentTitle}>{title}</div>
         <p css={styles.contentDescription}>{content}</p>
