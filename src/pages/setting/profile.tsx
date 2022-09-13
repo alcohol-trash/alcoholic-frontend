@@ -37,8 +37,7 @@ const Profile = () => {
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
-  const handleCheckClick = async () => {
-    //닉네임 변경
+  const handleChangeNickname = async () => {
     const response = await fetch(`/api/member/nickname/${me.data.id}`, {
       method: 'PUT',
       headers: {
@@ -80,25 +79,8 @@ const Profile = () => {
       }
     }
   }
-  // const handleSendClick = async () => {
-  //   const response = await fetch(`/api/member/image/${me.data.id}`, {
-  //     method: 'PUT',
-  //     headers: {
-  //       cookie: `${document.cookie}`,
-  //     },
-  //   })
-  //   const data = await response.json()
-  //   if (data) {
-  //     setModal(true)
-  //     setModalTitle(data.message)
-  //     if (data.success) {
-  //       setModal(true)
-  //       setModalTitle('이미지가 변경되었습니다.')
-  //     }
-  //   }
-  // }
 
-  const handleDeleteClick = async () => {
+  const handleDeleteImage = async () => {
     //이미지 삭제
     const response = await fetch(`/api/member/image/${me.data.id}`, {
       method: 'DELETE',
@@ -120,15 +102,7 @@ const Profile = () => {
     <>
       {me?.data.id && (
         <section>
-          <Header
-            title="프로필 편집"
-            left={<BackButton />}
-            // right={
-            //   <Button style="secondary" onClick={handleSendClick}>
-            //     이미지 업로드
-            //   </Button>
-            // }
-          />
+          <Header title="프로필 편집" left={<BackButton />} />
           <section css={styles.container}>
             <section css={styles.btnBlock}>
               <div css={[styles.imgBlock, styles.label]}>
@@ -142,7 +116,7 @@ const Profile = () => {
                   <Image src="/assets/camera.png" width={20} height={20} />
                 </label>
               </div>
-              <div css={styles.imgBlock} onClick={handleDeleteClick}>
+              <div css={styles.imgBlock} onClick={handleDeleteImage}>
                 <Image src="/assets/delete.png" width={20} height={20} />
               </div>
             </section>
@@ -169,7 +143,7 @@ const Profile = () => {
                     size="sm"
                     align="center"
                     style={isValid ? 'primary' : 'default'}
-                    onClick={handleSubmit(handleCheckClick)}
+                    onClick={handleSubmit(handleChangeNickname)}
                   >
                     확인
                   </Button>

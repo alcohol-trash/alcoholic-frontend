@@ -21,6 +21,9 @@ export const label = css`
     overflow: hidden;
     border: 0;
   }
+  img {
+    text-align: center;
+  }
 `
 export const imgBlock = css`
   display: flex;
