@@ -87,7 +87,7 @@ export default function Test() {
       'json',
       new Blob([JSON.stringify(variables)], { type: 'application/json' }),
     )
-    const response = await fetch(`/api/heart/board/1`, {
+    const response = await fetch(`/api/board`, {
       method: 'POST',
       headers: {
         cookie: `${document.cookie}`,
