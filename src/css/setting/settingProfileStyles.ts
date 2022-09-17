@@ -11,6 +11,20 @@ export const btnBlock = css`
   display: flex;
   justify-content: flex-end;
 `
+
+export const label = css`
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+  img {
+    text-align: center;
+  }
+`
 export const imgBlock = css`
   display: flex;
   justify-content: center;
@@ -26,7 +40,7 @@ export const profileBlock = css`
   width: 100%;
 `
 export const img = css`
-  margin: 0 auto;
+  text-align: center;
   img {
     width: 80px;
     height: 80px;

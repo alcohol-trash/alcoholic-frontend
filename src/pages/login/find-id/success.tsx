@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
@@ -8,10 +8,8 @@ import Button from '@/components/Button'
 import * as styles from '@/css/login/findIdStyles'
 
 const FindIdSuccess = () => {
-  const handleClick = () => {
-    // 로그인하기 router.push
-    Router.push('/login')
-  }
+  const router = useRouter()
+  const id = router.query.id
   return (
     <>
       <div css={styles.container}>
@@ -19,16 +17,16 @@ const FindIdSuccess = () => {
         <div>
           <div css={styles.form}>
             <div css={styles.box}>
-              <label>아이디</label>
+              <label>아이디 정보</label>
               <div>
-                <TextField value="test" readonly={true} />
+                <TextField value={id} readonly={true} />
               </div>
             </div>
           </div>
         </div>
       </div>
       <div css={styles.buttonContainer}>
-        <Button size="sm" style="primary" onClick={handleClick}>
+        <Button size="sm" style="primary" onClick={() => Router.push('/login')}>
           로그인하기
         </Button>
       </div>

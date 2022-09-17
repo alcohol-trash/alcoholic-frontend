@@ -7,12 +7,12 @@ import * as R from 'ramda'
 
 import Header from '@/components/Header'
 import Button from '@/components/Button'
+import MyProfile from '@/components/MyProfile'
 import Tabs from '@/components/Tabs'
 import UserContentCard from '@/components/UserContentCard'
 
 import * as styles from '@/css/my/myPageStyles'
 import { mockWriteData, mockCommentData, menus } from '@/libs/mocks/mockData'
-import MyProfile from '@/components/MyProfile'
 
 const MyPage = () => {
   const { data: me } = useQuery(
@@ -20,21 +20,6 @@ const MyPage = () => {
     async () => await fetch(`/api/member`).then((response) => response.json()),
   )
   const router = useRouter()
-
-  const handleProfileClick = () => {
-    // TODO: 프로필 편집으로 이동
-    Router.push('/setting/profile')
-  }
-
-  const handleUploadClick = () => {
-    // TODO: 글 업로드로 이동
-    Router.push('/')
-  }
-
-  const handleHomeClick = () => {
-    // TODO: 홈으로 이동
-    Router.push('/')
-  }
 
   return (
     <>
@@ -47,7 +32,7 @@ const MyPage = () => {
               </Link>
             }
             right={
-              <Button style="secondary" onClick={handleProfileClick}>
+              <Button style="secondary" onClick={() => Router.push('/setting')}>
                 설정
               </Button>
             }
@@ -71,7 +56,7 @@ const MyPage = () => {
                       <Button
                         size="xs"
                         align="center"
-                        onClick={handleUploadClick}
+                        onClick={() => Router.push('/')}
                       >
                         글 업로드하기
                       </Button>
@@ -84,7 +69,11 @@ const MyPage = () => {
                 ) : (
                   <div css={styles.noData}>
                     <span>아직 작성한 댓글이 없어요</span>
-                    <Button size="xs" align="center" onClick={handleHomeClick}>
+                    <Button
+                      size="xs"
+                      align="center"
+                      onClick={() => Router.push('/')}
+                    >
                       글 탐색하기
                     </Button>
                   </div>
