@@ -76,6 +76,7 @@ export default function Test() {
   }
   const onClick7 = async () => {
     const formData = new FormData()
+    formData.append('file', '')
     const variables = [
       {
         category: 1,
