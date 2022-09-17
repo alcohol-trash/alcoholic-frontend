@@ -93,9 +93,17 @@ const ModalWriteContent = ({
   }
   const handleSubmit = useCallback(() => {
     const formData = new FormData()
-    formData.append('category', categoryNum.toString())
-    formData.append('content', getValues('content'))
-    formData.append('title', getValues('title'))
+    const variables = [
+      {
+        category: categoryNum,
+        title: getValues('title'),
+        content: getValues('content'),
+      },
+    ]
+    formData.append(
+      'json',
+      new Blob([JSON.stringify(variables)], { type: 'application/json' }),
+    )
     mutation.mutate(formData)
   }, [categoryNum, getValues, mutation])
   return (
