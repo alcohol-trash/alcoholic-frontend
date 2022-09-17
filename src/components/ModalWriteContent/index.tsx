@@ -82,7 +82,6 @@ const ModalWriteContent = ({
     reset,
     formState: { isValid },
   } = useForm<FormTypes>({
-    mode: 'onChange',
     resolver: yupResolver(writeContentFormSchema),
   })
   const handleClose = () => {
