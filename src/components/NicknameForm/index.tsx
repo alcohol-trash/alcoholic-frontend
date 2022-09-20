@@ -31,7 +31,7 @@ const NicknameForm = () => {
     }
   }
   const handleSubmitClick = async () => {
-    const response = await socialAPI(getValues('nickname'))
+    const response = await socialAPI({ nickname: getValues('nickname') })
     if (response.data.success) {
       Router.push('/')
     } else {

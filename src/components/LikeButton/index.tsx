@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
+import { heartAPI } from '@/api/board'
+
 import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
@@ -11,28 +13,22 @@ type Props = {
   seq?: number
 }
 
-const LikeButton = ({ heartCount, heartCheck = false, seq }: Props) => {
+const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const handleLike = async () => {
     if (heartCount) {
-      const response = await fetch(`/api/heart/board/${seq}`, {
-        method: 'DELETE',
-      })
-      const data = await response.json()
-      if (data) {
+      const response = await heartAPI(seq, 'DELETE')
+      if (response) {
         setModal(true)
-        setModalTitle(data.message)
+        setModalTitle(response.data.message)
       }
     }
     if (!heartCount) {
-      const response = await fetch(`/api/heart/board/${seq}`, {
-        method: 'POST',
-      })
-      const data = await response.json()
-      if (data) {
+      const response = await heartAPI(seq, 'POST')
+      if (response) {
         setModal(true)
-        setModalTitle(data.message)
+        setModalTitle(response.data.message)
       }
     }
   }
