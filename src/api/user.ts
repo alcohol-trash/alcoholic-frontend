@@ -10,9 +10,9 @@ export const logoutAPI = async () => {
   return instance.post('/api/auth/logout').then((response) => response.data)
 }
 
-export const socialAPI = async (data: { nickname: string }) => {
+export const socialAPI = async (nickname: string) => {
   return instance
-    .post('/api/auth/oauth/signup', data)
+    .post('/api/auth/oauth/signup', nickname)
     .then((response) => response.data)
 }
 

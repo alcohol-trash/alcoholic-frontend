@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router'
 
+import { socialAPI } from '@/api/user'
+import { nicknameValidation } from '@/libs/validations/nicknameValidation'
+
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
-import { nicknameValidation } from '@/libs/validations/nicknameValidation'
 
 type FormTypes = {
   nickname: string
@@ -16,7 +18,7 @@ const NicknameForm = () => {
   const {
     register,
     formState: { isValid, errors },
-    handleSubmit,
+    getValues,
   } = useForm<FormTypes>({
     mode: 'onChange',
     resolver: nicknameValidation(),
@@ -28,19 +30,13 @@ const NicknameForm = () => {
       setSuccess(isValid)
     }
   }
-  const handleSubmitClick = async (formData: FormTypes) => {
-    const response = await fetch(`/api/auth/oauth/signup`, {
-      method: 'POST',
-      body: JSON.stringify({
-        nickname: formData,
-      }),
-    })
-    const data = await response.json()
-    if (data.success) {
+  const handleSubmitClick = async () => {
+    const response = await socialAPI(getValues('nickname'))
+    if (response.data.success) {
       Router.push('/')
     } else {
       setSuccess(!isValid)
-      setErrorMsg(data.message)
+      setErrorMsg(response.data.message)
     }
   }
   return (
@@ -54,7 +50,7 @@ const NicknameForm = () => {
           <Button
             size="sm"
             style={isValid && success ? 'primary' : 'default'}
-            onClick={handleSubmit(handleSubmitClick)}
+            onClick={handleSubmitClick}
             disabled={!isValid && !success}
           >
             알코홀-릭 시작하기
