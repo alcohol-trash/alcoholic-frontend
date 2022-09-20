@@ -4,16 +4,21 @@ export const loginAPI = async (data: { id: string; password: string }) => {
   return instance
     .post('/api/auth/login', data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const logoutAPI = async () => {
-  return instance.post('/api/auth/logout').then((response) => response.data)
+  return instance
+    .post('/api/auth/logout')
+    .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const socialAPI = async (data: { nickname: string }) => {
   return instance
     .post('/api/auth/oauth/signup', data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const signupAPI = async (data: {
@@ -24,16 +29,23 @@ export const signupAPI = async (data: {
   return instance
     .post('/api/auth/signup', data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const mailAPI = async (urlType: string, type: string, email: string) => {
-  return instance.get(`/api/mail/${urlType}/${type}`, {
-    params: { email: email },
-  })
+  return instance
+    .get(`/api/mail/${urlType}/${type}`, {
+      params: { email: email },
+    })
+    .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const memberInfoAPI = async () => {
-  return instance.get('/api/member').then((response) => response.data)
+  return instance
+    .get('/api/member')
+    .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const forgetIdAPI = async (email: string) => {
@@ -42,6 +54,7 @@ export const forgetIdAPI = async (email: string) => {
       params: { email: email },
     })
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const forgetPwdAPI = async (
@@ -51,12 +64,14 @@ export const forgetPwdAPI = async (
   return instance
     .put(`/api/member/forget/${id}`, data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const changeNickAPI = async (id: string, data: { nickname: string }) => {
   return instance
     .put(`/api/member/nickname/${id}`, data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const changePwdAPI = async (
@@ -66,16 +81,19 @@ export const changePwdAPI = async (
   return instance
     .put(`/api/member/password/${id}`, data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const changeImgAPI = async (id: string, data: any) => {
   return instance
     .put(`/api/member/image/${id}`, data)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const deleteImgAPI = async (id: string) => {
   return instance
     .delete(`/api/member/image/${id}`)
     .then((response) => response.data)
+    .catch((error) => error.response)
 }

@@ -9,13 +9,4 @@ const instance: AxiosInstance = axios.create({
   },
 })
 
-axios.interceptors.response.use(
-  function (response) {
-    return response
-  },
-  function (error) {
-    return Promise.reject(error.response)
-  },
-)
-
 export default instance
