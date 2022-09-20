@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router'
 
-import { getFindIdFormSchema } from '@/libs/validations/findIdValidation'
+import { mailAPI } from '@/api/user'
+import { forgetIdAPI } from '@/api/user'
+import { emailValidation } from '@/libs/validations/emailValidation'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
@@ -14,6 +16,7 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from '@/css/login/findIdStyles'
 
 const MAIL_TYPE = 'id'
+
 type FormTypes = {
   email: string
 }
@@ -23,31 +26,27 @@ const FindId = () => {
     setValue,
     getValues,
     handleSubmit,
-    formState: { isValid, errors }, // isValid: Set to true if the form doesn't have any errors.
+    formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: getFindIdFormSchema(),
+    resolver: emailValidation(),
   })
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
-  const [time, setTime] = useState<number>(5)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+  const [time, setTime] = useState<number>(5)
 
   const handleChange = ({ name, value }: any) => {
-    // TODO: any 타입 변경
     setValue(name, value, { shouldValidate: true })
   }
+
   const handleClick = async (formData: FormTypes) => {
     const { email } = formData
-
-    const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
-    const data = await response.json()
-    if (data) {
+    const response = await mailAPI('send', MAIL_TYPE, email)
+    if (response) {
       setModalVisible(true)
-      setModalTitle(data.message)
-
-      if (data.success) {
-        setCheckDisabled(false) // 인증 확인 disabled -> default
-        // 재요청
+      setModalTitle(response.data.message)
+      if (response.data.success) {
+        setCheckDisabled(false)
         if (!checkDisabled) {
           setTime(5)
         }
@@ -57,16 +56,14 @@ const FindId = () => {
 
   const handleCheckClick = async () => {
     const email = getValues('email')
-    const response = await fetch(`/api/member/forget/id?email=${email}`)
-    const data = await response.json()
-    if (data) {
+    const response = await forgetIdAPI(email)
+    if (response) {
       setModalVisible(true)
-      setModalTitle(data.message)
-
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         Router.push({
           pathname: '/login/find-id/success',
-          query: { id: data.data },
+          query: { id: response.data.data },
         })
       }
     }

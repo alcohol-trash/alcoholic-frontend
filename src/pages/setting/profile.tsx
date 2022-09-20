@@ -1,8 +1,15 @@
 import React, { useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Image from 'next/image'
+
+import {
+  memberInfoAPI,
+  changeNickAPI,
+  changeImgAPI,
+  deleteImgAPI,
+} from '@/api/user'
+import { nicknameValidation } from '@/libs/validations/nicknameValidation'
 
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
@@ -12,19 +19,17 @@ import ValidateMessage from '@/components/ValidateMessage'
 import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/setting/settingProfileStyles'
-import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
 
 type FormTypes = {
   nickname: string
 }
 
 const Profile = () => {
-  const { data: me } = useQuery(
-    'user',
-    async () => await fetch(`/api/member`).then((response) => response.json()),
-  )
+  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+
   const {
     register,
     setValue,
@@ -32,72 +37,62 @@ const Profile = () => {
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getNicknameFormSchema),
+    resolver: nicknameValidation(),
   })
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
+
   const handleChangeNickname = async () => {
-    const response = await fetch(`/api/member/nickname/${me.data.id}`, {
-      method: 'PUT',
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-      body: JSON.stringify({
-        nickname: getValues('nickname'),
-      }),
+    const response = await changeNickAPI(me.data.id, {
+      nickname: getValues('nickname'),
     })
-    const data = await response.json()
-    if (data) {
+    if (response) {
       setModal(true)
-      setModalTitle(data.message)
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         setModal(true)
         setModalTitle('정보가 수정되었습니다.')
       }
     }
   }
+
   const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
-    const formData = new FormData()
-    if (e.target.files) {
-      formData.append('file', e.target.files[0])
-      const response = await fetch(`/api/member/image/${me.data.id}`, {
-        method: 'PUT',
-        headers: {
-          cookie: `${document.cookie}`,
-        },
-        body: formData,
-      })
-      const data = await response.json()
-      if (data) {
-        setModal(true)
-        setModalTitle(data.message)
-        if (data.success) {
-          setModal(true)
-          setModalTitle('이미지가 변경되었습니다.')
-        }
-      }
-    }
+    // const formData = new FormData()
+    // if (e.target.files) {
+    //   formData.append('file', e.target.files[0])
+    //   const response = await fetch(`/api/member/image/${me.data.id}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //       cookie: `${document.cookie}`,
+    //     },
+    //     body: formData,
+    //   })
+    //   const data = await response.json()
+    //   if (data) {
+    //     setModal(true)
+    //     setModalTitle(data.message)
+    //     if (data.success) {
+    //       setModal(true)
+    //       setModalTitle('이미지가 변경되었습니다.')
+    //     }
+    //   }
+    // }
   }
 
   const handleDeleteImage = async () => {
-    //이미지 삭제
-    const response = await fetch(`/api/member/image/${me.data.id}`, {
-      method: 'DELETE',
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-    })
-    const data = await response.json()
-    if (data) {
+    const response = await deleteImgAPI(me.data.id)
+    if (response) {
       setModal(true)
-      setModalTitle(data.message)
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         setModal(true)
         setModalTitle('이미지가 삭제되었습니다.')
       }
     }
   }
+
   return (
     <>
       {me?.data.id && (

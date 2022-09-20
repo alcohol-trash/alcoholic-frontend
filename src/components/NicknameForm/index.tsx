@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Router from 'next/router'
 
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
-import { getNicknameFormSchema } from '@/libs/validations/nicknameValidation'
+import { nicknameValidation } from '@/libs/validations/nicknameValidation'
 
 type FormTypes = {
   nickname: string
@@ -20,7 +19,7 @@ const NicknameForm = () => {
     handleSubmit,
   } = useForm<FormTypes>({
     mode: 'onChange',
-    resolver: yupResolver(getNicknameFormSchema),
+    resolver: nicknameValidation(),
   })
   const [success, setSuccess] = useState<boolean>(false)
   const [errorMsg, setErrorMsg] = useState<string>('')

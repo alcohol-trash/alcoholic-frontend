@@ -3,6 +3,8 @@ import { useQuery } from 'react-query'
 import Router from 'next/router'
 import Image from 'next/image'
 
+import { memberInfoAPI } from '@/api/user'
+
 import Header from '@/components/Header'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
@@ -13,16 +15,16 @@ import BackButton from '@/components/BackButton'
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
-  const { data: me } = useQuery(
-    'user',
-    async () => await fetch(`/api/member`).then((response) => response.json()),
-  )
+  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+
   const [modal, setModal] = useState(false)
+
   useEffect(() => {
     if (!me.data.id) {
       Router.push('/')
     }
   }, [me])
+
   return (
     <>
       {me?.data.id && (

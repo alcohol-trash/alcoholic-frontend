@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router'
 
-import { getFindPasswordFormSchema } from '@/libs/validations/findPasswordValidation'
+import { findPasswordValidation } from '@/libs/validations/findPasswordValidation'
+import { mailAPI } from '@/api/user'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
@@ -14,6 +15,7 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from '@/css/login/findPasswordStyles'
 
 const MAIL_TYPE = 'password'
+
 type FormTypes = {
   id: string
   email: string
@@ -26,12 +28,12 @@ const FindPassword = () => {
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: getFindPasswordFormSchema(),
+    resolver: findPasswordValidation(),
   })
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
-  const [time, setTime] = useState<number>(5)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+  const [time, setTime] = useState<number>(5)
 
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
@@ -39,16 +41,12 @@ const FindPassword = () => {
 
   const handleClick = async (formData: FormTypes) => {
     const { email } = formData
-
-    const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
-    const data = await response.json()
-    if (data) {
+    const response = await mailAPI('send', MAIL_TYPE, email)
+    if (response) {
       setModalVisible(true)
-      setModalTitle(data.message)
-
-      if (data.success) {
-        setCheckDisabled(false) // 인증 확인 disabled -> default
-        // 재요청
+      setModalTitle(response.data.message)
+      if (response.data.success) {
+        setCheckDisabled(false)
         if (!checkDisabled) {
           setTime(5)
         }
@@ -59,13 +57,11 @@ const FindPassword = () => {
   const handleCheckClick = async () => {
     const id = getValues('id')
     const email = getValues('email')
-    const response = await fetch(`/api/email/check/${MAIL_TYPE}?email=${email}`)
-    const data = await response.json()
-    if (data) {
+    const response = await mailAPI('send', MAIL_TYPE, email)
+    if (response) {
       setModalVisible(true)
-      setModalTitle(data.message)
-
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         Router.push(`/login/find-password/reset?id=${id}&email=${email}`)
       }
     }

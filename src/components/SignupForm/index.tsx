@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+
+import { signupAPI } from '@/api/user'
+import { signupValidation } from '@/libs/validations/signupValidation'
 
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
@@ -9,9 +11,7 @@ import ValidateMessage from '@/components/ValidateMessage'
 import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
-import { getSignupInfoFormSchema } from '@/libs/validations/signupInfoValidation'
 
-const AUTH_TYPE = 'signup'
 type FormTypes = {
   id: string
   password: string
@@ -31,7 +31,7 @@ const SignupForm = () => {
     formState: { isValid, errors },
     handleSubmit,
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSignupInfoFormSchema),
+    resolver: signupValidation(),
   })
 
   const handleChange = ({ name, value }: any) => {
@@ -39,20 +39,17 @@ const SignupForm = () => {
   }
 
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        id: getValues('id'),
-        password: getValues('password'),
-      }),
+    const response = await signupAPI({
+      email: email as string,
+      id: getValues('id'),
+      password: getValues('password'),
     })
-    const data = await response.json()
-    if (data.success) {
-      router.push('/')
-    } else {
+    if (response) {
       setModal(true)
-      setModalTitle(data.message)
+      setModalTitle(response.data.message)
+      if (response.data.success) {
+        router.push('/')
+      }
     }
   }
 

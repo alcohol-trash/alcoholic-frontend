@@ -1,13 +1,12 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 
 import Button from '@/components/Button'
 import CheckBox from '@/components/CheckBox'
 
 import * as styles from './styles'
-import { getSignupTermsFormSchema } from '@/libs/validations/signupTermsValidation'
+import { signupTermsValidation } from '@/libs/validations/signupTermsValidation'
 
 type FormTypes = {
   checkAll: boolean
@@ -27,7 +26,7 @@ const Terms = () => {
     setValue,
     formState: { isValid },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSignupTermsFormSchema),
+    resolver: signupTermsValidation(),
   })
   const changeHandler = ({ name, checked }: changeTypes) => {
     setValue(name, checked, { shouldValidate: true })
