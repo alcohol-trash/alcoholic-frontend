@@ -1,9 +1,9 @@
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-export const settingTermsValidation = () =>
+export const replyValidation = () =>
   yupResolver(
     yup.object({
-      check: yup.boolean().oneOf([true]),
+      reply: yup.string().trim().required(),
     }),
   )

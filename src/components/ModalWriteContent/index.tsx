@@ -2,8 +2,9 @@ import React, { useState, useRef, useCallback } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from 'react-query'
+
+import { writeContentValidation } from '@/libs/validations/writeContentValidation'
 
 import Button from '@/components/Button'
 import Header from '@/components/Header'
@@ -12,7 +13,6 @@ import ContentForm from '@/components/ContentForm'
 
 import * as styles from './styles'
 import theme from '@/theme'
-import { writeContentFormSchema } from '@/libs/validations/writeContentValidation'
 
 type Props = {
   isOpen: boolean
@@ -82,7 +82,7 @@ const ModalWriteContent = ({
     reset,
     formState: { isValid },
   } = useForm<FormTypes>({
-    resolver: yupResolver(writeContentFormSchema),
+    resolver: writeContentValidation(),
   })
   const handleClose = () => {
     reset()

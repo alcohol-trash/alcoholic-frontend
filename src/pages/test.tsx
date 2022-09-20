@@ -1,7 +1,9 @@
 import React from 'react'
+import { GetServerSidePropsContext } from 'next'
+import axios from 'axios'
+import { loginAPI, logoutAPI, memberInfoAPI } from '@/api/user'
+import { heartAPI } from '@/api/board'
 
-const AUTH_TYPE = 'login'
-const LOGOUT = 'logout'
 export default function Test() {
   const onClick1 = async () => {
     const response = await fetch(`/api/board`, {
@@ -34,45 +36,25 @@ export default function Test() {
     console.log('테스트2' + data)
   }
   const onClick3 = async () => {
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: 'test1234',
-        password: 'password1234!',
-      }),
+    const response = await loginAPI({
+      id: 'test1234',
+      password: 'password1234!',
     })
-    const data = await response.json()
-    console.log(data)
-    console.log(document.cookie)
+    console.log(response)
   }
   const onClick4 = async () => {
-    const response = await fetch(`/api/member`, {
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-    })
-    const data = await response.json()
-    console.log(data)
+    const response = await memberInfoAPI()
+    if (!response.success) {
+      console.log('실패')
+    }
   }
   const onClick5 = async () => {
-    const response = await fetch(`/api/auth/${LOGOUT}`, {
-      method: 'POST',
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-    })
-    const data = await response.json()
-    console.log(data)
+    const response = await logoutAPI()
+    console.log(response)
   }
   const onClick6 = async () => {
-    const response = await fetch(`/api/heart/board/1`, {
-      method: 'POST',
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-    })
-    const data = await response.json()
-    console.log(data)
+    const response = await heartAPI(1, 'POST')
+    console.log(response)
   }
   const onClick7 = async () => {
     const formData = new FormData()
@@ -110,3 +92,23 @@ export default function Test() {
     </>
   )
 }
+
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext,
+// ) => {
+//   console.log('ssr')
+//   const cookie = context.req.headers.cookie ? context.req.headers.cookie : ''
+//   axios.defaults.headers.common['cookie'] = cookie
+//   const response = await MemberInfo()
+//   if (!response.success) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanet: false,
+//       },
+//     }
+//   }
+//   return {
+//     props: {},
+//   }
+// }

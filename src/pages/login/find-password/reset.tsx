@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Router, { useRouter } from 'next/router'
 
-import { getFindPasswordResetFormSchema } from '@/libs/validations/findPasswordResetValidation'
+import { findPasswordResetValidation } from '@/libs/validations/findPasswordResetValidation'
+import { forgetPwdAPI } from '@/api/user'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/login/findPasswordStyles'
-import ModalAlert from '@/components/ModalAlert'
 
 type FormTypes = {
   password: string
@@ -24,8 +25,9 @@ const FindPasswordReset = () => {
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: getFindPasswordResetFormSchema(),
+    resolver: findPasswordResetValidation(),
   })
+
   const router = useRouter()
   const { query } = router
   const { id, email } = query || {}
@@ -38,19 +40,14 @@ const FindPasswordReset = () => {
   }
 
   const handleClick = async () => {
-    const response = await fetch(`/api/member/forget/${id}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        newPassword: getValues('passwordConfirm'),
-      }),
+    const response = await forgetPwdAPI(id as string, {
+      email: email as string,
+      newPassword: getValues('passwordConfirm'),
     })
-    const data = await response.json()
-    if (data) {
+    if (response) {
       setModalVisible(true)
-      setModalTitle(data.message)
-
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         Router.push('/login')
       }
     }

@@ -8,15 +8,15 @@ import * as styles from './styles'
 type Props = {
   heartCount?: number
   heartCheck?: boolean
-  id?: number
+  seq?: number
 }
 
-const LikeButton = ({ heartCount, heartCheck = false, id }: Props) => {
+const LikeButton = ({ heartCount, heartCheck = false, seq }: Props) => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const handleLike = async () => {
     if (heartCount) {
-      const response = await fetch(`/api/heart/board/${id}`, {
+      const response = await fetch(`/api/heart/board/${seq}`, {
         method: 'DELETE',
       })
       const data = await response.json()
@@ -26,7 +26,7 @@ const LikeButton = ({ heartCount, heartCheck = false, id }: Props) => {
       }
     }
     if (!heartCount) {
-      const response = await fetch(`/api/heart/board/${id}`, {
+      const response = await fetch(`/api/heart/board/${seq}`, {
         method: 'POST',
       })
       const data = await response.json()

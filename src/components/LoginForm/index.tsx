@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import Router from 'next/router'
 import { useQueryClient } from 'react-query'
+
+import { loginAPI } from '@/api/user'
+import { loginValidation } from '@/libs/validations/loginValidation'
 
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
@@ -10,9 +12,7 @@ import ValidateMessage from '@/components/ValidateMessage'
 import ModalAlert from '../ModalAlert'
 
 import * as styles from './styles'
-import { getLocalLoginFormSchema } from '@/libs/validations/localLoginValidation'
 
-const AUTH_TYPE = 'login'
 type FormTypes = {
   id: string
   password: string
@@ -31,7 +31,7 @@ const LoginForm = () => {
     getValues,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getLocalLoginFormSchema),
+    resolver: loginValidation(),
   })
 
   const handleChange = ({ name, value }: any) => {
@@ -39,21 +39,16 @@ const LoginForm = () => {
   }
 
   const handleBtnClick = async () => {
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id: getValues('id'),
-        password: getValues('password'),
-      }),
+    const response = await loginAPI({
+      id: getValues('id'),
+      password: getValues('password'),
     })
-    const data = await response.json()
-    if (data.success) {
-      query.setQueryData('user', data)
+    if (response.success) {
+      query.setQueryData('user', response.data)
       Router.push('/')
     } else {
-      console.log(data)
       setModal(true)
-      setModalTitle(data.message)
+      setModalTitle(response.message)
     }
   }
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
+import Router from 'next/router'
 
 import Profile from '@/components/Profile'
-import LikeButton from '@/components/LikeButton'
+import ContentBottom from '@/components/ContentBottom'
 
 import * as styles from './styles'
 
@@ -16,14 +17,15 @@ type BoardsProps = {
   title: string
   updatedDate: string
   writer: string
+  repliesNum: number
 }
 
 type Props = {
   data?: BoardsProps
-  [key: string]: any
+  isLoggedIn: boolean
 }
 
-const Feed = ({ data }: Props) => {
+const Content = ({ isLoggedIn, data }: Props) => {
   const {
     content,
     createdData,
@@ -34,12 +36,19 @@ const Feed = ({ data }: Props) => {
     title,
     updatedDate,
     writer,
+    repliesNum,
   } = data || {}
+
+  const handleClick = () => {
+    if (isLoggedIn) {
+      Router.push(`/content/detail/${seq}`)
+    }
+  }
 
   return (
     <section css={styles.container}>
       <Profile writer={writer} date={createdData} />
-      <div css={styles.content}>
+      <div css={styles.content} onClick={handleClick}>
         <div css={styles.contentTitle}>{title}</div>
         <p css={styles.contentDescription}>{content}</p>
         {images?.length !== 0 && (
@@ -54,14 +63,14 @@ const Feed = ({ data }: Props) => {
           </div>
         )}
       </div>
-      <div css={styles.footer}>
-        <LikeButton heartCount={heartCount} heartCheck={heartCheck} id={seq} />
-        <div>
-          <p>댓글 0개</p>
-        </div>
-      </div>
+      <ContentBottom
+        heartCount={heartCount}
+        heartCheck={heartCheck}
+        seq={seq}
+        repliesNum={repliesNum}
+      />
     </section>
   )
 }
 
-export default Feed
+export default Content

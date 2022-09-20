@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
-//import { GetServerSidePropsContext } from 'next'
 import Router from 'next/router'
 import Link from 'next/link'
+
+import { memberInfoAPI, logoutAPI } from '@/api/user'
 
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
@@ -10,26 +11,19 @@ import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/setting/settingMainStyles'
 
-const AUTH_TYPE = 'logout'
 const Setting = () => {
+  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
 
-  const { data: me } = useQuery(
-    'user',
-    async () => await fetch(`/api/member`).then((response) => response.json()),
-  )
-
   const handleLogout = async () => {
-    const response = await fetch(`/api/auth/${AUTH_TYPE}`, {
-      method: 'POST',
-    })
-    const data = await response.json()
-    if (data.success) {
+    const response = await logoutAPI()
+    if (response.data.success) {
       Router.push('/')
     } else {
       setModal(true)
-      setModalTitle(data.message)
+      setModalTitle(response.data.message)
     }
   }
   useEffect(() => {

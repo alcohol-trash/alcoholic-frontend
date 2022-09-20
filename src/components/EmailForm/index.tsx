@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+
+import { mailAPI } from '@/api/user'
+import { emailValidation } from '@/libs/validations/emailValidation'
 
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
@@ -10,9 +12,9 @@ import AuthTimer from '@/components/AuthTimer'
 import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
-import { getSignupEmailFormSchema } from '@/libs/validations/signupEmailValidation'
 
 const MAIL_TYPE = 'signup'
+
 type FormTypes = {
   email: string
 }
@@ -22,6 +24,7 @@ const EmailForm = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
   const [time, setTime] = useState<number>(5)
+
   const {
     register,
     setValue,
@@ -29,19 +32,20 @@ const EmailForm = () => {
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSignupEmailFormSchema),
+    resolver: emailValidation(),
   })
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
+
   const handleSendClick = async (formData: FormTypes) => {
     const { email } = formData
-    const response = await fetch(`/api/email/send/${MAIL_TYPE}?email=${email}`)
-    const data = await response.json()
-    if (data) {
+    const response = await mailAPI('send', MAIL_TYPE, email)
+    if (response) {
       setModal(true)
-      setModalTitle(data.message)
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         setCheck(true)
         if (!check) {
           setTime(5)
@@ -49,18 +53,19 @@ const EmailForm = () => {
       }
     }
   }
+
   const handleDoneClick = async () => {
     const email = getValues('email')
-    const response = await fetch(`/api/email/check/${MAIL_TYPE}?email=${email}`)
-    const data = await response.json()
-    if (data) {
+    const response = await mailAPI('check', MAIL_TYPE, email)
+    if (response) {
       setModal(true)
-      setModalTitle(data.message)
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         Router.push({ pathname: '/signup/info', query: { email: email } })
       }
     }
   }
+
   return (
     <section css={styles.container}>
       <form css={styles.form}>
