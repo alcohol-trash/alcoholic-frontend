@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Router, { useRouter } from 'next/router'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
 import Button from '@/components/Button'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/login/findIdStyles'
 
 const FindIdSuccess = () => {
   const router = useRouter()
   const id = router.query.id
+  const [modalVisible, setModalVisible] = useState<boolean>(true)
+  const handleResetError = () => {
+    Router.push('/login/find-id')
+  }
+  if (!id) {
+    return (
+      <ModalAlert
+        isOpen={modalVisible}
+        title="이메일 인증을 먼저 진행해주세요."
+        onClick={handleResetError}
+        onCancel={() => setModalVisible(!modalVisible)}
+      />
+    )
+  }
   return (
     <>
       <div css={styles.container}>

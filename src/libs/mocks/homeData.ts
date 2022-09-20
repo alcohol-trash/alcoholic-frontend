@@ -14,6 +14,7 @@ export const mainData = [
       { seq: 1, url: '/assets/babamba.png' },
     ],
     seq: 1,
+    repliesNum: 0,
   },
   {
     writer: '여명84',
@@ -27,6 +28,7 @@ export const mainData = [
     updatedDate: '2022-09-01',
     images: [{ seq: 0, url: '/assets/babamba.png' }],
     seq: 2,
+    repliesNum: 0,
   },
   {
     writer: '느린마을양조장',
@@ -44,6 +46,7 @@ export const mainData = [
       { seq: 3, url: '/assets/babamba.png' },
     ],
     seq: 3,
+    repliesNum: 0,
   },
   {
     writer: '여명84',
@@ -57,6 +60,7 @@ export const mainData = [
     updatedDate: '2022-09-01',
     images: [],
     seq: 2,
+    repliesNum: 0,
   },
 ]
 

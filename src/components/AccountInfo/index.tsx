@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+
+import { settingEditValidation } from '@/libs/validations/settingEditValidation'
 
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
@@ -12,7 +13,6 @@ import Button from '@/components/Button'
 import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
-import { getSettingEditFormSchema } from '@/libs/validations/settingEditValidation'
 
 type FormTypes = {
   password: string
@@ -34,7 +34,7 @@ const AccountInfo = () => {
     formState: { isValid, errors },
     handleSubmit,
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSettingEditFormSchema),
+    resolver: settingEditValidation(),
   })
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })

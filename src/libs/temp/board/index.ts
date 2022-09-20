@@ -8,7 +8,6 @@ export default async function CreateBoard(
   const response = await fetch(`${apiBaseUrl}/api/board`, {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       cookie: `${req.headers.cookie}`,
     },
     body: req.body,

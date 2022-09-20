@@ -1,7 +1,8 @@
 import React from 'react'
 import Modal from 'react-modal'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+
+import { settingTermsValidation } from '@/libs/validations/settingTermsValidation'
 
 import WithdrawalBlock from './withdrawalBlock'
 import CheckBox from '@/components/CheckBox'
@@ -9,7 +10,6 @@ import Button from '@/components/Button'
 import theme from '@/theme'
 
 import * as styles from './styles'
-import { getSettingTermsFormSchema } from '@/libs/validations/settingTermsValidation'
 
 type Props = {
   isOpen: boolean
@@ -54,7 +54,7 @@ const ModalWithdrawal = ({ isOpen, onClick }: Props) => {
     setValue,
     formState: { isValid },
   } = useForm<FormTypes>({
-    resolver: yupResolver(getSettingTermsFormSchema),
+    resolver: settingTermsValidation(),
   })
   const changeHandler = ({ name, checked }: changeTypes) => {
     setValue(name, checked, { shouldValidate: true })

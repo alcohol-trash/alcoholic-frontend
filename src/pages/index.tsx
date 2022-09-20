@@ -4,24 +4,23 @@ import Head from 'next/head'
 import Router from 'next/router'
 import { useRouter } from 'next/router'
 
+import { memberInfoAPI } from '@/api/user'
+import { mainData } from '@/libs/mocks/homeData'
+import { categories } from '@/libs/data'
+
 import Title from '@/components/Title'
 import Sentence from '@/components/Sentence'
 import Gnb from '@/components/Gnb'
 import Tabs from '@/components/Tabs'
-import Feed from '@/components/Feed'
+import Feed from '@/components/Content'
 import BottomBar from '@/components/BottomBar'
 import ModalAlert from '@/components/ModalAlert'
 import NoContentsBlock from '@/components/NoContentsBlock'
 
-import { mainData } from '@/libs/mocks/homeData'
-import { categories } from '@/libs/data'
 import * as styles from '@/css/home'
 
 const Home = () => {
-  const { data: me } = useQuery(
-    'user',
-    async () => await fetch(`/api/member`).then((response) => response.json()),
-  )
+  const { data: me } = useQuery('user', async () => await memberInfoAPI())
 
   const router = useRouter()
   const [modal, setModal] = useState<boolean>(false)
@@ -71,7 +70,7 @@ const Home = () => {
                   }}
                 >
                   {mainData.map((data, index) => (
-                    <Feed key={index} data={data} />
+                    <Feed key={index} isLoggedIn={true} data={data} />
                   ))}
                 </section>
               ) : (
