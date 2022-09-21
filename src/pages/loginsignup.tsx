@@ -1,4 +1,3 @@
-//로그인페이지 -> 소셜로그인 + 일반 로그인 + 일반 회원가입
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
