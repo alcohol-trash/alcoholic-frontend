@@ -1,4 +1,4 @@
-import instance from './config'
+import instance from './base'
 
 export const loginAPI = async (data: { id: string; password: string }) => {
   return instance

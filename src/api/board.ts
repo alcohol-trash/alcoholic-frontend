@@ -1,4 +1,4 @@
-import instance from './config'
+import instance from './base'
 
 export const heartAPI = async (boardSeq: number, type: string) => {
   if (type === 'POST') {
@@ -61,9 +61,15 @@ export const changeReplyAPI = async (
   }
 }
 
-export const getBoardsAPI = async (category: number) => {
+export const getBoardsAPI = async (
+  category: number,
+  page: number,
+  size?: number,
+) => {
   return instance
-    .get(`/api/boards/${category}`)
+    .get(
+      `/api/boards?category=${category}&page=${page}&size=${size ? size : 0}`,
+    )
     .then((response) => response.data)
     .catch((error) => error.response)
 }

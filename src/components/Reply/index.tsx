@@ -1,17 +1,22 @@
-import React from 'react'
-import { css } from '@emotion/react'
+import React, { useState } from 'react'
+
+import { changeReplyAPI } from '@/api/board'
 
 import Button from '@/components/Button'
+import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from './styles'
 
 type ReplyProps = {
-  seq: number
-  replyParent: number
-  isRoot: boolean
-  createdDate: string
-  updatedDate: null
   content: string
+  createdDate: string
+  isRoot: boolean
+  mine: boolean
+  replyParent: number
+  seq: number
+  updatedDate: null
+  writerNickname: string
+  writerProfileImage: string
 }
 
 type Props = {
@@ -19,22 +24,50 @@ type Props = {
 }
 
 const Reply = ({ data }: Props) => {
-  const { seq, replyParent, isRoot, createdDate, updatedDate, content } =
-    data || {}
+  const [modal, setModal] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>('')
+
+  const {
+    content,
+    createdDate,
+    isRoot,
+    mine,
+    replyParent,
+    seq = 0,
+    updatedDate,
+    writerNickname,
+    writerProfileImage,
+  } = data || {}
+
+  const handleDelete = async () => {
+    const response = await changeReplyAPI('DELETE', seq)
+    if (response) {
+      setModal(true)
+      setTitle(response.data.message)
+    }
+  }
+
   return (
     <>
       <div css={styles.container}>
         <div css={styles.image}>
-          <img referrerPolicy="no-referrer" src="/assets/profile_default.png" />
+          <img referrerPolicy="no-referrer" src={writerProfileImage} />
         </div>
         <div>
           <div>
-            <span css={styles.name}>익명</span>
+            <span css={styles.name}>{writerNickname}</span>
             <span css={styles.date}>{createdDate}</span>
           </div>
           <div css={styles.reply}>{content}</div>
         </div>
       </div>
+      {mine && (
+        <div>
+          <Button style="secondary" size="xs" onClick={handleDelete}>
+            삭제
+          </Button>
+        </div>
+      )}
       {isRoot && (
         <div css={styles.button}>
           <Button style="secondary" size="xs">
@@ -42,6 +75,11 @@ const Reply = ({ data }: Props) => {
           </Button>
         </div>
       )}
+      <ModalAlert
+        title={title}
+        isOpen={modal}
+        onClick={() => setModal(!modal)}
+      />
     </>
   )
 }

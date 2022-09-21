@@ -21,6 +21,7 @@ export const contentDescription = css`
 `
 export const contentImage = css`
   padding-top: 12px;
+  text-align: center;
   img {
     border-radius: 10px;
     width: 100%;

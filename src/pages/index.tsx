@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery, useInfiniteQuery } from 'react-query'
+import { dehydrate, QueryClient, useQuery, useInfiniteQuery } from 'react-query'
+import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
 import Router from 'next/router'
 import { useRouter } from 'next/router'
 
 import { memberInfoAPI } from '@/api/user'
-import { mainData } from '@/libs/mocks/homeData'
+import { getBoardsAPI } from '@/api/board'
 import { categories } from '@/libs/data'
 
 import Title from '@/components/Title'
@@ -20,19 +21,39 @@ import NoContentsBlock from '@/components/NoContentsBlock'
 import * as styles from '@/css/home'
 
 const Home = () => {
-  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+  const { data: me } = useQuery('user', () => memberInfoAPI())
 
   const router = useRouter()
   const [modal, setModal] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('주류학개론')
   const [index, setIndex] = useState<number>(1)
 
-  const handleBtnClick = async () => {
-    //
-  }
+  const [ref, inView] = useInView()
+
+  const { data, fetchNextPage, refetch } = useInfiniteQuery(
+    ['boards', index],
+    ({ pageParam = 0 }) => getBoardsAPI(index, pageParam, 1),
+    {
+      getNextPageParam: (lastPage) => {
+        return lastPage.nextPage
+      },
+    },
+  )
+
+  const mainData = data?.pages[0].data
+  const isEmpty = data?.pages[0]?.length === 0
+
   const getData = (index: number) => {
     setIndex(index)
+    refetch()
   }
+
+  useEffect(() => {
+    if (inView && !isEmpty) {
+      fetchNextPage()
+    }
+  }, [inView, isEmpty, fetchNextPage])
+
   useEffect(() => {
     categories?.find((i) => {
       if (i.index === index) {
@@ -57,11 +78,11 @@ const Home = () => {
                 <Title>{category.name}</Title>
                 <Sentence size="sm">{category.description}</Sentence>
                 <section css={styles.btnBlock}>
-                  <button onClick={handleBtnClick}>최신순</button>
-                  <button onClick={handleBtnClick}>인기순</button>
+                  <button>최신순</button>
+                  <button>인기순</button>
                 </section>
               </section>
-              {mainData.length !== 0 ? (
+              {mainData?.length !== 0 ? (
                 <section
                   onClick={() => {
                     if (!me?.success) {
@@ -69,7 +90,7 @@ const Home = () => {
                     }
                   }}
                 >
-                  {mainData.map((data, index) => (
+                  {mainData?.map((data: any, index: number) => (
                     <Feed key={index} isLoggedIn={true} data={data} />
                   ))}
                 </section>
@@ -83,6 +104,7 @@ const Home = () => {
             </Tabs.Panel>
           ))}
         </Tabs>
+        <div ref={ref} />
         <ModalAlert
           title={'로그인 후에 이용할 수 있어요'}
           type={'confirm'}
@@ -95,6 +117,20 @@ const Home = () => {
       <BottomBar isLoggedIn={me?.success} index={index} title={title} />
     </>
   )
+}
+
+export const getStaticProps = async () => {
+  const queryClient = new QueryClient()
+  await Promise.allSettled([
+    queryClient.prefetchInfiniteQuery(['boards', 1], () => getBoardsAPI(1, 0)),
+    queryClient.prefetchInfiniteQuery(['boards', 2], () => getBoardsAPI(2, 0)),
+    queryClient.prefetchInfiniteQuery(['boards', 3], () => getBoardsAPI(3, 0)),
+  ])
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  }
 }
 
 export default Home

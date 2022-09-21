@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import Router from 'next/router'
 
 import Profile from '@/components/Profile'
@@ -41,7 +40,7 @@ const Content = ({ isLoggedIn, data }: Props) => {
 
   const handleClick = () => {
     if (isLoggedIn) {
-      Router.push(`/content/detail/${seq}`)
+      Router.push(`/board/${seq}`)
     }
   }
 
@@ -53,12 +52,9 @@ const Content = ({ isLoggedIn, data }: Props) => {
         <p css={styles.contentDescription}>{content}</p>
         {images?.length !== 0 && (
           <div css={styles.contentImage}>
-            <Image
-              src={images[0].url}
-              alt="바밤바 캔 막걸리"
-              width={335}
-              height={189}
-              layout="responsive"
+            <img
+              referrerPolicy="no-referrer"
+              src={images ? images[0].url : ''}
             />
           </div>
         )}
