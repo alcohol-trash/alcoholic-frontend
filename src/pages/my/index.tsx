@@ -5,6 +5,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import * as R from 'ramda'
 
+import { memberInfoAPI } from '@/api/user'
+import { mockWriteData, mockCommentData, menus } from '@/libs/mocks/mockData'
+
 import Header from '@/components/Header'
 import Button from '@/components/Button'
 import MyProfile from '@/components/MyProfile'
@@ -12,23 +15,21 @@ import Tabs from '@/components/Tabs'
 import UserContentCard from '@/components/UserContentCard'
 
 import * as styles from '@/css/my/myPageStyles'
-import { mockWriteData, mockCommentData, menus } from '@/libs/mocks/mockData'
 
 const MyPage = () => {
-  const { data: me } = useQuery(
-    'user',
-    async () => await fetch(`/api/member`).then((response) => response.json()),
-  )
+  const { data: me } = useQuery('user', () => memberInfoAPI())
   const router = useRouter()
 
   return (
     <>
-      {me?.data.id && (
+      {me?.success && (
         <div css={styles.container}>
           <Header
             left={
               <Link href="/">
-                <Image src="/assets/logo.png" width={74} height={20} />
+                <a>
+                  <Image src="/assets/logo.png" width={74} height={20} />
+                </a>
               </Link>
             }
             right={

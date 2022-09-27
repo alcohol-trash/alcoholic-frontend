@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GetStaticPropsContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
@@ -115,24 +115,11 @@ const ContentDetail = () => {
   )
 }
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
-  }
-}
-
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext,
+) => {
   const queryClient = new QueryClient()
-  const id = context.params?.id as string
-  if (!id) {
-    return {
-      redirect: {
-        destination: '/',
-        permanet: true,
-      },
-    }
-  }
+  const { id } = context.query
   await Promise.allSettled([
     queryClient.prefetchQuery(['board', Number(id)], () =>
       getBoardAPI(Number(id)),

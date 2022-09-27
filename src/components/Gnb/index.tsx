@@ -13,7 +13,9 @@ const Gnb = ({ isLoggedIn, image }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">
-        <Image src="/assets/logo.png" width={74} height={20} />
+        <a>
+          <Image src="/assets/logo.png" width={74} height={20} />
+        </a>
       </Link>
       <Link href={isLoggedIn ? '/my' : '/loginsignup'}>
         <a>

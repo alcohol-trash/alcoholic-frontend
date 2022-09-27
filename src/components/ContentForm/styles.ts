@@ -5,11 +5,13 @@ export const textarea = css`
   width: 100%;
   height: 60vh;
   color: white;
+  font-size: 16px;
+  padding: 12px 0;
   background-color: transparent;
   border: none;
   resize: none;
   ::placeholder {
-    font-size: 14px;
+    font-size: 16px;
     color: ${theme.gray[300]};
   }
   :focus {

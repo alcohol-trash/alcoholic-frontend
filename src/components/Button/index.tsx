@@ -9,7 +9,9 @@ export type ButtonStyle =
   | 'modal'
   | 'modalLogin'
 export type TextAlign = 'left' | 'right' | 'center'
+export type ButtonType = 'button' | 'submit' | 'reset'
 type Props = {
+  type?: ButtonType
   children?: React.ReactNode
   size?: TextSize
   style?: ButtonStyle
@@ -18,6 +20,7 @@ type Props = {
   onClick?: () => void
 }
 const Button = ({
+  type = 'button',
   children,
   size = 'base',
   style = 'default',
@@ -27,7 +30,7 @@ const Button = ({
 }: Props) => {
   return (
     <button
-      type="button"
+      type={type}
       disabled={disabled}
       onClick={onClick}
       css={[

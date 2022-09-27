@@ -24,6 +24,7 @@ const Home = () => {
   const { data: me } = useQuery('user', () => memberInfoAPI())
 
   const router = useRouter()
+
   const [modal, setModal] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('주류학개론')
   const [index, setIndex] = useState<number>(1)
@@ -61,6 +62,7 @@ const Home = () => {
       }
     })
   }, [index])
+
   return (
     <>
       <Head>
