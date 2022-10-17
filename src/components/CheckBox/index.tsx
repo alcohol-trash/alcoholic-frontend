@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 import Image from 'next/image'
 
 import * as styles from './styles'
@@ -9,20 +9,36 @@ type Props = {
   id?: string
   label?: string
   name?: string
+  checked?: boolean
   onChange?: (e: any) => void
+  onClick?: (e: any) => void
   [key: string]: any
 }
 
 const CheckBox = (
-  { id = '', label = '', name = '', onChange, ...args }: Props,
+  {
+    id = '',
+    label = '',
+    name = '',
+    checked = false,
+    onChange,
+    onClick,
+    ...args
+  }: Props,
   inputRef: any,
 ) => {
   const [state, setState] = useState<boolean>(false)
+
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target
     setState(checked)
     onChange && onChange({ name, checked })
   }
+
+  useEffect(() => {
+    setState(checked)
+  }, [checked])
+
   return (
     <div css={styles.container}>
       <input
@@ -30,6 +46,7 @@ const CheckBox = (
         id={id ? id : name}
         name={name}
         onChange={changeHandler}
+        onClick={onClick}
         checked={state}
         ref={inputRef}
         {...args}

@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
 
 export const container = css`
+  height: 100vh;
   padding: 0 20px;
 `
 
@@ -13,4 +14,5 @@ export const topContainer = css`
 
 export const bottomContainer = css`
   height: 76vh;
+  padding-bottom: 20px;
 `
