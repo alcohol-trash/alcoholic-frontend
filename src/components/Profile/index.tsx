@@ -8,6 +8,7 @@ type Props = {
   date?: string
   img?: string
 }
+
 const Profile = ({
   writer,
   date,

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import Router from 'next/router'
 import { useQueryClient } from 'react-query'
+import Router from 'next/router'
 
 import { loginAPI } from '@/api/user'
 import { loginValidation } from '@/libs/validations/loginValidation'
@@ -26,7 +26,6 @@ const LoginForm = () => {
 
   const {
     register,
-    handleSubmit,
     setValue,
     getValues,
     formState: { isValid, errors },
@@ -38,19 +37,25 @@ const LoginForm = () => {
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleBtnClick = async () => {
+  const handleSubmit = async () => {
     const response = await loginAPI({
       id: getValues('id'),
       password: getValues('password'),
     })
-    if (response.success) {
-      query.setQueryData('user', response.data)
-      Router.push('/')
-    } else {
-      setModal(true)
-      setModalTitle(response.message)
+    if (response) {
+      if (response.success) {
+        query.setQueryData('user', response)
+        Router.push('/')
+      } else {
+        setModal(true)
+        setModalTitle(response.data.message)
+      }
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
 
   return (
     <section css={styles.container}>
@@ -78,7 +83,7 @@ const LoginForm = () => {
         </div>
         <div css={styles.btnBlock}>
           <Button
-            onClick={handleSubmit(handleBtnClick)}
+            onClick={handleSubmit}
             size="sm"
             style={isValid ? 'primary' : 'default'}
           >
@@ -86,11 +91,7 @@ const LoginForm = () => {
           </Button>
         </div>
       </form>
-      <ModalAlert
-        title={modalTitle}
-        isOpen={modal}
-        onClick={() => setModal(!modal)}
-      />
+      <ModalAlert title={modalTitle} isOpen={modal} onClick={handleModal} />
     </section>
   )
 }

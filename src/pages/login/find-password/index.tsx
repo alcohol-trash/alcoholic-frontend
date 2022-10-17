@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router'
 
@@ -20,6 +20,7 @@ type FormTypes = {
   id: string
   email: string
 }
+
 const FindPassword = () => {
   const {
     register,
@@ -30,6 +31,7 @@ const FindPassword = () => {
   } = useForm<FormTypes>({
     resolver: findPasswordValidation(),
   })
+
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -39,7 +41,7 @@ const FindPassword = () => {
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleClick = async (formData: FormTypes) => {
+  const handleSubmitClick = async (formData: FormTypes) => {
     const { email } = formData
     const response = await mailAPI('send', MAIL_TYPE, email)
     if (response) {
@@ -66,6 +68,10 @@ const FindPassword = () => {
       }
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModalVisible(!modalVisible)
+  }, [modalVisible])
 
   return (
     <>
@@ -99,7 +105,7 @@ const FindPassword = () => {
                     size="sm"
                     align="center"
                     style={!isValid ? 'default' : 'primary'}
-                    onClick={handleSubmit(handleClick)}
+                    onClick={handleSubmit(handleSubmitClick)}
                     disabled={!isValid}
                   >
                     {checkDisabled ? '인증 요청' : '재요청'}
@@ -135,7 +141,7 @@ const FindPassword = () => {
       <ModalAlert
         isOpen={modalVisible}
         title={modalTitle}
-        onClick={() => setModalVisible(!modalVisible)}
+        onClick={handleModal}
       />
     </>
   )

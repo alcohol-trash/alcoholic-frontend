@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { dehydrate, QueryClient, useQuery, useInfiniteQuery } from 'react-query'
 import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
-import Router from 'next/router'
 import { useRouter } from 'next/router'
 
 import { memberInfoAPI } from '@/api/user'
@@ -13,7 +12,7 @@ import Title from '@/components/Title'
 import Sentence from '@/components/Sentence'
 import Gnb from '@/components/Gnb'
 import Tabs from '@/components/Tabs'
-import Feed from '@/components/Content'
+import Content from '@/components/Content'
 import BottomBar from '@/components/BottomBar'
 import ModalAlert from '@/components/ModalAlert'
 import NoContentsBlock from '@/components/NoContentsBlock'
@@ -49,6 +48,14 @@ const Home = () => {
     refetch()
   }
 
+  const handleModalClick = useCallback(() => {
+    router.push('/loginsignup')
+  }, [router])
+
+  const handleModalClose = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   useEffect(() => {
     if (inView && !isEmpty) {
       fetchNextPage()
@@ -63,6 +70,10 @@ const Home = () => {
     })
   }, [index])
 
+  useEffect(() => {
+    console.log(me)
+  }, [me])
+
   return (
     <>
       <Head>
@@ -70,7 +81,7 @@ const Home = () => {
       </Head>
       <Gnb
         isLoggedIn={me?.success}
-        image={me?.success ? me.data.image : '/assets/profile_img.png'}
+        image={me?.data.image ? me.data.image : '/assets/profile_img.png'}
       />
       <section css={styles.container}>
         <Tabs defaultSelected={0} router={router} getData={getData}>
@@ -93,7 +104,7 @@ const Home = () => {
                   }}
                 >
                   {mainData?.map((data: any, index: number) => (
-                    <Feed key={index} isLoggedIn={true} data={data} />
+                    <Content key={index} isLoggedIn={true} data={data} />
                   ))}
                 </section>
               ) : (
@@ -112,8 +123,8 @@ const Home = () => {
           type={'confirm'}
           btnName="로그인"
           isOpen={modal}
-          onClick={() => Router.push('/loginsignup')}
-          onCancel={() => setModal(!modal)}
+          onClick={handleModalClick}
+          onCancel={handleModalClose}
         />
       </section>
       <BottomBar isLoggedIn={me?.success} index={index} title={title} />

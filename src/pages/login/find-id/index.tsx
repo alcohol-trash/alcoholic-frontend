@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 
 import { mailAPI } from '@/api/user'
 import { forgetIdAPI } from '@/api/user'
@@ -20,7 +20,10 @@ const MAIL_TYPE = 'id'
 type FormTypes = {
   email: string
 }
+
 const FindId = () => {
+  const router = useRouter()
+
   const {
     register,
     setValue,
@@ -30,6 +33,7 @@ const FindId = () => {
   } = useForm<FormTypes>({
     resolver: emailValidation(),
   })
+
   const [checkDisabled, setCheckDisabled] = useState<boolean>(true)
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -39,7 +43,7 @@ const FindId = () => {
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleClick = async (formData: FormTypes) => {
+  const handleSubmitClick = async (formData: FormTypes) => {
     const { email } = formData
     const response = await mailAPI('send', MAIL_TYPE, email)
     if (response) {
@@ -61,13 +65,17 @@ const FindId = () => {
       setModalVisible(true)
       setModalTitle(response.data.message)
       if (response.data.success) {
-        Router.push({
+        router.push({
           pathname: '/login/find-id/success',
           query: { id: response.data.data },
         })
       }
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModalVisible(!modalVisible)
+  }, [modalVisible])
 
   return (
     <>
@@ -90,7 +98,7 @@ const FindId = () => {
                     size="sm"
                     align="center"
                     style={!isValid ? 'default' : 'primary'}
-                    onClick={handleSubmit(handleClick)}
+                    onClick={handleSubmit(handleSubmitClick)}
                     disabled={!isValid}
                   >
                     {checkDisabled ? '인증 요청' : '재요청'}
@@ -122,11 +130,10 @@ const FindId = () => {
           인증 확인
         </Button>
       </div>
-
       <ModalAlert
         isOpen={modalVisible}
         title={modalTitle}
-        onClick={() => setModalVisible(!modalVisible)}
+        onClick={handleModal}
       />
     </>
   )

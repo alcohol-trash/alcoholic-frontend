@@ -5,11 +5,9 @@ import Image from 'next/image'
 import Title from '@/components/Title'
 
 import * as styles from '@/css/loginsignup'
-import { apiBaseUrl } from '@/libs/config'
+import { KAKAO_AUTH_URL, GOOGLE_AUTH_URL } from '@/libs/constants'
 
 const LoginSignup = () => {
-  const KAKAO_AUTH_URL = `${apiBaseUrl}/oauth2/authorization/kakao`
-  const GOOGLE_AUTH_URL = `${apiBaseUrl}/oauth2/authorization/google`
   return (
     <section css={styles.container}>
       <section css={styles.topContainer}>

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
 
+import { changePwdAPI } from '@/api/user'
 import { settingEditValidation } from '@/libs/validations/settingEditValidation'
 
 import Header from '@/components/Header'
@@ -25,8 +26,10 @@ const AccountInfo = () => {
     'user',
     async () => await fetch(`/api/member`).then((response) => response.json()),
   )
+
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+
   const {
     register,
     setValue,
@@ -36,30 +39,30 @@ const AccountInfo = () => {
   } = useForm<FormTypes>({
     resolver: settingEditValidation(),
   })
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
-  const handleBtnClick = async () => {
-    const response = await fetch(`/api/member/password/${me.data.id}`, {
-      method: 'PUT',
-      headers: {
-        cookie: `${document.cookie}`,
-      },
-      body: JSON.stringify({
-        newPassword: getValues('newPassword'),
-        password: getValues('password'),
-      }),
+
+  const handleSubmitClick = async () => {
+    const response = await changePwdAPI(me.data.id as string, {
+      newPassword: getValues('newPassword'),
+      password: getValues('password'),
     })
-    const data = await response.json()
-    if (data) {
+    if (response) {
       setModal(true)
-      setModalTitle(data.message)
-      if (data.success) {
+      setModalTitle(response.data.message)
+      if (response.data.success) {
         setModal(true)
         setModalTitle('정보가 수정되었습니다.')
       }
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   return (
     <section>
       <Header
@@ -69,7 +72,7 @@ const AccountInfo = () => {
           <Button
             style={isValid ? 'modalLogin' : 'secondary'}
             disabled={!isValid}
-            onClick={handleSubmit(handleBtnClick)}
+            onClick={handleSubmit(handleSubmitClick)}
           >
             수정
           </Button>
@@ -125,11 +128,7 @@ const AccountInfo = () => {
           </div>
         </form>
       </section>
-      <ModalAlert
-        isOpen={modal}
-        title={modalTitle}
-        onClick={() => setModal(!modal)}
-      />
+      <ModalAlert isOpen={modal} title={modalTitle} onClick={handleModal} />
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
@@ -21,6 +21,7 @@ type FormTypes = {
 const SignupForm = () => {
   const router = useRouter()
   const email = router.query.email
+
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
 
@@ -29,7 +30,6 @@ const SignupForm = () => {
     setValue,
     getValues,
     formState: { isValid, errors },
-    handleSubmit,
   } = useForm<FormTypes>({
     resolver: signupValidation(),
   })
@@ -38,7 +38,7 @@ const SignupForm = () => {
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleBtnClick = async () => {
+  const handleSubmit = async () => {
     const response = await signupAPI({
       email: email as string,
       id: getValues('id'),
@@ -52,6 +52,10 @@ const SignupForm = () => {
       }
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
 
   return (
     <section css={styles.container}>
@@ -93,7 +97,7 @@ const SignupForm = () => {
         </div>
         <div css={styles.btnBlock}>
           <Button
-            onClick={handleSubmit(handleBtnClick)}
+            onClick={handleSubmit}
             size="sm"
             style={isValid ? 'primary' : 'default'}
             disabled={!isValid}
@@ -102,11 +106,7 @@ const SignupForm = () => {
           </Button>
         </div>
       </form>
-      <ModalAlert
-        title={modalTitle}
-        isOpen={modal}
-        onClick={() => setModal(!modal)}
-      />
+      <ModalAlert title={modalTitle} isOpen={modal} onClick={handleModal} />
     </section>
   )
 }

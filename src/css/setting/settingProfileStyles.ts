@@ -21,8 +21,11 @@ export const label = css`
     overflow: hidden;
     border: 0;
   }
-  img {
-    text-align: center;
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 `
 export const imgBlock = css`

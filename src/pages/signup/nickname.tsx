@@ -1,4 +1,5 @@
 import React from 'react'
+
 import NicknameForm from '@/components/NicknameForm'
 import Sentence from '@/components/Sentence'
 import Title from '@/components/Title'

@@ -8,7 +8,7 @@ export const container = css`
 
 export const button = css`
   button {
-    width: 86px;
+    width: 88px;
   }
 `
 export const img = css`

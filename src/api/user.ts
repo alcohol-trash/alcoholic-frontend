@@ -45,6 +45,7 @@ export const memberInfoAPI = async () => {
   return instance
     .get('/api/member')
     .then((response) => response.data)
+
     .catch((error) => error.response)
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 
 import Profile from '@/components/Profile'
 import ContentBottom from '@/components/ContentBottom'
@@ -25,6 +25,8 @@ type Props = {
 }
 
 const Content = ({ isLoggedIn, data }: Props) => {
+  const router = useRouter()
+
   const {
     content,
     createdData,
@@ -33,14 +35,13 @@ const Content = ({ isLoggedIn, data }: Props) => {
     images,
     seq,
     title,
-    updatedDate,
     writer,
     repliesNum,
   } = data || {}
 
   const handleClick = () => {
     if (isLoggedIn) {
-      Router.push(`/board/${seq}`)
+      router.push(`/board/${seq}`)
     }
   }
 

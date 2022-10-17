@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import Router from 'next/router'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 import ModalWriteContent from '@/components/ModalWriteContent'
@@ -13,16 +13,24 @@ type Props = {
 }
 
 const BottomBar = ({ isLoggedIn, index, title }: Props) => {
+  const router = useRouter()
+
   const [modal, setModal] = useState(false)
   const [category, setCategory] = useState<string>(title)
   const [categoryNum, setCategoryNum] = useState<number>(index)
-  const onHandleClick = () => {
+
+  const handleModal = useCallback(() => {
     if (isLoggedIn) {
       setModal(!modal)
     } else {
-      Router.push('/loginsignup')
+      router.push('/loginsignup')
     }
-  }
+  }, [isLoggedIn, modal, router])
+
+  const handleModalContent = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   useEffect(() => {
     setCategory(title)
     setCategoryNum(index)
@@ -37,7 +45,7 @@ const BottomBar = ({ isLoggedIn, index, title }: Props) => {
           </div>
           <textarea
             readOnly={true}
-            onClick={onHandleClick}
+            onClick={handleModal}
             placeholder={
               isLoggedIn
                 ? `${category}에 글 남기기`
@@ -49,7 +57,7 @@ const BottomBar = ({ isLoggedIn, index, title }: Props) => {
       </section>
       <ModalWriteContent
         isOpen={modal}
-        onClick={() => setModal(!modal)}
+        onClick={handleModalContent}
         category={category}
         categoryNum={categoryNum}
       />

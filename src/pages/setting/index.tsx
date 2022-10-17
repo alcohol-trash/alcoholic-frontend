@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery } from 'react-query'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 import Router from 'next/router'
 import Link from 'next/link'
+import { AxiosError } from 'axios'
 
 import { memberInfoAPI, logoutAPI } from '@/api/user'
 
@@ -12,28 +13,40 @@ import ModalAlert from '@/components/ModalAlert'
 import * as styles from '@/css/setting/settingMainStyles'
 
 const Setting = () => {
+  const queryClient = useQueryClient()
+
   const { data: me } = useQuery('user', async () => await memberInfoAPI())
 
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
-
-  const handleLogout = async () => {
-    const response = await logoutAPI()
-    if (response.data.success) {
+  const mutation = useMutation<void, AxiosError>(logoutAPI, {
+    onSuccess: () => {
+      queryClient.setQueryData('user', null)
       Router.push('/')
-    } else {
+    },
+    onError: (error) => {
       setModal(true)
-      setModalTitle(response.data.message)
-    }
-  }
+      setModalTitle(error.message)
+    },
+  })
+
+  const handleLogout = useCallback(() => {
+    mutation.mutate()
+  }, [mutation])
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   useEffect(() => {
     if (!me?.success) {
       Router.push('/')
     }
   }, [me])
+
   return (
     <>
-      {me?.data.id && (
+      {me?.success && (
         <section>
           <Header title="설정" left={<BackButton />} />
           <section css={styles.container}>
@@ -57,7 +70,7 @@ const Setting = () => {
             <ModalAlert
               title={modalTitle}
               isOpen={modal}
-              onClick={() => setModal(!modal)}
+              onClick={handleModal}
             />
           </section>
         </section>

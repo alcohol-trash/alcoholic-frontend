@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import Router from 'next/router'
 import Image from 'next/image'
 
 import Header from '@/components/Header'
@@ -14,9 +13,11 @@ const Login = () => {
     <>
       <Header
         right={
-          <div css={styles.imgBlock} onClick={() => Router.push('/')}>
-            <Image src="/assets/home.png" width={24} height={24} />
-          </div>
+          <Link href="/">
+            <div css={styles.imgBlock}>
+              <Image src="/assets/home.png" width={24} height={24} />
+            </div>
+          </Link>
         }
       />
       <section css={styles.container}>

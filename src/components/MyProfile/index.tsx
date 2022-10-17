@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import Router from 'next/router'
 
 import Button from '@/components/Button'
@@ -11,6 +11,10 @@ type Props = {
 }
 
 const MyProfile = ({ image = '', nickname = '' }: Props) => {
+  const handleButton = useCallback(() => {
+    Router.push('/setting/profile')
+  }, [])
+
   return (
     <div css={styles.container}>
       <div css={styles.img}>
@@ -18,11 +22,7 @@ const MyProfile = ({ image = '', nickname = '' }: Props) => {
       </div>
       <div css={styles.name}>{nickname}</div>
       <div css={styles.button}>
-        <Button
-          onClick={() => Router.push('/setting/profile')}
-          align="center"
-          size="xs"
-        >
+        <Button onClick={handleButton} align="center" size="xs">
           프로필 편집
         </Button>
       </div>

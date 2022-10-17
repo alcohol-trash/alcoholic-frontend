@@ -1,9 +1,10 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, ChangeEvent } from 'react'
 import Modal from 'react-modal'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
+import { makeBoardAPI } from '@/api/board'
 import { writeContentValidation } from '@/libs/validations/writeContentValidation'
 
 import Button from '@/components/Button'
@@ -57,24 +58,16 @@ const ModalWriteContent = ({
   categoryNum,
 }: Props) => {
   const [imagePaths, setImagePaths] = useState<string[]>([])
-  const image = useRef<HTMLInputElement>(null)
-  const fetchAdd = async (formData: any) => {
-    const response = await fetch(`/api/board`, {
-      method: 'POST',
-      body: formData,
-    })
-    const data = await response.json()
-    return data
-  }
-  const mutation = useMutation('post', fetchAdd, {
+
+  const mutation = useMutation('boards', makeBoardAPI, {
     onError: (error) => {
       console.log(error)
     },
     onSuccess: () => {
-      console.log('success')
       reset()
     },
   })
+
   const {
     register,
     setValue,
@@ -84,12 +77,25 @@ const ModalWriteContent = ({
   } = useForm<FormTypes>({
     resolver: writeContentValidation(),
   })
+
   const handleClose = () => {
     reset()
   }
+
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
+
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    //const imageFormData = new FormData()
+    // if (e.target.files) {
+    //   ;[].forEach.call(e.target.files, (f) => {
+    //     imageFormData.append('file', f)
+    //   })
+    // }
+    console.log(e.target.files)
+  }
+
   const handleSubmit = useCallback(() => {
     const formData = new FormData()
     const variables = [
@@ -105,6 +111,7 @@ const ModalWriteContent = ({
     )
     mutation.mutate(formData)
   }, [categoryNum, getValues, mutation])
+
   return (
     <Modal
       isOpen={isOpen}
@@ -147,7 +154,12 @@ const ModalWriteContent = ({
         </section>
         <nav css={styles.bottomBlock}>
           <div css={styles.imgBtn}>
-            <input type="file" accept="image/*" id="file" />
+            <input
+              type="file"
+              accept="image/*"
+              id="file"
+              onChange={handleChangeImage}
+            />
             <label htmlFor="file">
               <Image src="/assets/add_picture.png" width={24} height={24} />
             </label>

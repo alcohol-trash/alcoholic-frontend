@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import Router, { useRouter } from 'next/router'
 
@@ -39,7 +39,7 @@ const FindPasswordReset = () => {
     setValue(name, value, { shouldValidate: true })
   }
 
-  const handleClick = async () => {
+  const handleSubmitClick = async () => {
     const response = await forgetPwdAPI(id as string, {
       email: email as string,
       newPassword: getValues('passwordConfirm'),
@@ -53,9 +53,17 @@ const FindPasswordReset = () => {
     }
   }
 
-  const handleResetError = () => {
+  const handleResetError = useCallback(() => {
     Router.push('/login/find-password')
-  }
+  }, [])
+
+  const handleModalClose = useCallback(() => {
+    setErrorModalVisible(!errorModalVisible)
+  }, [errorModalVisible])
+
+  const handleModal = useCallback(() => {
+    setModalVisible(!modalVisible)
+  }, [modalVisible])
 
   if (!id && !email)
     return (
@@ -63,7 +71,7 @@ const FindPasswordReset = () => {
         isOpen={errorModalVisible}
         title="이메일 인증을 먼저 진행해주세요."
         onClick={handleResetError}
-        onCancel={() => setErrorModalVisible(!errorModalVisible)}
+        onCancel={handleModalClose}
       />
     )
 
@@ -110,7 +118,7 @@ const FindPasswordReset = () => {
         <Button
           size="sm"
           style={!isValid ? 'default' : 'primary'}
-          onClick={handleSubmit(handleClick)}
+          onClick={handleSubmit(handleSubmitClick)}
           disabled={!isValid}
         >
           설정 완료
@@ -120,7 +128,7 @@ const FindPasswordReset = () => {
       <ModalAlert
         isOpen={modalVisible}
         title={modalTitle}
-        onClick={() => setModalVisible(!modalVisible)}
+        onClick={handleModal}
       />
     </>
   )

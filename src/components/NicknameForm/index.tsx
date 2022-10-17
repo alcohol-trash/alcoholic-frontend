@@ -23,13 +23,16 @@ const NicknameForm = () => {
     mode: 'onChange',
     resolver: nicknameValidation(),
   })
+
   const [success, setSuccess] = useState<boolean>(false)
   const [errorMsg, setErrorMsg] = useState<string>('')
+
   const handleChange = () => {
     if (isValid) {
       setSuccess(isValid)
     }
   }
+
   const handleSubmitClick = async () => {
     const response = await socialAPI({ nickname: getValues('nickname') })
     if (response.data.success) {
@@ -39,6 +42,7 @@ const NicknameForm = () => {
       setErrorMsg(response.data.message)
     }
   }
+
   return (
     <section css={styles.container}>
       <form css={styles.form} onChange={handleChange}>

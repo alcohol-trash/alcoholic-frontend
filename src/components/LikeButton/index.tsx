@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import Image from 'next/image'
 
 import { heartAPI } from '@/api/board'
@@ -16,6 +16,7 @@ type Props = {
 const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+
   const handleLike = async () => {
     if (heartCount) {
       const response = await heartAPI(seq, 'DELETE')
@@ -32,6 +33,11 @@ const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
       }
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   return (
     <>
       <button
@@ -45,11 +51,7 @@ const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
         <Image src="/assets/like.png" width={13} height={16} />
         <span>{heartCount}</span>
       </button>
-      <ModalAlert
-        title={modalTitle}
-        isOpen={modal}
-        onClick={() => setModal(!modal)}
-      />
+      <ModalAlert title={modalTitle} isOpen={modal} onClick={handleModal} />
     </>
   )
 }

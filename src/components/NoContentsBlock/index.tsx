@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import Router from 'next/router'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
@@ -15,22 +15,40 @@ type Props = {
 }
 
 const NoContentsBlock = ({ isLoggedIn, index, title }: Props) => {
+  const router = useRouter()
+
   const [modalAlert, setModalAlert] = useState<boolean>(false)
   const [modalContent, setModalContent] = useState<boolean>(false)
+
   const [category, setCategory] = useState<string>(title)
   const [categoryNum, setCategoryNum] = useState<number>(index)
-  const handleClick = () => {
+
+  const handleClick = useCallback(() => {
     if (!isLoggedIn) {
       setModalAlert(true)
     }
     if (isLoggedIn) {
       setModalContent(true)
     }
-  }
+  }, [isLoggedIn])
+
+  const handleModalClick = useCallback(() => {
+    router.push('/loginsignup')
+  }, [router])
+
+  const handleModalClose = useCallback(() => {
+    setModalAlert(!modalAlert)
+  }, [modalAlert])
+
+  const handleModalContent = useCallback(() => {
+    setModalContent(!modalContent)
+  }, [modalContent])
+
   useEffect(() => {
     setCategory(title)
     setCategoryNum(index)
   }, [title, index])
+
   return (
     <>
       <section css={styles.container}>
@@ -44,12 +62,12 @@ const NoContentsBlock = ({ isLoggedIn, index, title }: Props) => {
         type={'confirm'}
         btnName="로그인"
         isOpen={modalAlert}
-        onClick={() => Router.push('/loginsignup')}
-        onCancel={() => setModalAlert(!modalAlert)}
+        onClick={handleModalClick}
+        onCancel={handleModalClose}
       />
       <ModalWriteContent
         isOpen={modalContent}
-        onClick={() => setModalContent(!modalContent)}
+        onClick={handleModalContent}
         category={category}
         categoryNum={categoryNum}
       />

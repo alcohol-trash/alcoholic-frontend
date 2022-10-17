@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import Image from 'next/image'
@@ -35,6 +35,7 @@ const Profile = () => {
     setValue,
     getValues,
     handleSubmit,
+    reset,
     formState: { isValid, errors },
   } = useForm<FormTypes>({
     resolver: nicknameValidation(),
@@ -50,48 +51,34 @@ const Profile = () => {
     })
     if (response) {
       setModal(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
-        setModal(true)
-        setModalTitle('정보가 수정되었습니다.')
-      }
+      setModalTitle(response.message)
+      reset()
     }
   }
 
   const handleChangeImage = async (e: ChangeEvent<HTMLInputElement>) => {
-    // const formData = new FormData()
-    // if (e.target.files) {
-    //   formData.append('file', e.target.files[0])
-    //   const response = await fetch(`/api/member/image/${me.data.id}`, {
-    //     method: 'PUT',
-    //     headers: {
-    //       cookie: `${document.cookie}`,
-    //     },
-    //     body: formData,
-    //   })
-    //   const data = await response.json()
-    //   if (data) {
-    //     setModal(true)
-    //     setModalTitle(data.message)
-    //     if (data.success) {
-    //       setModal(true)
-    //       setModalTitle('이미지가 변경되었습니다.')
-    //     }
-    //   }
-    // }
+    const formData = new FormData()
+    if (e.target.files) {
+      formData.append('file', e.target.files[0])
+      const response = await changeImgAPI(me.data.id, formData)
+      if (response) {
+        setModal(true)
+        setModalTitle(response.message)
+      }
+    }
   }
 
   const handleDeleteImage = async () => {
     const response = await deleteImgAPI(me.data.id)
     if (response) {
       setModal(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
-        setModal(true)
-        setModalTitle('이미지가 삭제되었습니다.')
-      }
+      setModalTitle(response.message)
     }
   }
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
 
   return (
     <>
@@ -146,11 +133,7 @@ const Profile = () => {
               </div>
             </section>
           </section>
-          <ModalAlert
-            isOpen={modal}
-            title={modalTitle}
-            onClick={() => setModal(!modal)}
-          />
+          <ModalAlert isOpen={modal} title={modalTitle} onClick={handleModal} />
         </section>
       )}
     </>

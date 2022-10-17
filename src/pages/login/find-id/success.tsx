@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import Router, { useRouter } from 'next/router'
+import React, { useState, useCallback } from 'react'
+import { useRouter } from 'next/router'
 
 import Title from '@/components/Title'
 import TextField from '@/components/TextField'
@@ -10,18 +10,29 @@ import * as styles from '@/css/login/findIdStyles'
 
 const FindIdSuccess = () => {
   const router = useRouter()
+
   const id = router.query.id
   const [modalVisible, setModalVisible] = useState<boolean>(true)
-  const handleResetError = () => {
-    Router.push('/login/find-id')
-  }
+
+  const handleResetError = useCallback(() => {
+    router.push('/login/find-id')
+  }, [router])
+
+  const handleModalClose = useCallback(() => {
+    setModalVisible(!modalVisible)
+  }, [modalVisible])
+
+  const handleSubmit = useCallback(() => {
+    router.push('/login')
+  }, [router])
+
   if (!id) {
     return (
       <ModalAlert
         isOpen={modalVisible}
         title="이메일 인증을 먼저 진행해주세요."
         onClick={handleResetError}
-        onCancel={() => setModalVisible(!modalVisible)}
+        onCancel={handleModalClose}
       />
     )
   }
@@ -41,7 +52,7 @@ const FindIdSuccess = () => {
         </div>
       </div>
       <div css={styles.buttonContainer}>
-        <Button size="sm" style="primary" onClick={() => Router.push('/login')}>
+        <Button size="sm" style="primary" onClick={handleSubmit}>
           로그인하기
         </Button>
       </div>

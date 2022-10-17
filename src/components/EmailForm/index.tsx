@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 
@@ -66,6 +66,10 @@ const EmailForm = () => {
     }
   }
 
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   return (
     <section css={styles.container}>
       <form css={styles.form}>
@@ -100,13 +104,6 @@ const EmailForm = () => {
             />
           )}
         </section>
-        <section>
-          <ModalAlert
-            title={modalTitle}
-            isOpen={modal}
-            onClick={() => setModal(!modal)}
-          />
-        </section>
         <section css={styles.btnBlock}>
           <Button
             size="sm"
@@ -118,6 +115,7 @@ const EmailForm = () => {
           </Button>
         </section>
       </form>
+      <ModalAlert title={modalTitle} isOpen={modal} onClick={handleModal} />
     </section>
   )
 }

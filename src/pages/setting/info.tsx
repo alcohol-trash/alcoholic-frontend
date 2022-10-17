@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useQuery } from 'react-query'
 import Router from 'next/router'
 import Image from 'next/image'
@@ -18,6 +18,10 @@ const Info = () => {
   const { data: me } = useQuery('user', async () => await memberInfoAPI())
 
   const [modal, setModal] = useState(false)
+
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
 
   useEffect(() => {
     if (!me.data.id) {
@@ -52,15 +56,11 @@ const Info = () => {
             </section>
           )}
           <div css={styles.btnBlock}>
-            <Button
-              style="secondary"
-              size="base"
-              onClick={() => setModal(!modal)}
-            >
+            <Button style="secondary" size="base" onClick={handleModal}>
               회원탈퇴
             </Button>
           </div>
-          <ModalWithdrawal isOpen={modal} onClick={() => setModal(!modal)} />
+          <ModalWithdrawal isOpen={modal} onClick={handleModal} />
         </section>
       )}
     </>
