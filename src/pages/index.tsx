@@ -104,7 +104,7 @@ const Home = () => {
                   }}
                 >
                   {mainData?.map((data: any, index: number) => (
-                    <Content key={index} isLoggedIn={true} data={data} />
+                    <Content key={index} isLoggedIn={me?.success} data={data} />
                   ))}
                 </section>
               ) : (

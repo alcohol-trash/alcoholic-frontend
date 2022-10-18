@@ -4,6 +4,7 @@ import Router from 'next/router'
 import Link from 'next/link'
 import { AxiosError } from 'axios'
 
+import User from '@/libs/interfaces/user'
 import { memberInfoAPI, logoutAPI } from '@/api/user'
 
 import Header from '@/components/Header'
@@ -19,14 +20,16 @@ const Setting = () => {
 
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
-  const mutation = useMutation<void, AxiosError>(logoutAPI, {
-    onSuccess: () => {
-      queryClient.setQueryData('user', null)
-      Router.push('/')
-    },
-    onError: (error) => {
-      setModal(true)
-      setModalTitle(error.message)
+  const mutation = useMutation<User, AxiosError>(logoutAPI, {
+    onSuccess: (response) => {
+      if (response.success) {
+        queryClient.setQueryData('user', null)
+        Router.push('/')
+      } else {
+        console.log(response.data)
+        setModal(true)
+        setModalTitle(response.data.message)
+      }
     },
   })
 

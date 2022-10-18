@@ -25,7 +25,6 @@ type changeTypes = {
 const Terms = () => {
   const [service, setService] = useState<boolean>(false)
   const [info, setInfo] = useState<boolean>(false)
-  const [all, setAll] = useState<boolean>(false)
 
   const {
     register,
@@ -37,9 +36,6 @@ const Terms = () => {
 
   const changeHandler = ({ name, checked }: changeTypes) => {
     setValue(name, checked, { shouldValidate: true })
-    if (name === 'checkAll') {
-      setAll(!all)
-    }
   }
 
   const handleServiceClick = useCallback(() => {
@@ -56,7 +52,6 @@ const Terms = () => {
           <CheckBox
             {...register('checkAll')}
             onChange={changeHandler}
-            checked={all}
             label="전체 동의하기"
           />
         </div>
@@ -64,14 +59,12 @@ const Terms = () => {
           <CheckBox
             {...register('checkAge')}
             onChange={changeHandler}
-            checked={all}
             label="만 19세 이상입니다. (필수)"
           />
           <div css={styles.withBtnBlock}>
             <CheckBox
               {...register('checkService')}
               onChange={changeHandler}
-              checked={all}
               label="서비스 이용약관에 동의 (필수)"
             />
             <button css={styles.button} onClick={handleServiceClick}>
@@ -85,7 +78,6 @@ const Terms = () => {
             <CheckBox
               {...register('checkInfo')}
               onChange={changeHandler}
-              checked={all}
               label="개인정보 수집 및 이용에 동의 (필수)"
             />
             <button css={styles.button} onClick={handleInfoClick}>

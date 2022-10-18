@@ -48,8 +48,8 @@ const FindId = () => {
     const response = await mailAPI('send', MAIL_TYPE, email)
     if (response) {
       setModalVisible(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         setCheckDisabled(false)
         if (!checkDisabled) {
           setTime(5)
@@ -63,11 +63,11 @@ const FindId = () => {
     const response = await forgetIdAPI(email)
     if (response) {
       setModalVisible(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         router.push({
           pathname: '/login/find-id/success',
-          query: { id: response.data.data },
+          query: { id: response.data },
         })
       }
     }

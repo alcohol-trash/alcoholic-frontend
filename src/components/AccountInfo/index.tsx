@@ -51,8 +51,8 @@ const AccountInfo = () => {
     })
     if (response) {
       setModal(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         setModal(true)
         setModalTitle('정보가 수정되었습니다.')
       }

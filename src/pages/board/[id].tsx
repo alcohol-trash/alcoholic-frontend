@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 
+import { ImageProps, ReplyProps } from '@/libs/interfaces/board'
 import { getBoardAPI, getReplyAPI } from '@/api/board'
 
 import Header from '@/components/Header'
@@ -16,102 +17,83 @@ import ModalAlert from '@/components/ModalAlert'
 
 import * as styles from '@/css/content/contentDetailStyles'
 
-type ImageProps = {
-  seq: number
-  url: string
-}
-
-// type ContentProps = {
-//   title: string
-//   content: string
-//   heartCheck: boolean
-//   heartCount: number
-//   createdDate: string
-//   writer: string
-//   repliseNum: number
-//   images: ImageProps[]
-// }
-
-type ReplyProps = {
-  content: string
-  createdDate: string
-  isRoot: boolean
-  mine: boolean
-  replyParent: number
-  seq: number
-  updatedDate: null
-  writerNickname: string
-  writerProfileImage: string
-}
-
 const ContentDetail = () => {
   const router = useRouter()
   const { id } = router.query
   const nid = Number(id)
+
   const { data: board } = useQuery(['board', id], () => getBoardAPI(nid))
   const { data: reply } = useQuery(['reply', id], () => getReplyAPI(nid))
+
   const [modal, setModal] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>('')
 
   useEffect(() => {
-    if (!board) {
+    if (!board || !reply) {
       setModal(true)
+      setTitle(board.message)
     }
   }, [board, reply])
 
+  useEffect(() => {
+    console.log(board)
+    console.log(reply)
+  }, [board, reply])
+
   return (
-    <section key={nid}>
-      <Header
-        left={<BackButton />}
-        right={
-          <div css={styles.menu}>
-            <Image src="/assets/share.png" width={24} height={24} />
-            <Image src="/assets/more.png" width={24} height={24} />
-          </div>
-        }
-      />
-      <div css={styles.wrapper}>
-        <Profile writer={board.writer} date={board.createdDate} />
-        <div css={styles.title}>{board.title}</div>
-        <div css={styles.content}>{board.content}</div>
-        {board.images?.length !== 0 && (
-          <div>
-            {board.images?.map((img: ImageProps) => (
-              <div key={img.seq} css={styles.image}>
-                <img referrerPolicy="no-referrer" src={img.url} />
+    <>
+      {board && reply && (
+        <section key={nid}>
+          <Header
+            left={<BackButton />}
+            right={
+              <div css={styles.menu}>
+                <Image src="/assets/share.png" width={24} height={24} />
+                <Image src="/assets/more.png" width={24} height={24} />
               </div>
-            ))}
+            }
+          />
+          <div css={styles.wrapper}>
+            <Profile writer={board.writer} date={board.createdDate} />
+            <div css={styles.title}>{board.title}</div>
+            <div css={styles.content}>{board.content}</div>
+            {board.images?.length !== 0 && (
+              <div>
+                {board.images?.map((img: ImageProps) => (
+                  <div key={img.seq} css={styles.image}>
+                    <img referrerPolicy="no-referrer" src={img.url} />
+                  </div>
+                ))}
+              </div>
+            )}
+            <ContentBottom
+              heartCount={board.heartCount}
+              heartCheck={board.heartCheck}
+              seq={nid}
+              repliesNum={board.repliesNum}
+            />
+            {reply.data.content?.length !== 0 && (
+              <div css={styles.reply}>
+                {reply.data.content?.map((item: ReplyProps) => {
+                  if (item.isRoot) {
+                    return <Reply key={item.seq} data={item} />
+                  }
+                })}
+              </div>
+            )}
           </div>
-        )}
-        <ContentBottom
-          heartCount={board.heartCount}
-          heartCheck={board.heartCheck}
-          seq={nid}
-          repliesNum={board.repliesNum}
-        />
-        {reply.data.content?.length !== 0 && (
-          <div css={styles.reply}>
-            {reply.data.content?.map((item: ReplyProps) => {
-              if (item.isRoot) {
-                return (
-                  <>
-                    <Reply key={item.seq} data={item} />
-                  </>
-                )
-              }
-            })}
-          </div>
-        )}
-      </div>
-      <ContentBar boardSeq={nid} />
-      <ModalAlert
-        title="존재하지 않는 게시물입니다."
-        isOpen={modal}
-        onClick={() => {
-          setModal(!modal)
-          router.back()
-        }}
-      />
-    </section>
+          <ContentBar boardSeq={nid} />
+          <ModalAlert
+            title={title}
+            isOpen={modal}
+            onClick={() => {
+              setModal(!modal)
+              router.back()
+            }}
+          />
+        </section>
+      )}
+    </>
   )
 }
 
@@ -120,22 +102,17 @@ export const getServerSideProps = async (
 ) => {
   const queryClient = new QueryClient()
   const id = context.params?.id as string
-  await queryClient.prefetchQuery(['board', id], () => getBoardAPI(Number(id)))
-  await queryClient.prefetchQuery(['comment', Number(id)], () =>
-    getReplyAPI(Number(id)),
-  )
-  //await queryClient.prefetchQuery(['comment', id], () => getReplyAPI(id))
-  // await Promise.allSettled([
-  //   queryClient.prefetchQuery(['board', Number(id)], () =>
-  //     getBoardAPI(Number(id)),
-  //   ),
-  //   queryClient.prefetchQuery(['comment', Number(id)], () =>
-  //     getReplyAPI(Number(id)),
-  //   ),
-  // ])
+  await queryClient.prefetchQuery(['board', id], async () => {
+    const response = await getBoardAPI(Number(id))
+    return response.data
+  })
+  await queryClient.prefetchQuery(['reply', Number(id)], async () => {
+    const response = await getReplyAPI(Number(id))
+    return response.data
+  })
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   }
 }

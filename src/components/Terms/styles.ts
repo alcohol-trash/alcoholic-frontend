@@ -6,6 +6,7 @@ export const container = css`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  padding-top: 10px;
 `
 
 export const blockLine = css`

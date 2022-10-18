@@ -44,8 +44,8 @@ const EmailForm = () => {
     const response = await mailAPI('send', MAIL_TYPE, email)
     if (response) {
       setModal(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         setCheck(true)
         if (!check) {
           setTime(5)
@@ -59,8 +59,8 @@ const EmailForm = () => {
     const response = await mailAPI('check', MAIL_TYPE, email)
     if (response) {
       setModal(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         Router.push({ pathname: '/signup/info', query: { email: email } })
       }
     }

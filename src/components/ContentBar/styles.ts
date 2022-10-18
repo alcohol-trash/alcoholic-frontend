@@ -22,7 +22,7 @@ export const form = css`
 
   height: 40px;
   padding: 0px;
-  width: 80%;
+  width: 82%;
   textarea {
     cursor: pointr;
     width: 100%;
@@ -50,5 +50,5 @@ export const block = css`
 `
 
 export const button = css`
-  width: 20%;
+  width: 70px;
 `

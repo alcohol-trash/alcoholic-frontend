@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react'
+import { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
-import { useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import Router from 'next/router'
 
+import User from '@/libs/interfaces/user'
 import { loginAPI } from '@/api/user'
 import { loginValidation } from '@/libs/validations/loginValidation'
 
@@ -33,25 +35,29 @@ const LoginForm = () => {
     resolver: loginValidation(),
   })
 
-  const handleChange = ({ name, value }: any) => {
-    setValue(name, value, { shouldValidate: true })
-  }
-
-  const handleSubmit = async () => {
-    const response = await loginAPI({
-      id: getValues('id'),
-      password: getValues('password'),
-    })
-    if (response) {
+  const mutation = useMutation<User, AxiosError, FormTypes>('user', loginAPI, {
+    onSuccess: (response) => {
       if (response.success) {
         query.setQueryData('user', response)
         Router.push('/')
       } else {
+        console.log(response.data)
         setModal(true)
         setModalTitle(response.data.message)
       }
-    }
+    },
+  })
+
+  const handleChange = ({ name, value }: any) => {
+    setValue(name, value, { shouldValidate: true })
   }
+
+  const handleSubmit = useCallback(() => {
+    mutation.mutate({
+      id: getValues('id'),
+      password: getValues('password'),
+    })
+  }, [getValues, mutation])
 
   const handleModal = useCallback(() => {
     setModal(!modal)

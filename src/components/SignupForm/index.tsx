@@ -46,8 +46,8 @@ const SignupForm = () => {
     })
     if (response) {
       setModal(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         router.push('/')
       }
     }

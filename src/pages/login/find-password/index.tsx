@@ -46,8 +46,8 @@ const FindPassword = () => {
     const response = await mailAPI('send', MAIL_TYPE, email)
     if (response) {
       setModalVisible(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         setCheckDisabled(false)
         if (!checkDisabled) {
           setTime(5)
@@ -62,8 +62,8 @@ const FindPassword = () => {
     const response = await mailAPI('send', MAIL_TYPE, email)
     if (response) {
       setModalVisible(true)
-      setModalTitle(response.data.message)
-      if (response.data.success) {
+      setModalTitle(response.message)
+      if (response.success) {
         Router.push(`/login/find-password/reset?id=${id}&email=${email}`)
       }
     }

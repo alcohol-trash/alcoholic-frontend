@@ -53,6 +53,7 @@ const ContentBar = ({ boardSeq }: Props) => {
         </form>
         <div css={styles.button}>
           <Button
+            size="sm"
             align="center"
             style={isValid ? 'secondaryTrue' : 'secondary'}
             disabled={!isValid}
