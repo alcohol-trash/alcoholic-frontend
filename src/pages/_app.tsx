@@ -2,8 +2,9 @@
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider, Hydrate } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-
+import { RecoilRoot } from 'recoil'
 import { ThemeProvider } from '@emotion/react'
+
 import theme from '../theme'
 import GlobalStyle from '@/style/GlobalStyle'
 import { componentContainer } from '@/css/global'
@@ -26,12 +27,14 @@ function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <div css={componentContainer}>
-            <Component {...pageProps} />
-          </div>
-        </ThemeProvider>
+        <RecoilRoot>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <div css={componentContainer}>
+              <Component {...pageProps} />
+            </div>
+          </ThemeProvider>
+        </RecoilRoot>
       </Hydrate>
     </QueryClientProvider>
   )

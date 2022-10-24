@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react'
+import { useQueryClient } from 'react-query'
 import Image from 'next/image'
 
 import { heartAPI } from '@/api/board'
@@ -17,18 +18,22 @@ const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
 
+  const query = useQueryClient()
+
   const handleLike = async () => {
+    let response
     if (heartCount) {
-      const response = await heartAPI(seq, 'DELETE')
-      if (response) {
-        setModal(true)
-        setModalTitle(response.data.message)
-      }
+      response = await heartAPI(seq, 'DELETE')
     }
     if (!heartCount) {
-      const response = await heartAPI(seq, 'POST')
-      if (response) {
-        setModal(true)
+      response = await heartAPI(seq, 'POST')
+    }
+    if (response) {
+      setModal(true)
+      if (response.success) {
+        setModalTitle(response.message)
+        query.invalidateQueries(['board', seq])
+      } else {
         setModalTitle(response.data.message)
       }
     }

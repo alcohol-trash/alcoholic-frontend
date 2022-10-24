@@ -16,6 +16,7 @@ type Props = {
   router: any
   getData?: any
 }
+
 const Tabs = ({ children, defaultSelected = 0, router, getData }: Props) => {
   const [selected, setSelected] = useState(defaultSelected)
   const { replace, pathname } = router || {}
@@ -40,7 +41,6 @@ const Tabs = ({ children, defaultSelected = 0, router, getData }: Props) => {
   }
 
   return (
-    // TODO: child type 지정
     <>
       {/* 상단 탭 */}
       <div css={styles.tabs}>

@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { dehydrate, QueryClient, useQuery, useInfiniteQuery } from 'react-query'
+import { dehydrate, QueryClient, useInfiniteQuery } from 'react-query'
 import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import * as R from 'ramda'
 
-import { memberInfoAPI } from '@/api/user'
+import { useUserQuery } from '@/hooks/useUserQuery'
 import { getBoardsAPI } from '@/api/board'
 import { categories } from '@/libs/data'
 
 import Title from '@/components/Title'
 import Sentence from '@/components/Sentence'
-import Gnb from '@/components/Gnb'
+import TopBar from '@/components/TopBar'
 import Tabs from '@/components/Tabs'
-import Content from '@/components/Content'
+import Board from '@/components/Board'
 import BottomBar from '@/components/BottomBar'
 import ModalAlert from '@/components/ModalAlert'
 import NoContentsBlock from '@/components/NoContentsBlock'
@@ -20,7 +21,7 @@ import NoContentsBlock from '@/components/NoContentsBlock'
 import * as styles from '@/css/home'
 
 const Home = () => {
-  const { data: me } = useQuery('user', () => memberInfoAPI())
+  const { data: me } = useUserQuery()
 
   const router = useRouter()
 
@@ -28,11 +29,14 @@ const Home = () => {
   const [title, setTitle] = useState<string>('주류학개론')
   const [index, setIndex] = useState<number>(1)
 
-  const [ref, inView] = useInView()
+  const [ref, inView] = useInView({
+    threshold: 0,
+    triggerOnce: true,
+  })
 
   const { data, fetchNextPage, refetch } = useInfiniteQuery(
     ['boards', index],
-    ({ pageParam = 0 }) => getBoardsAPI(index, pageParam, 1),
+    ({ pageParam = 0 }) => getBoardsAPI(index, pageParam, 3),
     {
       getNextPageParam: (lastPage) => {
         return lastPage.nextPage
@@ -43,10 +47,17 @@ const Home = () => {
   const mainData = data?.pages[0].data
   const isEmpty = data?.pages[0]?.length === 0
 
-  const getData = (index: number) => {
-    setIndex(index)
-    refetch()
-  }
+  useEffect(() => {
+    console.log(data?.pages[0])
+  }, [data?.pages])
+
+  const getData = useCallback(
+    (index: number) => {
+      setIndex(index)
+      refetch()
+    },
+    [refetch],
+  )
 
   const handleModalClick = useCallback(() => {
     router.push('/loginsignup')
@@ -71,15 +82,15 @@ const Home = () => {
   }, [index])
 
   useEffect(() => {
-    console.log(me)
-  }, [me])
+    console.log(inView)
+  }, [inView])
 
   return (
     <>
       <Head>
         <title>알코홀릭</title>
       </Head>
-      <Gnb
+      <TopBar
         isLoggedIn={me?.success}
         image={me?.data.image ? me.data.image : '/assets/profile_img.png'}
       />
@@ -95,8 +106,9 @@ const Home = () => {
                   <button>인기순</button>
                 </section>
               </section>
-              {mainData?.length !== 0 ? (
+              {!R.isEmpty(mainData) ? (
                 <section
+                  css={styles.boardBlock}
                   onClick={() => {
                     if (!me?.success) {
                       setModal(!modal)
@@ -104,8 +116,9 @@ const Home = () => {
                   }}
                 >
                   {mainData?.map((data: any, index: number) => (
-                    <Content key={index} isLoggedIn={me?.success} data={data} />
+                    <Board key={index} isLoggedIn={me?.success} data={data} />
                   ))}
+                  <div ref={ref} css={styles.ref}></div>
                 </section>
               ) : (
                 <NoContentsBlock
@@ -117,7 +130,6 @@ const Home = () => {
             </Tabs.Panel>
           ))}
         </Tabs>
-        <div ref={ref} />
         <ModalAlert
           title={'로그인 후에 이용할 수 있어요'}
           type={'confirm'}

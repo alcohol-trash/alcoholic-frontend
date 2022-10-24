@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
-import { useQuery } from 'react-query'
 import { useForm } from 'react-hook-form'
 
+import { useUserQuery } from '@/hooks/useUserQuery'
 import { changePwdAPI } from '@/api/user'
 import { settingEditValidation } from '@/libs/validations/settingEditValidation'
 
@@ -22,10 +22,7 @@ type FormTypes = {
 }
 
 const AccountInfo = () => {
-  const { data: me } = useQuery(
-    'user',
-    async () => await fetch(`/api/member`).then((response) => response.json()),
-  )
+  const { data: me } = useUserQuery()
 
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -45,7 +42,7 @@ const AccountInfo = () => {
   }
 
   const handleSubmitClick = async () => {
-    const response = await changePwdAPI(me.data.id as string, {
+    const response = await changePwdAPI(me?.data.id as string, {
       newPassword: getValues('newPassword'),
       password: getValues('password'),
     })
@@ -81,11 +78,11 @@ const AccountInfo = () => {
       <section css={styles.container}>
         <label>이메일</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">{me.data.email}</Sentence>
+          <Sentence size="base">{me?.data.email}</Sentence>
         </div>
         <label>아이디</label>
         <div css={styles.infoBlock}>
-          <Sentence size="base">{me.data.id}</Sentence>
+          <Sentence size="base">{me?.data.id}</Sentence>
         </div>
         <form>
           <div>

@@ -11,7 +11,7 @@ export const container = css`
   justify-content: center;
   align-items: center;
   height: 56px;
-  padding: 8px 16px;
+  padding: 8px;
 
   background-color: ${theme.gray[900]};
 `
@@ -19,12 +19,15 @@ export const container = css`
 export const form = css`
   display: flex;
   align-items: center;
-
+  width: calc(100% - 70px);
   height: 40px;
   padding: 0px;
-  width: 82%;
+`
+export const textarea = css`
+  width: 100%;
   textarea {
-    cursor: pointr;
+    color: white;
+    cursor: pointer;
     width: 100%;
     font-size: 14px;
     background-color: ${theme.gray[700]};
@@ -41,6 +44,37 @@ export const form = css`
     }
   }
 `
+export const reReply = css`
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  background-color: ${theme.gray[700]};
+  border-radius: 20px;
+  padding: 10px 16px;
+  border: none;
+  display: flex;
+  algin-items: center;
+  div {
+    display: inline-block;
+    color: ${theme.aqua[500]};
+    font-size: 14px;
+  }
+  textarea {
+    margin-left: 10px;
+    width: 68%;
+    cursor: pointer;
+    color: white;
+    border: none;
+    overflow: hidden;
+    font-size: 14px;
+    resize: none;
+    background-color: transparent;
+    :focus {
+      outline: none;
+    }
+  }
+`
+
 export const block = css`
   margin: 10px;
   width: 32px;

@@ -1,3 +1,9 @@
+export interface DataProps {
+  data: any
+  message: string
+  success: boolean
+}
+
 export interface ImageProps {
   seq: number
   url: string
@@ -10,7 +16,10 @@ export interface BoardProps {
   heartCount: number
   createdDate: string
   writer: string
-  repliseNum: number
+  repliesNum: number
+  mine: boolean
+  seq: number
+  updatedDate: number
   images: ImageProps[]
 }
 
@@ -24,4 +33,11 @@ export interface ReplyProps {
   updatedDate: null
   writerNickname: string
   writerProfileImage: string
+}
+
+export interface ReplyStateProps {
+  type: string
+  content: string
+  seq: number
+  replyParent: number
 }

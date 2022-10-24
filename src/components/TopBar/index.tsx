@@ -5,11 +5,11 @@ import Link from 'next/link'
 import * as styles from './styles'
 
 type Props = {
-  isLoggedIn: boolean
-  image: string
+  isLoggedIn?: boolean
+  image?: string
 }
 
-const Gnb = ({ isLoggedIn, image }: Props) => {
+const TopBar = ({ isLoggedIn = false, image }: Props) => {
   return (
     <section css={styles.container}>
       <Link href="/">
@@ -28,4 +28,4 @@ const Gnb = ({ isLoggedIn, image }: Props) => {
   )
 }
 
-export default React.memo(Gnb)
+export default React.memo(TopBar)

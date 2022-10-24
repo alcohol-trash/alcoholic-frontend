@@ -1,7 +1,6 @@
 import { css } from '@emotion/react'
 import theme from '@/theme'
 
-//메인 페이지
 export const container = css`
   padding: 48px 20px;
 `
@@ -11,7 +10,6 @@ export const titleBlock = css`
     margin: 16px 0;
   }
 `
-
 export const btnBlock = css`
   margin-bottom: 16px;
   button {
@@ -35,4 +33,11 @@ export const btnFocus = css`
     color: ${theme.aqua[500]};
     border: 1px solid ${theme.aqua[500]};
   }
+`
+export const boardBlock = css`
+  padding-bottom: 5px;
+`
+
+export const ref = css`
+  height: 50px;
 `

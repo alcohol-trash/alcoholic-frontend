@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useQuery } from 'react-query'
 import Router from 'next/router'
-import Image from 'next/image'
 
-import { memberInfoAPI } from '@/api/user'
+import { useUserQuery } from '@/hooks/useUserQuery'
 
-import Header from '@/components/Header'
-import Sentence from '@/components/Sentence'
-import Button from '@/components/Button'
 import AccountInfo from '@/components/AccountInfo'
+import SocialInfo from '@/components/SocialInfo'
+import Button from '@/components/Button'
 import ModalWithdrawal from '@/components/ModalWithdrawal'
-import BackButton from '@/components/BackButton'
 
 import * as styles from '@/css/setting/settingInfoStyles'
 
 const Info = () => {
-  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+  const { data: me } = useUserQuery()
 
   const [modal, setModal] = useState(false)
 
@@ -24,37 +20,16 @@ const Info = () => {
   }, [modal])
 
   useEffect(() => {
-    if (!me.data.id) {
+    if (!me?.success) {
       Router.push('/')
     }
   }, [me])
 
   return (
     <>
-      {me?.data.id && (
+      {me?.success && (
         <section>
-          {me.data.provider === 'LOCAL' ? (
-            <AccountInfo />
-          ) : (
-            <section>
-              <Header title="계정정보" left={<BackButton />} />
-              <section css={styles.container}>
-                <label>이메일</label>
-                <div css={styles.emailBlock}>
-                  <Sentence size="base">{me.data.email}</Sentence>
-                  <Image
-                    src={
-                      me.data.provider === 'KAKAO'
-                        ? '/assets/kakao.png'
-                        : '/assets/google.png'
-                    }
-                    width={32}
-                    height={32}
-                  />
-                </div>
-              </section>
-            </section>
-          )}
+          {me.data.provider === 'LOCAL' ? <AccountInfo /> : <SocialInfo />}
           <div css={styles.btnBlock}>
             <Button style="secondary" size="base" onClick={handleModal}>
               회원탈퇴

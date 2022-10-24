@@ -1,14 +1,10 @@
-import React, { useState, useCallback, ChangeEvent } from 'react'
+import React, { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
-import { useQuery } from 'react-query'
 import Image from 'next/image'
+import Router from 'next/router'
 
-import {
-  memberInfoAPI,
-  changeNickAPI,
-  changeImgAPI,
-  deleteImgAPI,
-} from '@/api/user'
+import { useUserQuery } from '@/hooks/useUserQuery'
+import { changeNickAPI, changeImgAPI, deleteImgAPI } from '@/api/user'
 import { nicknameValidation } from '@/libs/validations/nicknameValidation'
 
 import Header from '@/components/Header'
@@ -25,7 +21,7 @@ type FormTypes = {
 }
 
 const Profile = () => {
-  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+  const { data: me } = useUserQuery()
 
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -46,7 +42,7 @@ const Profile = () => {
   }
 
   const handleChangeNickname = async () => {
-    const response = await changeNickAPI(me.data.id, {
+    const response = await changeNickAPI(me?.data.id, {
       nickname: getValues('nickname'),
     })
     if (response) {
@@ -60,7 +56,7 @@ const Profile = () => {
     const formData = new FormData()
     if (e.target.files) {
       formData.append('file', e.target.files[0])
-      const response = await changeImgAPI(me.data.id, formData)
+      const response = await changeImgAPI(me?.data.id, formData)
       if (response) {
         setModal(true)
         setModalTitle(response.message)
@@ -69,7 +65,7 @@ const Profile = () => {
   }
 
   const handleDeleteImage = async () => {
-    const response = await deleteImgAPI(me.data.id)
+    const response = await deleteImgAPI(me?.data.id)
     if (response) {
       setModal(true)
       setModalTitle(response.message)
@@ -80,9 +76,15 @@ const Profile = () => {
     setModal(!modal)
   }, [modal])
 
+  useEffect(() => {
+    if (!me?.success) {
+      Router.push('/')
+    }
+  }, [me])
+
   return (
     <>
-      {me?.data.id && (
+      {me?.success && (
         <section>
           <Header title="프로필 편집" left={<BackButton />} />
           <section css={styles.container}>

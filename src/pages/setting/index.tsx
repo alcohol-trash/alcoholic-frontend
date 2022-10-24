@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import Router from 'next/router'
 import Link from 'next/link'
 import { AxiosError } from 'axios'
 
-import User from '@/libs/interfaces/user'
-import { memberInfoAPI, logoutAPI } from '@/api/user'
+import { useUserQuery } from '@/hooks/useUserQuery'
+import User from '@/interfaces/user'
+import { logoutAPI } from '@/api/user'
 
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
@@ -16,10 +17,11 @@ import * as styles from '@/css/setting/settingMainStyles'
 const Setting = () => {
   const queryClient = useQueryClient()
 
-  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+  const { data: me } = useUserQuery()
 
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
+
   const mutation = useMutation<User, AxiosError>(logoutAPI, {
     onSuccess: (response) => {
       if (response.success) {

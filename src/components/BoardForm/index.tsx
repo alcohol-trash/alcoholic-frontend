@@ -7,10 +7,7 @@ type Props = {
   [key: string]: any
 }
 
-const ContentForm = (
-  { name = '', onChange, ...args }: Props,
-  inputRef: any,
-) => {
+const BoardForm = ({ name = '', onChange, ...args }: Props, inputRef: any) => {
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target
     onChange && onChange({ name, value })
@@ -27,4 +24,4 @@ const ContentForm = (
   )
 }
 
-export default React.forwardRef(ContentForm)
+export default React.forwardRef(BoardForm)

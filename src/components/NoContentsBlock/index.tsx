@@ -4,21 +4,19 @@ import { useRouter } from 'next/router'
 import Sentence from '@/components/Sentence'
 import Button from '@/components/Button'
 import ModalAlert from '@/components/ModalAlert'
-import ModalWriteContent from '@/components/ModalWriteContent'
 
 import * as styles from './styles'
 
 type Props = {
-  isLoggedIn: boolean
+  isLoggedIn?: boolean
   index: number
   title: string
 }
 
-const NoContentsBlock = ({ isLoggedIn, index, title }: Props) => {
+const NoContentsBlock = ({ isLoggedIn = false, index, title }: Props) => {
   const router = useRouter()
 
   const [modalAlert, setModalAlert] = useState<boolean>(false)
-  const [modalContent, setModalContent] = useState<boolean>(false)
 
   const [category, setCategory] = useState<string>(title)
   const [categoryNum, setCategoryNum] = useState<number>(index)
@@ -28,9 +26,12 @@ const NoContentsBlock = ({ isLoggedIn, index, title }: Props) => {
       setModalAlert(true)
     }
     if (isLoggedIn) {
-      setModalContent(true)
+      router.push({
+        pathname: '/write-board',
+        query: { category: category, categoryNum: categoryNum },
+      })
     }
-  }, [isLoggedIn])
+  }, [category, categoryNum, isLoggedIn, router])
 
   const handleModalClick = useCallback(() => {
     router.push('/loginsignup')
@@ -39,10 +40,6 @@ const NoContentsBlock = ({ isLoggedIn, index, title }: Props) => {
   const handleModalClose = useCallback(() => {
     setModalAlert(!modalAlert)
   }, [modalAlert])
-
-  const handleModalContent = useCallback(() => {
-    setModalContent(!modalContent)
-  }, [modalContent])
 
   useEffect(() => {
     setCategory(title)
@@ -64,12 +61,6 @@ const NoContentsBlock = ({ isLoggedIn, index, title }: Props) => {
         isOpen={modalAlert}
         onClick={handleModalClick}
         onCancel={handleModalClose}
-      />
-      <ModalWriteContent
-        isOpen={modalContent}
-        onClick={handleModalContent}
-        category={category}
-        categoryNum={categoryNum}
       />
     </>
   )

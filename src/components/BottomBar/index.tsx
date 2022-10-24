@@ -2,34 +2,30 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-import ModalWriteContent from '@/components/ModalWriteContent'
-
 import * as styles from './styles'
 
 type Props = {
-  isLoggedIn: boolean
+  isLoggedIn?: boolean
   index: number
   title: string
 }
 
-const BottomBar = ({ isLoggedIn, index, title }: Props) => {
+const BottomBar = ({ isLoggedIn = false, index, title }: Props) => {
   const router = useRouter()
 
-  const [modal, setModal] = useState(false)
   const [category, setCategory] = useState<string>(title)
   const [categoryNum, setCategoryNum] = useState<number>(index)
 
   const handleModal = useCallback(() => {
     if (isLoggedIn) {
-      setModal(!modal)
+      router.push({
+        pathname: '/write-board',
+        query: { category: category, categoryNum: categoryNum },
+      })
     } else {
       router.push('/loginsignup')
     }
-  }, [isLoggedIn, modal, router])
-
-  const handleModalContent = useCallback(() => {
-    setModal(!modal)
-  }, [modal])
+  }, [category, categoryNum, isLoggedIn, router])
 
   useEffect(() => {
     setCategory(title)
@@ -55,12 +51,6 @@ const BottomBar = ({ isLoggedIn, index, title }: Props) => {
           />
         </div>
       </section>
-      <ModalWriteContent
-        isOpen={modal}
-        onClick={handleModalContent}
-        category={category}
-        categoryNum={categoryNum}
-      />
     </>
   )
 }

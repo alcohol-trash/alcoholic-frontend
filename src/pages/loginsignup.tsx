@@ -20,23 +20,23 @@ const LoginSignup = () => {
         <p>SNS 계정으로 시작하기</p>
         <div css={styles.imgBlock}>
           <Link href={KAKAO_AUTH_URL} rel="noopener noreferrer">
-            <div>
-              <Image src="/assets/kakao.png" width={56} height={56} />
-            </div>
+            <a>
+              <div>
+                <Image src="/assets/kakao.png" width={56} height={56} />
+              </div>
+            </a>
           </Link>
           <Link href={GOOGLE_AUTH_URL}>
-            <div>
-              <Image src="/assets/google.png" width={56} height={56} />
-            </div>
+            <a>
+              <div>
+                <Image src="/assets/google.png" width={56} height={56} />
+              </div>
+            </a>
           </Link>
         </div>
         <div css={styles.linkBlock}>
-          <Link href="/login">
-            <a>일반 로그인 /</a>
-          </Link>
-          <Link href="/signup/terms">
-            <a> 회원가입</a>
-          </Link>
+          <Link href="/login">일반 로그인 /</Link>
+          <Link href="/signup/terms"> 회원가입</Link>
         </div>
       </section>
     </section>

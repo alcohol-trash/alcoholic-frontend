@@ -1,17 +1,17 @@
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import Router from 'next/router'
 
-import { memberInfoAPI } from '@/api/user'
+import { useUserQuery } from '@/hooks/useUserQuery'
 import { serviceValidation } from '@/libs/validations/serviceValidation'
 
 import Header from '@/components/Header'
 import BackButton from '@/components/BackButton'
 import Button from '@/components/Button'
-import ContentForm from '@/components/ContentForm'
+import TextField from '@/components/TextField'
+import BoardForm from '@/components/BoardForm'
 
 import * as styles from '@/css/setting/settingServiceStyles'
-import TextField from '@/components/TextField'
 
 type FormTypes = {
   email: string
@@ -19,7 +19,7 @@ type FormTypes = {
 }
 
 const Service = () => {
-  const { data: me } = useQuery('user', async () => await memberInfoAPI())
+  const { data: me } = useUserQuery()
 
   const {
     register,
@@ -32,6 +32,12 @@ const Service = () => {
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
   }
+
+  useEffect(() => {
+    if (!me?.success) {
+      Router.push('/')
+    }
+  }, [me])
 
   return (
     <>
@@ -49,7 +55,7 @@ const Service = () => {
               {...register('email')}
               onChange={handleChange}
             />
-            <ContentForm
+            <BoardForm
               placeholder="내용을 입력하세요"
               {...register('message')}
               onChange={handleChange}

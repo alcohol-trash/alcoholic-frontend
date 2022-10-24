@@ -1,8 +1,8 @@
 import React, { useState, useRef, useCallback, ChangeEvent } from 'react'
-import Modal from 'react-modal'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
+import { useRouter } from 'next/router'
 
 import { makeBoardAPI } from '@/api/board'
 import { writeContentValidation } from '@/libs/validations/writeContentValidation'
@@ -10,60 +10,34 @@ import { writeContentValidation } from '@/libs/validations/writeContentValidatio
 import Button from '@/components/Button'
 import Header from '@/components/Header'
 import TextField from '@/components/TextField'
-import ContentForm from '@/components/ContentForm'
+import BoardForm from '@/components/BoardForm'
+import ModalAlert from '@/components/ModalAlert'
 
-import * as styles from './styles'
-import theme from '@/theme'
-
-type Props = {
-  isOpen: boolean
-  onClick: () => void
-  category: string
-  categoryNum: number
-}
-
-const customStyles: Modal.Styles = {
-  overlay: {
-    zIndex: '2',
-    backgroundColor: 'rgba(16, 17, 29, .8)',
-  },
-  content: {
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: theme.gray[900],
-    left: '0',
-    right: '0',
-    top: '0',
-    bottom: '0',
-    width: '100%',
-    height: '100vh',
-    padding: '0',
-    border: 0,
-    borderRadius: 0,
-    position: 'fixed',
-    zIndex: '3',
-  },
-}
+import * as styles from '../../css/board/writeBoardStyles'
 
 type FormTypes = {
   title: string
   content: string
 }
 
-const ModalWriteContent = ({
-  isOpen,
-  onClick,
-  category,
-  categoryNum,
-}: Props) => {
+const WriteBoard = () => {
+  const router = useRouter()
+  const category = router.query.category
+  const categoryNum = router.query.categoryNum
+
   const [imagePaths, setImagePaths] = useState<string[]>([])
 
+  const [modal, setModal] = useState<boolean>(false)
+  const [title, setTitle] = useState<string>('')
+
   const mutation = useMutation('boards', makeBoardAPI, {
-    onError: (error) => {
-      console.log(error)
-    },
-    onSuccess: () => {
+    onSuccess: (response) => {
+      if (response.success) {
+        router.push(`/board/${response.data.seq}`)
+      } else {
+        setModal(true)
+        setTitle(response.data.message)
+      }
       reset()
     },
   })
@@ -78,9 +52,9 @@ const ModalWriteContent = ({
     resolver: writeContentValidation(),
   })
 
-  const handleClose = () => {
-    reset()
-  }
+  const handleClick = useCallback(() => {
+    router.push('/')
+  }, [router])
 
   const handleChange = ({ name, value }: any) => {
     setValue(name, value, { shouldValidate: true })
@@ -112,17 +86,15 @@ const ModalWriteContent = ({
     mutation.mutate(formData)
   }, [categoryNum, getValues, mutation])
 
+  const handleModal = useCallback(() => {
+    setModal(!modal)
+  }, [modal])
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onAfterClose={handleClose}
-      ariaHideApp={false}
-      style={customStyles}
-      onRequestClose={onClick}
-    >
+    <section>
       <Header
         left={
-          <div onClick={onClick}>
+          <div onClick={handleClick}>
             <Image src="/assets/close.png" width={24} height={24} />
           </div>
         }
@@ -146,7 +118,7 @@ const ModalWriteContent = ({
           />
         </section>
         <section>
-          <ContentForm
+          <BoardForm
             placeholder="내용을 입력하세요"
             {...register('content')}
             onChange={handleChange}
@@ -166,8 +138,9 @@ const ModalWriteContent = ({
           </div>
         </nav>
       </form>
-    </Modal>
+      <ModalAlert title={title} isOpen={modal} onClick={handleModal} />
+    </section>
   )
 }
 
-export default ModalWriteContent
+export default WriteBoard

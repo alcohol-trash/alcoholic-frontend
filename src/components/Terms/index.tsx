@@ -41,6 +41,7 @@ const Terms = () => {
   const handleServiceClick = useCallback(() => {
     setService(!service)
   }, [service])
+
   const handleInfoClick = useCallback(() => {
     setInfo(!info)
   }, [info])

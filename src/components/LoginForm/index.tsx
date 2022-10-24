@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
 import Router from 'next/router'
 
-import User from '@/libs/interfaces/user'
+import User from '@/interfaces/user'
 import { loginAPI } from '@/api/user'
 import { loginValidation } from '@/libs/validations/loginValidation'
 
@@ -39,9 +39,11 @@ const LoginForm = () => {
     onSuccess: (response) => {
       if (response.success) {
         query.setQueryData('user', response)
-        Router.push('/')
+        query.invalidateQueries(['boards', 1])
+        query.invalidateQueries(['boards', 2])
+        query.invalidateQueries(['boards', 3])
+        Router.replace('/')
       } else {
-        console.log(response.data)
         setModal(true)
         setModalTitle(response.data.message)
       }

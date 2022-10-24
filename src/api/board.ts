@@ -22,43 +22,41 @@ export const getReplyAPI = async (boardSeq: number) => {
     .catch((error) => error.response)
 }
 
-export const makeReplyAPI = async (
-  boardSeq: number,
-  data: { content: string },
-) => {
+export const makeReplyAPI = async (form: {
+  boardSeq: number
+  data: { content: string }
+}) => {
   return instance
-    .post(`/api/board/${boardSeq}/reply`, data)
+    .post(`/api/board/${form.boardSeq}/reply`, form.data)
     .then((response) => response.data)
     .catch((error) => error.response)
 }
 
-export const makeRereplyAPI = async (
-  boardSeq: number,
-  data: { content: string; replayParent: number },
-) => {
+export const makeRereplyAPI = async (form: {
+  boardSeq: number
+  data: { content: string; replayParent: number }
+}) => {
   return instance
-    .post(`/api/board/${boardSeq}/rereply`, data)
+    .post(`/api/board/${form.boardSeq}/rereply`, form.data)
     .then((response) => response.data)
     .catch((error) => error.response)
 }
 
-export const changeReplyAPI = async (
-  type: string,
-  replySeq: number,
-  data?: { content: string },
-) => {
-  if (type === 'PUT') {
-    return instance
-      .put(`/api/reply/${replySeq}`, data)
-      .then((response) => response.data)
-      .catch((error) => error.response)
-  }
-  if (type === 'DELETE') {
-    return instance
-      .delete(`/api/reply/${replySeq}`)
-      .then((response) => response.data)
-      .catch((error) => error.response)
-  }
+export const changeReplyAPI = async (form: {
+  replySeq: number
+  data: { content: string }
+}) => {
+  return instance
+    .put(`/api/reply/${form.replySeq}`, form.data)
+    .then((response) => response.data)
+    .catch((error) => error.response)
+}
+
+export const deleteReplyAPI = async (replySeq: number) => {
+  return instance
+    .delete(`/api/reply/${replySeq}`)
+    .then((response) => response.data)
+    .catch((error) => error.response)
 }
 
 export const getBoardsAPI = async (

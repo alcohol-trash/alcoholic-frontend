@@ -1,10 +1,14 @@
 import { css } from '@emotion/react'
-import theme from '@/theme'
 
 export const container = css`
+  padding: 16px 20px;
+  button {
+    padding: 0;
+  }
+`
+export const emailBlock = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${theme.gray[300]};
-  font-size: 14px;
+  margin: 16px 0;
 `

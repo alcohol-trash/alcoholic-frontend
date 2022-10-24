@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useQuery } from 'react-query'
 import Router, { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -19,6 +19,9 @@ import * as styles from '@/css/my/myPageStyles'
 const MyPage = () => {
   const { data: me } = useQuery('user', () => memberInfoAPI())
   const router = useRouter()
+  const handleClick = useCallback(() => {
+    Router.push('/setting')
+  }, [])
 
   return (
     <>
@@ -33,7 +36,7 @@ const MyPage = () => {
               </Link>
             }
             right={
-              <Button style="secondary" onClick={() => Router.push('/setting')}>
+              <Button style="secondary" onClick={handleClick}>
                 설정
               </Button>
             }
