@@ -21,7 +21,7 @@ type FormTypes = {
 }
 
 const Profile = () => {
-  const { data: me } = useUserQuery()
+  const { data: me, refetch } = useUserQuery()
 
   const [modal, setModal] = useState<boolean>(false)
   const [modalTitle, setModalTitle] = useState<string>('')
@@ -48,6 +48,7 @@ const Profile = () => {
     if (response) {
       setModal(true)
       setModalTitle(response.message)
+      refetch()
       reset()
     }
   }
@@ -60,6 +61,7 @@ const Profile = () => {
       if (response) {
         setModal(true)
         setModalTitle(response.message)
+        refetch()
       }
     }
   }
@@ -69,6 +71,7 @@ const Profile = () => {
     if (response) {
       setModal(true)
       setModalTitle(response.message)
+      refetch()
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, ChangeEvent, useEffect } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
-import { useQuery, useMutation } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import * as R from 'ramda'
 import { AxiosError } from 'axios'
@@ -36,6 +36,8 @@ const WriteBoard = () => {
   const [modal, setModal] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('')
 
+  const query = useQueryClient()
+
   const makeMutation = useMutation<DataProps, AxiosError, any>(
     'boards',
     makeBoardAPI,
@@ -48,6 +50,9 @@ const WriteBoard = () => {
           setTitle(response.data.message)
         }
         reset()
+      },
+      onSettled: () => {
+        query.invalidateQueries(['board', id])
       },
     },
   )
@@ -64,6 +69,9 @@ const WriteBoard = () => {
           setTitle(response.data.message)
         }
         reset()
+      },
+      onSettled: () => {
+        query.invalidateQueries(['board', id])
       },
     },
   )

@@ -39,14 +39,16 @@ const LoginForm = () => {
     onSuccess: (response) => {
       if (response.success) {
         query.setQueryData('user', response)
-        query.invalidateQueries(['boards', 1])
-        query.invalidateQueries(['boards', 2])
-        query.invalidateQueries(['boards', 3])
         Router.replace('/')
       } else {
         setModal(true)
         setModalTitle(response.data.message)
       }
+    },
+    onSettled: () => {
+      query.invalidateQueries(['boards', 1])
+      query.invalidateQueries(['boards', 2])
+      query.invalidateQueries(['boards', 3])
     },
   })
 

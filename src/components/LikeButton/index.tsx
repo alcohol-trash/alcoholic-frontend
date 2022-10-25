@@ -47,25 +47,6 @@ const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
     }
   }, [heartCount, mutation, seq])
 
-  // const handleLike = async () => {
-  //   let response
-  //   if (heartCount) {
-  //     response = await heartAPI({ boardSeq: seq, type: 'DELETE' })
-  //   }
-  //   if (!heartCount) {
-  //     response = await heartAPI({ boardSeq: seq, type: 'POST' })
-  //   }
-  //   if (response) {
-  //     setModal(true)
-  //     if (response.success) {
-  //       setModalTitle(response.message)
-  //       query.invalidateQueries(['board', seq])
-  //     } else {
-  //       setModalTitle(response.data.message)
-  //     }
-  //   }
-  // }
-
   const handleModal = useCallback(() => {
     setModal(!modal)
   }, [modal])

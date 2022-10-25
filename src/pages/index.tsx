@@ -47,10 +47,6 @@ const Home = () => {
   const mainData = data?.pages[0].data
   const isEmpty = data?.pages[0]?.length === 0
 
-  useEffect(() => {
-    console.log(data?.pages[0])
-  }, [data?.pages])
-
   const getData = useCallback(
     (index: number) => {
       setIndex(index)
@@ -80,10 +76,6 @@ const Home = () => {
       }
     })
   }, [index])
-
-  useEffect(() => {
-    console.log(inView)
-  }, [inView])
 
   return (
     <>
