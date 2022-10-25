@@ -1,10 +1,13 @@
-import React, { useState, useRef, useCallback, ChangeEvent } from 'react'
+import React, { useState, useCallback, ChangeEvent, useEffect } from 'react'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
+import { useQuery, useMutation } from 'react-query'
 import { useRouter } from 'next/router'
+import * as R from 'ramda'
+import { AxiosError } from 'axios'
 
-import { makeBoardAPI } from '@/api/board'
+import { DataProps } from '@/interfaces/board'
+import { getBoardAPI, makeBoardAPI, changeBoardAPI } from '@/api/board'
 import { writeContentValidation } from '@/libs/validations/writeContentValidation'
 
 import Button from '@/components/Button'
@@ -22,25 +25,48 @@ type FormTypes = {
 
 const WriteBoard = () => {
   const router = useRouter()
+  const id = router.query.id
   const category = router.query.category
   const categoryNum = router.query.categoryNum
 
-  const [imagePaths, setImagePaths] = useState<string[]>([])
+  const { data: board } = useQuery(['board', id], () => getBoardAPI(Number(id)))
+
+  const [imageData, setImageData] = useState<string>('')
 
   const [modal, setModal] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('')
 
-  const mutation = useMutation('boards', makeBoardAPI, {
-    onSuccess: (response) => {
-      if (response.success) {
-        router.push(`/board/${response.data.seq}`)
-      } else {
-        setModal(true)
-        setTitle(response.data.message)
-      }
-      reset()
+  const makeMutation = useMutation<DataProps, AxiosError, any>(
+    'boards',
+    makeBoardAPI,
+    {
+      onSuccess: (response) => {
+        if (response.success) {
+          router.push(`/board/${response.data.seq}`)
+        } else {
+          setModal(true)
+          setTitle(response.data.message)
+        }
+        reset()
+      },
     },
-  })
+  )
+
+  const editMutation = useMutation<DataProps, AxiosError, any>(
+    ['board', id],
+    changeBoardAPI,
+    {
+      onSuccess: (response) => {
+        if (response.success) {
+          router.push(`/board/${response.data.seq}`)
+        } else {
+          setModal(true)
+          setTitle(response.data.message)
+        }
+        reset()
+      },
+    },
+  )
 
   const {
     register,
@@ -61,17 +87,18 @@ const WriteBoard = () => {
   }
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-    //const imageFormData = new FormData()
-    // if (e.target.files) {
-    //   ;[].forEach.call(e.target.files, (f) => {
-    //     imageFormData.append('file', f)
-    //   })
-    // }
-    console.log(e.target.files)
+    if (e.target.files) {
+      setImageData(e.target.files[0].name)
+    }
   }
+
+  const handleDeleteImage = useCallback(() => {
+    setImageData('')
+  }, [])
 
   const handleSubmit = useCallback(() => {
     const formData = new FormData()
+    formData.append('file', imageData)
     const variables = [
       {
         category: categoryNum,
@@ -83,12 +110,29 @@ const WriteBoard = () => {
       'json',
       new Blob([JSON.stringify(variables)], { type: 'application/json' }),
     )
-    mutation.mutate(formData)
-  }, [categoryNum, getValues, mutation])
+    if (board?.success) {
+      editMutation.mutate(formData)
+    } else {
+      makeMutation.mutate(formData)
+    }
+  }, [
+    board?.success,
+    categoryNum,
+    editMutation,
+    getValues,
+    imageData,
+    makeMutation,
+  ])
 
   const handleModal = useCallback(() => {
     setModal(!modal)
   }, [modal])
+
+  useEffect(() => {
+    if (board?.success && !R.isEmpty(board.data.images)) {
+      setImageData(board?.data.images[0].url)
+    }
+  }, [board])
 
   return (
     <section>
@@ -104,17 +148,18 @@ const WriteBoard = () => {
             style={isValid ? 'secondaryTrue' : 'secondary'}
             disabled={!isValid}
           >
-            등록
+            {board?.success ? '수정' : '등록'}
           </Button>
         }
       />
       <form css={styles.container} encType="multipart/form-data">
         <section css={styles.titleBlock}>
-          <label>#{category}</label>
+          <label>#{board?.success ? board?.data.category : category}</label>
           <TextField
             placeholder="제목입력"
             {...register('title')}
             onChange={handleChange}
+            defaultValue={board?.success ? board?.data.title : ''}
           />
         </section>
         <section>
@@ -122,9 +167,19 @@ const WriteBoard = () => {
             placeholder="내용을 입력하세요"
             {...register('content')}
             onChange={handleChange}
+            defaultValue={board?.success ? board?.data.content : ''}
           />
         </section>
         <nav css={styles.bottomBlock}>
+          {!R.isEmpty(board?.data.images) ||
+            (!R.isEmpty(imageData) && (
+              <div css={styles.imgBlock}>
+                <div css={styles.imgName}>{imageData}</div>
+                <div css={styles.imgDelete} onClick={handleDeleteImage}>
+                  <Image src="/assets/close.png" width={24} height={24} />
+                </div>
+              </div>
+            ))}
           <div css={styles.imgBtn}>
             <input
               type="file"
@@ -133,7 +188,7 @@ const WriteBoard = () => {
               onChange={handleChangeImage}
             />
             <label htmlFor="file">
-              <Image src="/assets/add_picture.png" width={24} height={24} />
+              <Image src="/assets/add_picture.png" width={30} height={30} />
             </label>
           </div>
         </nav>

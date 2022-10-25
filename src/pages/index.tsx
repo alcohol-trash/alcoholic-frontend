@@ -144,7 +144,7 @@ const Home = () => {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const queryClient = new QueryClient()
   await Promise.allSettled([
     queryClient.prefetchInfiniteQuery(['boards', 1], () => getBoardsAPI(1, 0)),

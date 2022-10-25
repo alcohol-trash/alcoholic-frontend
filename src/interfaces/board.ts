@@ -40,4 +40,5 @@ export interface ReplyStateProps {
   content: string
   seq: number
   replyParent: number
+  writer: string
 }

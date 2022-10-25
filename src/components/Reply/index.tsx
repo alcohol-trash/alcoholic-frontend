@@ -49,12 +49,11 @@ const Reply = ({ data, reReply, boardSeq }: Props) => {
     mine,
     replyParent = 1,
     seq = 1,
-    writerNickname,
+    writerNickname = '',
     writerProfileImage,
   } = data || {}
 
   const deleteMutation = useMutation<DataProps, AxiosError, number>(
-    ['reply', boardSeq],
     deleteReplyAPI,
     {
       onSuccess: (response) => {
@@ -62,11 +61,13 @@ const Reply = ({ data, reReply, boardSeq }: Props) => {
           setModal(true)
           if (response.success) {
             setTitle(response.message)
-            query.invalidateQueries(['reply', boardSeq])
           } else {
             setTitle(response.data.message)
           }
         }
+      },
+      onSettled: () => {
+        query.invalidateQueries(['reply', boardSeq])
       },
     },
   )
@@ -79,6 +80,16 @@ const Reply = ({ data, reReply, boardSeq }: Props) => {
     setModal(!modal)
   }, [modal])
 
+  const handleReReply = useCallback(() => {
+    setState({
+      type: 'reReply',
+      content: content,
+      seq: seq,
+      replyParent: replyParent,
+      writer: writerNickname,
+    })
+  }, [content, replyParent, seq, setState, writerNickname])
+
   const handleEdit = useCallback(() => {
     handleMenu()
     setState({
@@ -86,8 +97,9 @@ const Reply = ({ data, reReply, boardSeq }: Props) => {
       content: content,
       seq: seq,
       replyParent: replyParent,
+      writer: writerNickname,
     })
-  }, [content, handleMenu, replyParent, seq, setState])
+  }, [content, handleMenu, replyParent, seq, setState, writerNickname])
 
   const handleDelete = useCallback(() => {
     handleMenu()
@@ -115,7 +127,7 @@ const Reply = ({ data, reReply, boardSeq }: Props) => {
       </div>
       {isRoot && (
         <div css={styles.replyButton}>
-          <Button style="secondary" size="xs" onClick={handleEdit}>
+          <Button style="secondary" size="xs" onClick={handleReReply}>
             답글 달기
           </Button>
         </div>

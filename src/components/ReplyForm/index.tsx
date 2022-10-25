@@ -41,7 +41,6 @@ const ReplyForm = ({ boardSeq }: Props) => {
   const [modalTitle, setModalTitle] = useState<string>('')
 
   const addReplyMutation = useMutation<DataProps, AxiosError, any>(
-    ['reply', boardSeq],
     makeReplyAPI,
     {
       onSuccess: (response) => {
@@ -49,17 +48,18 @@ const ReplyForm = ({ boardSeq }: Props) => {
           setModal(true)
           if (response.success) {
             setModalTitle(response.message)
-            query.invalidateQueries(['reply', boardSeq])
           } else {
             setModalTitle(response.data.message)
           }
         }
       },
+      onSettled: () => {
+        query.invalidateQueries(['reply', boardSeq])
+      },
     },
   )
 
   const changeReplyMutation = useMutation<DataProps, AxiosError, any>(
-    ['reply', boardSeq],
     changeReplyAPI,
     {
       onSuccess: (response) => {
@@ -67,17 +67,18 @@ const ReplyForm = ({ boardSeq }: Props) => {
           setModal(true)
           if (response.success) {
             setModalTitle(response.message)
-            query.invalidateQueries(['reply', boardSeq])
           } else {
             setModalTitle(response.data.message)
           }
         }
       },
+      onSettled: () => {
+        query.invalidateQueries(['reply', boardSeq])
+      },
     },
   )
 
   const addReReplyMutation = useMutation<DataProps, AxiosError, any>(
-    ['reply', boardSeq],
     makeRereplyAPI,
     {
       onSuccess: (response) => {
@@ -85,11 +86,13 @@ const ReplyForm = ({ boardSeq }: Props) => {
           setModal(true)
           if (response.success) {
             setModalTitle(response.message)
-            query.invalidateQueries(['reply', boardSeq])
           } else {
             setModalTitle(response.data.message)
           }
         }
+      },
+      onSettled: () => {
+        query.invalidateQueries(['reply', boardSeq])
       },
     },
   )
@@ -136,7 +139,7 @@ const ReplyForm = ({ boardSeq }: Props) => {
           <Image src="/assets/profile_img.png" width={32} height={32} />
         </div>
         <div css={state.type === 'reReply' ? styles.reReply : styles.textarea}>
-          {state.type === 'reReply' && <div>@테스트</div>}
+          {state.type === 'reReply' && <div>@{state.writer}</div>}
           <textarea
             placeholder="댓글 남기기"
             rows={1}

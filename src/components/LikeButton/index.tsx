@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react'
-import { useQueryClient } from 'react-query'
+import { useQueryClient, useMutation } from 'react-query'
 import Image from 'next/image'
+import { AxiosError } from 'axios'
 
 import { heartAPI } from '@/api/board'
+import { DataProps } from '@/interfaces/board'
 
 import ModalAlert from '@/components/ModalAlert'
 
@@ -20,24 +22,49 @@ const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
 
   const query = useQueryClient()
 
-  const handleLike = async () => {
-    let response
+  const mutation = useMutation<DataProps, AxiosError, any>(heartAPI, {
+    onSuccess: (response) => {
+      if (response) {
+        setModal(true)
+        if (response.success) {
+          setModalTitle(response.message)
+        } else {
+          setModalTitle(response.data.message)
+        }
+      }
+    },
+    onSettled: () => {
+      query.invalidateQueries(['board', seq])
+    },
+  })
+
+  const handleLike = useCallback(() => {
     if (heartCount) {
-      response = await heartAPI(seq, 'DELETE')
+      mutation.mutate({ boardSeq: seq, type: 'DELETE' })
     }
     if (!heartCount) {
-      response = await heartAPI(seq, 'POST')
+      mutation.mutate({ boardSeq: seq, type: 'POST' })
     }
-    if (response) {
-      setModal(true)
-      if (response.success) {
-        setModalTitle(response.message)
-        query.invalidateQueries(['board', seq])
-      } else {
-        setModalTitle(response.data.message)
-      }
-    }
-  }
+  }, [heartCount, mutation, seq])
+
+  // const handleLike = async () => {
+  //   let response
+  //   if (heartCount) {
+  //     response = await heartAPI({ boardSeq: seq, type: 'DELETE' })
+  //   }
+  //   if (!heartCount) {
+  //     response = await heartAPI({ boardSeq: seq, type: 'POST' })
+  //   }
+  //   if (response) {
+  //     setModal(true)
+  //     if (response.success) {
+  //       setModalTitle(response.message)
+  //       query.invalidateQueries(['board', seq])
+  //     } else {
+  //       setModalTitle(response.data.message)
+  //     }
+  //   }
+  // }
 
   const handleModal = useCallback(() => {
     setModal(!modal)

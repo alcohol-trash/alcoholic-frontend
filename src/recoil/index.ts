@@ -8,6 +8,7 @@ const replyState = atom<ReplyStateProps>({
     content: '',
     seq: 1,
     replyParent: 1,
+    writer: '',
   },
 })
 

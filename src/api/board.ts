@@ -1,15 +1,15 @@
 import instance from './base'
 
-export const heartAPI = async (boardSeq: number, type: string) => {
-  if (type === 'POST') {
+export const heartAPI = async (form: { boardSeq: number; type: string }) => {
+  if (form.type === 'POST') {
     return instance
-      .post(`/api/heart/board/${boardSeq}`)
+      .post(`/api/heart/board/${form.boardSeq}`)
       .then((response) => response.data)
       .catch((error) => error.response)
   }
-  if (type === 'DELETE') {
+  if (form.type === 'DELETE') {
     return instance
-      .delete(`/api/heart/board/${boardSeq}`)
+      .delete(`/api/heart/board/${form.boardSeq}`)
       .then((response) => response.data)
       .catch((error) => error.response)
   }
@@ -86,9 +86,9 @@ export const makeBoardAPI = async (data: any) => {
     .catch((error) => error.response)
 }
 
-export const changeBoardAPI = async (seq: number, data: any) => {
+export const changeBoardAPI = async (form: { seq: number; data: any }) => {
   return instance
-    .put(`/api/board/${seq}`, data)
+    .put(`/api/board/${form.seq}`, form.data)
     .then((response) => response.data)
     .catch((error) => error.response)
 }
