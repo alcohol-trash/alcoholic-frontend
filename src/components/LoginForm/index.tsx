@@ -45,11 +45,6 @@ const LoginForm = () => {
         setModalTitle(response.data.message)
       }
     },
-    onSettled: () => {
-      query.invalidateQueries(['boards', 1])
-      query.invalidateQueries(['boards', 2])
-      query.invalidateQueries(['boards', 3])
-    },
   })
 
   const handleChange = ({ name, value }: any) => {

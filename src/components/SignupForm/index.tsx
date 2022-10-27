@@ -45,10 +45,11 @@ const SignupForm = () => {
       password: getValues('password'),
     })
     if (response) {
-      setModal(true)
-      setModalTitle(response.message)
       if (response.success) {
         router.push('/')
+      } else {
+        setModal(true)
+        setModalTitle(response.message)
       }
     }
   }

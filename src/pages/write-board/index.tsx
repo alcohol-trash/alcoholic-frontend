@@ -68,6 +68,7 @@ const WriteBoard = () => {
           setModal(true)
           setTitle(response.data.message)
         }
+        setImageData('')
         reset()
       },
       onSettled: () => {
@@ -179,15 +180,14 @@ const WriteBoard = () => {
           />
         </section>
         <nav css={styles.bottomBlock}>
-          {!R.isEmpty(board?.data.images) ||
-            (!R.isEmpty(imageData) && (
-              <div css={styles.imgBlock}>
-                <div css={styles.imgName}>{imageData}</div>
-                <div css={styles.imgDelete} onClick={handleDeleteImage}>
-                  <Image src="/assets/close.png" width={24} height={24} />
-                </div>
+          {(!R.isEmpty(board?.data.images) || !R.isEmpty(imageData)) && (
+            <div css={styles.imgBlock}>
+              <div css={styles.imgName}>{imageData}</div>
+              <div css={styles.imgDelete} onClick={handleDeleteImage}>
+                <Image src="/assets/close.png" width={24} height={24} />
               </div>
-            ))}
+            </div>
+          )}
           <div css={styles.imgBtn}>
             <input
               type="file"

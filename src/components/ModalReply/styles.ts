@@ -44,6 +44,36 @@ export const textarea = css`
     }
   }
 `
+export const reReply = css`
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  background-color: ${theme.gray[700]};
+  border-radius: 20px;
+  padding: 10px 16px;
+  border: none;
+  display: flex;
+  algin-items: center;
+  div {
+    display: inline-block;
+    color: ${theme.aqua[500]};
+    font-size: 14px;
+  }
+  textarea {
+    margin-left: 10px;
+    width: 68%;
+    cursor: pointer;
+    color: white;
+    border: none;
+    overflow: hidden;
+    font-size: 14px;
+    resize: none;
+    background-color: transparent;
+    :focus {
+      outline: none;
+    }
+  }
+`
 
 export const block = css`
   margin: 10px;

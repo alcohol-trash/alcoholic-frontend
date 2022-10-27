@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useMutation, useQueryClient } from 'react-query'
 import Router from 'next/router'
 
 import { socialAPI } from '@/api/user'
@@ -9,6 +10,8 @@ import Button from '@/components/Button'
 import ValidateMessage from '@/components/ValidateMessage'
 
 import * as styles from './styles'
+import User from '@/interfaces/user'
+import { AxiosError } from 'axios'
 
 type FormTypes = {
   nickname: string
@@ -27,21 +30,37 @@ const NicknameForm = () => {
   const [success, setSuccess] = useState<boolean>(false)
   const [errorMsg, setErrorMsg] = useState<string>('')
 
+  const query = useQueryClient()
+
+  const mutation = useMutation<User, AxiosError, FormTypes>('user', socialAPI, {
+    onSuccess: (response) => {
+      console.log(response)
+      if (response.success) {
+        query.setQueryData('user', response)
+        Router.replace('/')
+      } else {
+        setSuccess(!isValid)
+        setErrorMsg(response.data.message)
+      }
+    },
+    onSettled: () => {
+      query.invalidateQueries(['boards', 1])
+      query.invalidateQueries(['boards', 2])
+      query.invalidateQueries(['boards', 3])
+    },
+  })
+
   const handleChange = () => {
     if (isValid) {
       setSuccess(isValid)
     }
   }
 
-  const handleSubmitClick = async () => {
-    const response = await socialAPI({ nickname: getValues('nickname') })
-    if (response.data.success) {
-      Router.push('/')
-    } else {
-      setSuccess(!isValid)
-      setErrorMsg(response.data.message)
-    }
-  }
+  const handleSubmitClick = useCallback(() => {
+    mutation.mutate({
+      nickname: getValues('nickname'),
+    })
+  }, [getValues, mutation])
 
   return (
     <section css={styles.container}>

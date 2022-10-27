@@ -18,11 +18,11 @@ export const row = css`
   display: flex;
 `
 export const colLeft = css`
-  width: 74%;
-  padding-right: 10px;
+  flex-grow: 9;
 `
 export const colRight = css`
-  width: 26%;
+  flex-grow: 1;
+  margin-left: 10px;
 `
 export const timer = css`
   padding: 12px 0;

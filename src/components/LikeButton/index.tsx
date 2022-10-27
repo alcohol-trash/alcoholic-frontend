@@ -61,7 +61,12 @@ const LikeButton = ({ heartCount = 0, heartCheck = false, seq = 0 }: Props) => {
         }
         onClick={handleLike}
       >
-        <Image src="/assets/like.png" width={13} height={16} />
+        <Image
+          src="/assets/like.png"
+          width={13}
+          height={16}
+          alt="좋아요 버튼"
+        />
         <span>{heartCount}</span>
       </button>
       <ModalAlert title={modalTitle} isOpen={modal} onClick={handleModal} />

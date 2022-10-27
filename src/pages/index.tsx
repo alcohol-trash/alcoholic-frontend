@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { dehydrate, QueryClient, useInfiniteQuery } from 'react-query'
-import { useInView } from 'react-intersection-observer'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import * as R from 'ramda'
@@ -29,23 +28,11 @@ const Home = () => {
   const [title, setTitle] = useState<string>('주류학개론')
   const [index, setIndex] = useState<number>(1)
 
-  const [ref, inView] = useInView({
-    threshold: 0,
-    triggerOnce: true,
-  })
-
-  const { data, fetchNextPage, refetch } = useInfiniteQuery(
-    ['boards', index],
-    ({ pageParam = 0 }) => getBoardsAPI(index, pageParam, 3),
-    {
-      getNextPageParam: (lastPage) => {
-        return lastPage.nextPage
-      },
-    },
+  const { data, refetch, isError } = useInfiniteQuery(['boards', index], () =>
+    getBoardsAPI(index),
   )
 
-  const mainData = data?.pages[0].data
-  const isEmpty = data?.pages[0]?.length === 0
+  const mainData = data?.pages[0].data || []
 
   const getData = useCallback(
     (index: number) => {
@@ -64,10 +51,10 @@ const Home = () => {
   }, [modal])
 
   useEffect(() => {
-    if (inView && !isEmpty) {
-      fetchNextPage()
+    if (isError) {
+      router.replace('/error')
     }
-  }, [inView, isEmpty, fetchNextPage])
+  }, [data, isError, router])
 
   useEffect(() => {
     categories?.find((i) => {
@@ -81,6 +68,7 @@ const Home = () => {
     <>
       <Head>
         <title>알코홀릭</title>
+        <meta name="description" content="술 커뮤니티 알콜홀릭" />
       </Head>
       <TopBar
         isLoggedIn={me?.success}
@@ -110,7 +98,6 @@ const Home = () => {
                   {mainData?.map((data: any, index: number) => (
                     <Board key={index} isLoggedIn={me?.success} data={data} />
                   ))}
-                  <div ref={ref} css={styles.ref}></div>
                 </section>
               ) : (
                 <NoContentsBlock
@@ -139,9 +126,9 @@ const Home = () => {
 export const getServerSideProps = async () => {
   const queryClient = new QueryClient()
   await Promise.allSettled([
-    queryClient.prefetchInfiniteQuery(['boards', 1], () => getBoardsAPI(1, 0)),
-    queryClient.prefetchInfiniteQuery(['boards', 2], () => getBoardsAPI(2, 0)),
-    queryClient.prefetchInfiniteQuery(['boards', 3], () => getBoardsAPI(3, 0)),
+    queryClient.prefetchInfiniteQuery(['boards', 1], () => getBoardsAPI(1)),
+    queryClient.prefetchInfiniteQuery(['boards', 2], () => getBoardsAPI(2)),
+    queryClient.prefetchInfiniteQuery(['boards', 3], () => getBoardsAPI(3)),
   ])
   return {
     props: {

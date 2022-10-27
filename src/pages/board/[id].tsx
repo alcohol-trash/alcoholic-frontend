@@ -18,15 +18,15 @@ import BoardReply from '@/components/BoardReply'
 import ReplyForm from '@/components/ReplyForm'
 import ModalAlert from '@/components/ModalAlert'
 import ModalDropDown from '@/components/ModalDropDown'
+import ModalReply from '@/components/ModalReply'
 
 import * as styles from '@/css/board/boardDetailStyles'
 
 const BoardDetail = () => {
+  const query = useQueryClient()
   const router = useRouter()
   const { id } = router.query
   const nid = Number(id)
-
-  const query = useQueryClient()
 
   const { data: board } = useQuery(['board', id], () => getBoardAPI(nid))
   const { data: reply } = useQuery(['reply', id], () => getReplyAPI(nid))
@@ -35,6 +35,7 @@ const BoardDetail = () => {
 
   const [menu, setMenu] = useState<boolean>(false)
   const [modal, setModal] = useState<boolean>(false)
+  const [replyModal, setReplyModal] = useState<boolean>(false)
   const [title, setTitle] = useState<string>('')
 
   useEffect(() => {
@@ -73,7 +74,7 @@ const BoardDetail = () => {
     }
   }
 
-  const handleShare = () => {
+  const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator.share({
         title: '알콜홀-릭',
@@ -84,17 +85,23 @@ const BoardDetail = () => {
       setModal(true)
       setTitle('공유하기가 지원되지 않는 환경입니다.')
     }
-  }
+  }, [nid])
 
-  // const handleReset = useCallback(() => {
-  //   setState({
-  //     type: 'add',
-  //     content: '',
-  //     seq: 1,
-  //     replyParent: 1,
-  //     writer: '',
-  //   })
-  // }, [setState])
+  const handleCloseReplyModal = useCallback(() => {
+    query.invalidateQueries(['reply', nid])
+    setReplyModal(!replyModal)
+    setState({
+      type: 'add',
+      content: '',
+      seq: 1,
+      replyParent: 1,
+      writer: '',
+    })
+  }, [nid, query, replyModal, setState])
+
+  const handleReplyModal = useCallback(() => {
+    setReplyModal(true)
+  }, [])
 
   return (
     <>
@@ -124,7 +131,9 @@ const BoardDetail = () => {
             <BoardContent data={board.data} />
             <BoardReply boardSeq={nid} data={reply.data.content} />
           </div>
-          <ReplyForm boardSeq={nid} />
+          <div onClick={handleReplyModal}>
+            <ReplyForm />
+          </div>
         </section>
       )}
       <ModalAlert title={title} isOpen={modal} onClick={handleModal} />
@@ -134,6 +143,11 @@ const BoardDetail = () => {
         onClick={handleMenu}
         handleEdit={handleEdit}
         handleDelete={handleDelete}
+      />
+      <ModalReply
+        boardSeq={nid}
+        isOpen={replyModal}
+        onClick={handleCloseReplyModal}
       />
     </>
   )

@@ -34,7 +34,7 @@ export const makeReplyAPI = async (form: {
 
 export const makeRereplyAPI = async (form: {
   boardSeq: number
-  data: { content: string; replayParent: number }
+  data: { content: string; replyParent: number }
 }) => {
   return instance
     .post(`/api/board/${form.boardSeq}/rereply`, form.data)
@@ -61,12 +61,10 @@ export const deleteReplyAPI = async (replySeq: number) => {
 
 export const getBoardsAPI = async (
   category: number,
-  page: number,
-  size?: number,
 ) => {
   return instance
     .get(
-      `/api/boards?category=${category}&page=${page}&size=${size ? size : 0}`,
+      `/api/boards?category=${category}`,
     )
     .then((response) => response.data)
     .catch((error) => error.response)

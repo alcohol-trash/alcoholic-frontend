@@ -46,9 +46,11 @@ const FindPasswordReset = () => {
     })
     if (response) {
       setModalVisible(true)
-      setModalTitle(response.message)
       if (response.success) {
+        setModalTitle(response.message)
         Router.push('/login')
+      } else {
+        setModalTitle(response.data.message)
       }
     }
   }

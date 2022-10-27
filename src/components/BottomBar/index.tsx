@@ -6,11 +6,11 @@ import * as styles from './styles'
 
 type Props = {
   isLoggedIn?: boolean
-  index: number
-  title: string
+  index?: number
+  title?: string
 }
 
-const BottomBar = ({ isLoggedIn = false, index, title }: Props) => {
+const BottomBar = ({ isLoggedIn = false, index = 1, title = '' }: Props) => {
   const router = useRouter()
 
   const [category, setCategory] = useState<string>(title)
@@ -37,7 +37,12 @@ const BottomBar = ({ isLoggedIn = false, index, title }: Props) => {
       <section css={styles.container}>
         <div css={styles.form}>
           <div css={styles.block}>
-            <Image src="/assets/profile_img.png" width={32} height={32} />
+            <Image
+              src="/assets/profile_img.png"
+              width={32}
+              height={32}
+              alt="술 로고"
+            />
           </div>
           <textarea
             readOnly={true}
